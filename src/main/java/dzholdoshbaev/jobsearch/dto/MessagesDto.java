@@ -1,10 +1,10 @@
-package dzholdoshbaev.jobsearch.model;
+package dzholdoshbaev.jobsearch.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 @Data
-public class Messages {
+public class MessagesDto {
     private int id;
     private int respondedApplicants;
     private String content;
