@@ -3,8 +3,7 @@ package dzholdoshbaev.jobsearch.model;
 import lombok.Data;
 
 @Data
-public class Categories {
+public class ContactTypes {
     private int id;
-    private String name;
-    private int parentIdCategories;
+    private String type;
 }
