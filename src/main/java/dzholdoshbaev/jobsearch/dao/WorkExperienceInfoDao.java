@@ -2,13 +2,21 @@ package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Data
+@RequiredArgsConstructor
 public class WorkExperienceInfoDao {
-    private List<WorkExperienceInfo> workExperienceInfoList = new ArrayList<>();
+    private final JdbcTemplate jdbcTemplate;
+
+    public List<WorkExperienceInfo> getWorkExperienceInfo() {
+        String sql = "select * from work_experience_info";
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(WorkExperienceInfo.class));
+    }
 }
