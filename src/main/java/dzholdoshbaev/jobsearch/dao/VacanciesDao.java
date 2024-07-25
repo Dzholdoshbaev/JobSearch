@@ -1,14 +1,31 @@
 package dzholdoshbaev.jobsearch.dao;
 
+import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
-@Data
+@RequiredArgsConstructor
 public class VacanciesDao {
-    private List<Vacancies> vacanciesList = new ArrayList<>();
+    private final JdbcTemplate jdbcTemplate;
+
+    public List<Vacancies> getAllVacancies() {
+        String sql = "SELECT * FROM vacancies";
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Vacancies.class));
+    }
+
+    public List<Vacancies> getAllVacanciesByCategory(int categoryId) {
+        String sql = "SELECT * FROM vacancies where category_id = ?";
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Vacancies.class),categoryId);
+    }
+
+
 }
