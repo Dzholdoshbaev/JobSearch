@@ -170,60 +170,36 @@ VALUES ('Category 1', NULL),
        ('Subcategory 3', 2);
 
 INSERT INTO users (name, surname, email, password, account_type)
-VALUES ('John', 'Doe', 'john.doe@example.com', 'password1', 'employer'),
-       ('Jane', 'Smith', 'jane.smith@example.com', 'password2', 'applicant'),
-       ('Alice', 'Johnson', 'alice.johnson@example.com', 'password3', 'employer'),
-       ('Bob', 'Brown', 'bob.brown@example.com', 'password4', 'applicant'),
-       ('Eve', 'Davis', 'eve.davis@example.com', 'password5', 'applicant');
+VALUES ('adilet', 'urmat', 'urmat@gmail.com', 'password1', 'employer'),
+       ('alibek', 'bek', 'alibek@gmail.com', 'password2', 'applicant'),
+       ('mirbek', 'alishev', 'mirbek@gmail.com', 'password3', 'applicant');
 
 INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id)
-VALUES ('Job 1', 'Description for Job 1', 1, 3000.00, 2, 5, TRUE, 1),
-       ('Job 2', 'Description for Job 2', 2, 2500.00, 1, 3, TRUE, 3),
-       ('Job 3', 'Description for Job 3', 3, 3500.00, 3, 7, TRUE, 1),
-       ('Job 4', 'Description for Job 4', 1, 2800.00, 2, 4, TRUE, 3),
-       ('Job 5', 'Description for Job 5', 2, 3200.00, 4, 6, TRUE, 2);
+VALUES ('Job 1', 'Description for Job 1', 1, 3000.00, 2, 5, TRUE, 1);
 
 INSERT INTO responded_applicants (resume_id, vacancy_id, confirmation)
 VALUES (1, 1, TRUE),
-       (2, 3, FALSE),
-       (3, 5, TRUE),
-       (4, 2, TRUE),
-       (5, 4, FALSE);
+       (2, 1, FALSE);
 
 INSERT INTO messages (responded_applicants_id, content)
 VALUES (1, 'Message content for responded applicant 1'),
-       (2, 'Message content for responded applicant 2'),
-       (3, 'Message content for responded applicant 3'),
-       (4, 'Message content for responded applicant 4'),
-       (5, 'Message content for responded applicant 5');
+       (2, 'Message content for responded applicant 2');
 
 INSERT INTO education_info (resume_id, institution, program, start_date, end_date, degree)
 VALUES (1, 'University A', 'Computer Science', '2015-09-01', '2019-06-30', 'Bachelor'),
-       (2, 'University B', 'Business Administration', '2014-08-01', '2018-05-30', 'Bachelor'),
-       (3, 'University C', 'Engineering', '2016-09-01', '2020-06-30', 'Master'),
-       (4, 'University D', 'Art', '2017-09-01', '2021-06-30', 'Bachelor'),
-       (5, 'University E', 'Medicine', '2018-09-01', '2022-06-30', 'Doctorate');
+       (2, 'University B', 'Business Administration', '2014-08-01', '2018-05-30', 'Bachelor');
 
 INSERT INTO contacts_info (type_id, resume_id, value)
-VALUES (1, 1, 'john.doe@example.com'),
-       (2, 2, 'jane.smith@example.com'),
-       (3, 3, '+1234567890'),
-       (1, 4, 'bob.brown@example.com'),
-       (2, 5, '+9876543210');
+VALUES (1, 1, 'alibek@example.com'),
+       (1, 2, 'mirbek@example.com');
 
 INSERT INTO resumes (applicant_id, name, category_id, salary, is_active)
 VALUES (2, 'Resume 1', 1, 2800.00, TRUE),
-       (4, 'Resume 2', 2, 3200.00, TRUE),
-       (5, 'Resume 3', 3, 3500.00, TRUE),
-       (3, 'Resume 4', 1, 3000.00, TRUE),
-       (1, 'Resume 5', 2, 2500.00, TRUE);
+       (3, 'Resume 2', 2, 3200.00, TRUE);
 
 INSERT INTO work_experience_info (resume_id, years, company_name, position, responsibilities)
 VALUES (1, 3, 'Company X', 'Software Developer', 'Developed web applications'),
-       (2, 5, 'Company Y', 'Marketing Manager', 'Developed marketing strategies'),
-       (3, 4, 'Company Z', 'Mechanical Engineer', 'Designed mechanical systems'),
-       (4, 2, 'Company W', 'Graphic Designer', 'Created visual designs'),
-       (5, 3, 'Company V', 'Doctor', 'Provided medical care');
+       (2, 5, 'Company Y', 'Marketing Manager', 'Developed marketing strategies');
 
 INSERT INTO contact_types (type)
 VALUES ('Email'),
