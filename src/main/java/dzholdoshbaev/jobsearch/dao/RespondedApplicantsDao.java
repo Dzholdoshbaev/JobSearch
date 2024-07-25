@@ -1,16 +1,11 @@
 package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.RespondedApplicants;
-import dzholdoshbaev.jobsearch.model.Resumes;
-import jdk.jfr.Category;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Component

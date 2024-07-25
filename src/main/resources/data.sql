@@ -65,7 +65,7 @@ CREATE TABLE if not exists contacts_info
     id        BIGINT AUTO_INCREMENT PRIMARY KEY,
     type_id   BIGINT NOT NULL,
     resume_id BIGINT NOT NULL,
-    value     TEXT   NOT NULL
+    info     TEXT   NOT NULL
 );
 
 CREATE TABLE if not exists resumes
@@ -169,10 +169,14 @@ VALUES ('Category 1', NULL),
        ('Subcategory 2', 1),
        ('Subcategory 3', 2);
 
-INSERT INTO users (name, surname, email, password, account_type)
-VALUES ('adilet', 'urmat', 'urmat@gmail.com', 'password1', 'employer'),
-       ('alibek', 'bek', 'alibek@gmail.com', 'password2', 'applicant'),
-       ('mirbek', 'alishev', 'mirbek@gmail.com', 'password3', 'applicant');
+INSERT INTO users (name, surname,age, email, password,phone_number, account_type)
+VALUES ('adilet', 'urmat',47, 'urmat@gmail.com', 'password1','0555433444', 'employer'),
+       ('alibek', 'bek',35, 'alibek@gmail.com', 'password2','0555433443', 'applicant'),
+       ('mirbek', 'alishev',45, 'mirbek@gmail.com', 'password3','0555433447', 'applicant');
+
+INSERT INTO resumes (applicant_id, name, category_id, salary, is_active)
+VALUES (2, 'Resume 1', 1, 2800.00, TRUE),
+       (3, 'Resume 2', 2, 3200.00, TRUE);
 
 INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id)
 VALUES ('Job 1', 'Description for Job 1', 1, 3000.00, 2, 5, TRUE, 1);
@@ -180,6 +184,14 @@ VALUES ('Job 1', 'Description for Job 1', 1, 3000.00, 2, 5, TRUE, 1);
 INSERT INTO responded_applicants (resume_id, vacancy_id, confirmation)
 VALUES (1, 1, TRUE),
        (2, 1, FALSE);
+
+INSERT INTO contact_types (type)
+VALUES ('Email'),
+       ('Phone');
+
+INSERT INTO contacts_info (type_id, resume_id, info)
+VALUES (1, 1, 'alibek@example.com'),
+       (1, 2, 'mirbek@example.com');
 
 INSERT INTO messages (responded_applicants_id, content)
 VALUES (1, 'Message content for responded applicant 1'),
@@ -189,18 +201,6 @@ INSERT INTO education_info (resume_id, institution, program, start_date, end_dat
 VALUES (1, 'University A', 'Computer Science', '2015-09-01', '2019-06-30', 'Bachelor'),
        (2, 'University B', 'Business Administration', '2014-08-01', '2018-05-30', 'Bachelor');
 
-INSERT INTO contacts_info (type_id, resume_id, value)
-VALUES (1, 1, 'alibek@example.com'),
-       (1, 2, 'mirbek@example.com');
-
-INSERT INTO resumes (applicant_id, name, category_id, salary, is_active)
-VALUES (2, 'Resume 1', 1, 2800.00, TRUE),
-       (3, 'Resume 2', 2, 3200.00, TRUE);
-
 INSERT INTO work_experience_info (resume_id, years, company_name, position, responsibilities)
 VALUES (1, 3, 'Company X', 'Software Developer', 'Developed web applications'),
        (2, 5, 'Company Y', 'Marketing Manager', 'Developed marketing strategies');
-
-INSERT INTO contact_types (type)
-VALUES ('Email'),
-       ('Phone');
