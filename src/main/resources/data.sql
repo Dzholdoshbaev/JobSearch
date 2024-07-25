@@ -163,11 +163,11 @@ ALTER TABLE resumes
         ON UPDATE CASCADE;
 
 INSERT INTO categories (name, parent_id)
-VALUES ('Category 1', NULL),
-       ('Category 2', NULL),
-       ('Subcategory 1', 1),
-       ('Subcategory 2', 1),
-       ('Subcategory 3', 2);
+VALUES ('It 1', NULL),
+       ('Medicine 2', NULL),
+       ('Building 1', 1),
+       ('Web 2', 1),
+       ('Dent 3', 2);
 
 INSERT INTO users (name, surname,age, email, password,phone_number, account_type)
 VALUES ('adilet', 'urmat',47, 'urmat@gmail.com', 'password1','0555433444', 'employer'),
