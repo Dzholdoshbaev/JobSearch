@@ -26,12 +26,12 @@ public class RespondedApplicantsController {
         return ResponseEntity.ok(respondedApplicantsService.getRespondedApplicants());
     }
 
-    @GetMapping
+    @GetMapping("/resume/{resumeId}")
     public ResponseEntity<List<RespondedApplicantsDto>> respondedApplicantsListByResume(@PathVariable int resumeId) {
         return ResponseEntity.ok(respondedApplicantsService.respondedApplicantsListByResume(resumeId));
     }
 
-    @GetMapping
+    @GetMapping("/vacancy/{vacancyId}")
     public ResponseEntity<List<RespondedApplicantsDto>> respondedApplicantsByVacancy(@PathVariable int vacancyId) {
         return ResponseEntity.ok(respondedApplicantsService.respondedApplicantsByVacancy(vacancyId));
     }
