@@ -6,8 +6,8 @@ import dzholdoshbaev.jobsearch.service.CategoriesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class CategoriesServiceImpl implements CategoriesService {
@@ -15,6 +15,14 @@ public class CategoriesServiceImpl implements CategoriesService {
 
     @Override
     public List<CategoriesDto> getCategories() {
-        return new ArrayList<>();
+    var list = categoriesDao.getAllCategories();
+
+        return list.stream()
+                .map(c -> CategoriesDto.builder()
+                        .id(c.getId())
+                      .name(c.getName())
+                       .parentIdCategories(c.getParentIdCategories())
+                      .build())
+              .toList();
     }
 }
