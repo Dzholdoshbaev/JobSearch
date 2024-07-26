@@ -18,7 +18,7 @@ public class RespondedApplicantsDao {
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(RespondedApplicants.class));
     }
 
-    public List<RespondedApplicants> respondedApplicantsList(int resumeId) {
+    public List<RespondedApplicants> respondedApplicantsListByResume(int resumeId) {
         String sql = "select * from responded_applicants where resume_id = ?";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(RespondedApplicants.class),resumeId);
     }
