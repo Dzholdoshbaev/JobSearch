@@ -1,8 +1,9 @@
 package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.dto.CategoriesDto;
-import dzholdoshbaev.jobsearch.service.impl.CategoriesServiceImpl;
+import dzholdoshbaev.jobsearch.service.CategoriesService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoriesController {
 
-    private final CategoriesServiceImpl categoriesService;
+    private final CategoriesService categoriesService;
 
     @GetMapping
    public ResponseEntity<List<CategoriesDto>> getCategories() {

@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.dao;
 
+import dzholdoshbaev.jobsearch.model.Categories;
 import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,9 +15,9 @@ public class CategoriesDao {
     private final JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public List<Category> getAllCategories() {
+    public List<Categories> getAllCategories() {
         String sql = "select * from categories";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Category.class));
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Categories.class));
     }
 
 }
