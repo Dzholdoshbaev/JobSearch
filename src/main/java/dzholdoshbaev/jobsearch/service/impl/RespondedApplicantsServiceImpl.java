@@ -2,7 +2,6 @@ package dzholdoshbaev.jobsearch.service.impl;
 
 import dzholdoshbaev.jobsearch.dao.RespondedApplicantsDao;
 import dzholdoshbaev.jobsearch.dto.RespondedApplicantsDto;
-import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 import dzholdoshbaev.jobsearch.service.RespondedApplicantsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
