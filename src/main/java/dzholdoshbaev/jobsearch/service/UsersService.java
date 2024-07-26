@@ -7,6 +7,8 @@ import java.util.List;
 public interface UsersService {
     void createUser(UsersDto usersDto);
 
+    UsersDto getUserById(int id);
+
     List<UsersDto> getAllUsers();
 
     UsersDto getUserByName(String name);

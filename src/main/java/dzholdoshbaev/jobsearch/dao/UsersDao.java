@@ -2,6 +2,7 @@ package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Users;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,15 @@ public class UsersDao {
     public List<Users> getAllUsers() {
         String sql = "select * from users";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Users.class));
+    }
+
+    public Optional<Users> getUserById(int id) {
+        String sql = "select * from users where id = ?";
+        return Optional.ofNullable(
+                DataAccessUtils.singleResult(
+                        jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Users.class),id)
+                )
+        );
     }
 
     public Optional<Users> getUserByName(String name) {

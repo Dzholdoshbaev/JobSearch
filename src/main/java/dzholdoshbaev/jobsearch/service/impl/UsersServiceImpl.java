@@ -20,6 +20,22 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public UsersDto getUserById(int id){
+        Users user = usersDao.getUserById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return UsersDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .age(user.getAge())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .phoneNumber(user.getPhoneNumber())
+                .avatar(user.getAvatar())
+                .accountType(user.getAccountType())
+                .build();
+    }
+
+    @Override
     public List<UsersDto> getAllUsers() {
         var list = usersDao.getAllUsers();
 
