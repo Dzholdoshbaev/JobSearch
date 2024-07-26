@@ -4,6 +4,8 @@ import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,6 +14,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RespondedApplicantsDao {
     private final JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public void  addRespondApplicants(RespondedApplicants respondApplicants) {
+        String sql = "insert into responded_applicants (resume_id,vacancy_id) values ( :resumeId, :vacancyId)";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
+        .addValue("resumeId", respondApplicants.getResumeId())
+                .addValue("vacancyId", respondApplicants.getVacancyId()));
+    }
 
     public List<RespondedApplicants> getRespondedApplicants() {
         String sql = "select * from responded_applicants";

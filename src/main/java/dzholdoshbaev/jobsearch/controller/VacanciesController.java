@@ -3,6 +3,7 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
+import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class VacanciesController {
     private final VacanciesService vacanciesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createVacancy(@RequestBody VacanciesDto vacanciesDto) {
-        vacanciesService.createVacancies(vacanciesDto);
+    public ResponseEntity<String> createVacancy(@RequestBody Vacancies vacancies) {
+        vacanciesService.createVacancies(vacancies);
         return ResponseEntity.ok("Вакансия успешно создана");
     }
 

@@ -1,11 +1,12 @@
 package dzholdoshbaev.jobsearch.service;
 
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
+import dzholdoshbaev.jobsearch.model.Resumes;
 
 import java.util.List;
 
 public interface ResumesService {
-    void createResumes(ResumesDto resumeDto);
+    void createResumes(Resumes resume);
 
     void editResume(Long resumeId, ResumesDto resumeDto);
 

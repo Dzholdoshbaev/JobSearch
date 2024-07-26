@@ -15,8 +15,8 @@ public class UsersServiceImpl implements UsersService {
     private final UsersDao usersDao;
 
     @Override
-    public void createUser(UsersDto usersDto) {
-        System.out.println(usersDto);
+    public void createUser(Users user) {
+        usersDao.addUser(user);
     }
 
     @Override

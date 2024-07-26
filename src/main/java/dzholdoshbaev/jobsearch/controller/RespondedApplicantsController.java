@@ -3,6 +3,7 @@ package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.dto.RespondedApplicantsDto;
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
+import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 import dzholdoshbaev.jobsearch.service.RespondedApplicantsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,9 @@ import java.util.List;
 public class RespondedApplicantsController {
     private final RespondedApplicantsService respondedApplicantsService;
 
-    @PostMapping("/responded/{vacancyId}")
-    public ResponseEntity<String> respondToVacancy(@PathVariable Long vacancyId, @RequestBody RespondedApplicantsDto respondedApplicantsDto) {
+    @PostMapping("/responded")
+    public ResponseEntity<String> respondToVacancy(@RequestBody RespondedApplicants respondedApplicants) {
+        respondedApplicantsService.addResponded(respondedApplicants);
         return ResponseEntity.ok("Отклик на вакансию отправлен успешно");
     }
 

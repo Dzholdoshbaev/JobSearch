@@ -3,6 +3,7 @@ package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
 
+import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class ResumesController {
     private final ResumesService resumesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createResume(@RequestBody ResumesDto resumeDto) {
-        resumesService.createResumes(resumeDto);
+    public ResponseEntity<String> createResume(@RequestBody Resumes resume) {
+        resumesService.createResumes(resume);
         return ResponseEntity.ok("Резюме успешно создано");
     }
 

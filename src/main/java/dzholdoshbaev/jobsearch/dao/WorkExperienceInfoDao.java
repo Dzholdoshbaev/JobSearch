@@ -4,6 +4,7 @@ import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WorkExperienceInfoDao {
     private final JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public List<WorkExperienceInfo> getWorkExperienceInfo() {
         String sql = "select * from work_experience_info";

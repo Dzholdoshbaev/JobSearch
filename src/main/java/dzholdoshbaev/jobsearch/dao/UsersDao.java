@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,6 +15,20 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsersDao {
     private final JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public void addUser(Users user) {
+        String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (:name, :surname, :age, :email, :password, :phoneNumber, :accountType)";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
+        .addValue("name", user.getName())
+                .addValue("surname", user.getSurname())
+                .addValue("age", user.getAge())
+                .addValue("email", user.getEmail())
+                .addValue("password", user.getPassword())
+                .addValue("phone_number", user.getPhoneNumber())
+                .addValue("account_type",user.getAccountType()));
+
+    }
 
     public List<Users> getAllUsers() {
         String sql = "select * from users";
