@@ -1,13 +1,22 @@
 package dzholdoshbaev.jobsearch.dao;
 
 import jdk.jfr.Category;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 @Component
-@Data
+@AllArgsConstructor
 public class CategoriesDao {
-    private List<Category> categoriesList = new ArrayList<>();
+    private final JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public List<Category> getAllCategories() {
+        String sql = "select * from categories";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Category.class));
+    }
+
 }

@@ -1,14 +1,15 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
-import dzholdoshbaev.jobsearch.dto.ResumesDto;
+
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
+import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -18,8 +19,8 @@ public class VacanciesController {
     private final VacanciesService vacanciesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createVacancy(@RequestBody VacanciesDto vacanciesDto) {
-        vacanciesService.createVacancies(vacanciesDto);
+    public ResponseEntity<String> createVacancy(@RequestBody Vacancies vacancies) {
+        vacanciesService.createVacancies(vacancies);
         return ResponseEntity.ok("Вакансия успешно создана");
     }
 
@@ -36,12 +37,12 @@ public class VacanciesController {
     }
 
     @GetMapping("/resumes")
-    public ResponseEntity<List<ResumesDto>> getAllResumes() {
-        return ResponseEntity.ok(new ArrayList<>());
+    public ResponseEntity<List<VacanciesDto>> getAllVacancies() {
+        return ResponseEntity.ok(vacanciesService.getAllVacancies());
     }
 
-    @GetMapping("/resumes/{category}")
-    public ResponseEntity<List<ResumesDto>> getResumesByCategory(@PathVariable String category) {
-        return ResponseEntity.ok(new ArrayList<>());
+    @GetMapping("/resumes/{categoryId}")
+    public ResponseEntity<List<VacanciesDto>> getResumesByCategory(@PathVariable int categoryId) {
+        return ResponseEntity.ok(vacanciesService.getAllVacanciesByCategory(categoryId));
     }
 }

@@ -2,6 +2,9 @@ HELP.md
 /.idea
 ./.idea
 .idea
+/.db
+./.db
+.db
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
