@@ -20,4 +20,5 @@ public class CategoriesDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Categories.class));
     }
 
+
 }
