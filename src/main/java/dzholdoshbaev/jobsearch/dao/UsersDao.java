@@ -1,21 +1,45 @@
 package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Users;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import javax.swing.plaf.basic.BasicTreeUI;
+import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class UsersDao {
     private final JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final KeyHolder keyHolder = new GeneratedKeyHolder();
+
+    public Integer create(Users user) {
+        String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (?,?,?,?,?,?,?)";
+        
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(sql,new String[]{"id"});
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getSurname());
+            ps.setInt(3, user.getAge());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getPassword());
+            ps.setString(6, user.getPhoneNumber());
+            ps.setString(7, user.getAccountType());
+            return ps;
+        },keyHolder);
+        return Objects.requireNonNull(keyHolder.getKey()).intValue();
+    }
 
     public void addUser(Users user) {
         String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (:name, :surname, :age, :email, :password, :phoneNumber, :accountType)";
