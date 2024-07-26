@@ -1,7 +1,7 @@
 package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Users;
-import io.swagger.v3.oas.models.security.SecurityScheme;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -12,7 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import javax.swing.plaf.basic.BasicTreeUI;
+
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Objects;
