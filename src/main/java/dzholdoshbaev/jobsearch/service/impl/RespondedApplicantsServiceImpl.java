@@ -13,6 +13,7 @@ import java.util.List;
 public class RespondedApplicantsServiceImpl implements RespondedApplicantsService {
     private final RespondedApplicantsDao respondedApplicantsDao;
 
+    @Override
     public List<RespondedApplicantsDto> getRespondedApplicants() {
         var list = respondedApplicantsDao.getRespondedApplicants();
 
@@ -25,6 +26,7 @@ public class RespondedApplicantsServiceImpl implements RespondedApplicantsServic
                         .build()).toList();
     }
 
+    @Override
     public List<RespondedApplicantsDto> respondedApplicantsListByResume(int resumeId){
         var list = respondedApplicantsDao.respondedApplicantsListByResume(resumeId);
         return list.stream()
@@ -36,6 +38,7 @@ public class RespondedApplicantsServiceImpl implements RespondedApplicantsServic
                         .build()).toList();
     }
 
+    @Override
     public List<RespondedApplicantsDto> respondedApplicantsByVacancy(int vacancyId){
         var list = respondedApplicantsDao.respondedApplicantsByVacancy(vacancyId);
         return list.stream()
