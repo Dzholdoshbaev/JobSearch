@@ -1,0 +1,351 @@
+databaseChangeLog:
+  - changeSet:
+      id: create contact_types table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: contact_types
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: type
+                  type: text
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: create categories table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: categories
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: parent_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_parent_id
+                    references: categories(id)
+  - changeSet:
+      id: create users table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: varchar(55)
+              - column:
+                  name: avatar
+                  type: varchar(255)
+              - column:
+                  name: account_type
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: create vacancies table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: vacancies
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: category_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_category_id
+                    references: categories(id)
+              - column:
+                  name: salary
+                  type: real
+              - column:
+                  name: exp_from
+                  type: int
+              - column:
+                  name: exp_to
+                  type: int
+              - column:
+                  name: is_active
+                  type: boolean
+              - column:
+                  name: author_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_author_id
+                    references: users(id)
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+              - column:
+                  name: update_time
+                  type: TIMESTAMP
+  - changeSet:
+      id: create resumes table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: resumes
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: applicant_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_applicant_id_for_resumes
+                    references: users(id)
+                    nullable: false
+              - column:
+                  name: name
+                  type: text
+              - column:
+                  name: category_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_category_id_for_resumes
+                    references: categories(id)
+              - column:
+                  name: salary
+                  type: real
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+              - column:
+                  name: update_time
+                  type: TIMESTAMP
+  - changeSet:
+      id: create responded_applicants table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: responded_applicants
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_resume_id_for_responded_applicants
+                    references: resumes(id)
+                    nullable: false
+              - column:
+                  name: vacancy_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_vacancy_id_for_responded_applicants
+                    references: vacancies(id)
+                    nullable: false
+              - column:
+                  name: confirmation
+                  type: BOOLEAN
+  - changeSet:
+      id: create messages table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: messages
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: responded_applicants_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_responded_applicants_id_for_messages
+                    references: responded_applicants(id)
+                    nullable: false
+              - column:
+                  name: content
+                  type: text
+              - column:
+                  name: timestamp
+                  type: TIMESTAMP
+  - changeSet:
+      id: create education_info table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: education_info
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_resume_id_for_education_info
+                    references: resumes(id)
+                    nullable: false
+              - column:
+                  name: institution
+                  type: text
+              - column:
+                  name: program
+                  type: text
+              - column:
+                  name: start_date
+                  type: TIMESTAMP
+              - column:
+                  name: end_date
+                  type: TIMESTAMP
+              - column:
+                  name: degree
+                  type: text
+  - changeSet:
+      id: create contacts_info table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: contacts_info
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: type_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_type_id_for_contacts_info
+                    references: contact_types(id)
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_resume_id_for_contacts_info
+                    references: resumes(id)
+                    nullable: false
+              - column:
+                  name: info
+                  type: text
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: create work_experience_info table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: work_experience_info
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_resume_id_for_work_experience_info
+                    references: resumes(id)
+                    nullable: false
+              - column:
+                  name: years
+                  type: int
+              - column:
+                  name: company_name
+                  type: text
+              - column:
+                  name: position
+                  type: text
+              - column:
+                  name: responsibilities
+                  type: text
+
+
