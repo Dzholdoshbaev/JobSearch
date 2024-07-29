@@ -141,10 +141,10 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: created_date
-                  type: TIMESTAMP
+                  type: DATE
               - column:
                   name: update_time
-                  type: TIMESTAMP
+                  type: DATE
   - changeSet:
       id: create resumes table
       author: Chyngyz Dzholdoshbaev
@@ -183,10 +183,10 @@ databaseChangeLog:
                   type: BOOLEAN
               - column:
                   name: created_date
-                  type: TIMESTAMP
+                  type: DATE
               - column:
                   name: update_time
-                  type: TIMESTAMP
+                  type: DATE
   - changeSet:
       id: create responded_applicants table
       author: Chyngyz Dzholdoshbaev
@@ -244,7 +244,7 @@ databaseChangeLog:
                   type: text
               - column:
                   name: timestamp
-                  type: TIMESTAMP
+                  type: timestamp
   - changeSet:
       id: create education_info table
       author: Chyngyz Dzholdoshbaev
@@ -274,10 +274,10 @@ databaseChangeLog:
                   type: text
               - column:
                   name: start_date
-                  type: TIMESTAMP
+                  type: DATE
               - column:
                   name: end_date
-                  type: TIMESTAMP
+                  type: DATE
               - column:
                   name: degree
                   type: text
