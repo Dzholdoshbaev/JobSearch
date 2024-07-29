@@ -5,10 +5,11 @@ import dzholdoshbaev.jobsearch.dto.ResumesDto;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ResumesServiceImpl implements ResumesService {
@@ -17,6 +18,7 @@ public class ResumesServiceImpl implements ResumesService {
     @Override
     public void createResumes(Resumes resume) {
         resumesDao.addResume(resume);
+        log.info("Created resume with id");
     }
 
     @Override
@@ -33,7 +35,7 @@ public class ResumesServiceImpl implements ResumesService {
     public List<ResumesDto> getAllResumes() {
         var list = resumesDao.getAllResumes();
 
-        return list.stream()
+        List<ResumesDto> sorted = list.stream()
                 .map(e -> ResumesDto.builder()
                         .id(e.getId())
                         .applicantId(e.getApplicantId())
@@ -44,13 +46,15 @@ public class ResumesServiceImpl implements ResumesService {
                         .createdDate(e.getCreatedDate())
                         .updateTime(e.getUpdateTime())
                         .build()).toList();
+        log.info("All resumes printed");
+        return sorted;
     }
 
     @Override
     public List<ResumesDto> getAllResumesByCategory(int categoryId) {
         var list = resumesDao.getAllResumesByCategory(categoryId);
 
-        return list.stream()
+        List<ResumesDto> sorted = list.stream()
                 .map(e -> ResumesDto.builder()
                         .id(e.getId())
                         .applicantId(e.getApplicantId())
@@ -61,13 +65,15 @@ public class ResumesServiceImpl implements ResumesService {
                         .createdDate(e.getCreatedDate())
                         .updateTime(e.getUpdateTime())
                         .build()).toList();
+        log.info("All resumes printed by category");
+        return sorted;
     }
 
     @Override
     public List<ResumesDto> getAllResumesByUser(int applicantId){
         var list = resumesDao.getAllResumesByUser(applicantId);
 
-        return list.stream()
+        List<ResumesDto> sorted = list.stream()
                 .map(e -> ResumesDto.builder()
                         .id(e.getId())
                         .applicantId(e.getApplicantId())
@@ -78,5 +84,7 @@ public class ResumesServiceImpl implements ResumesService {
                         .createdDate(e.getCreatedDate())
                         .updateTime(e.getUpdateTime())
                         .build()).toList();
+        log.info("All resumes printed by user");
+        return sorted;
     }
 }

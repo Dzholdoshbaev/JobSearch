@@ -5,10 +5,11 @@ import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -17,12 +18,13 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void createUser(Users user) {
         usersDao.addUser(user);
+        log.info("Created user: {}", user.getEmail());
     }
 
     @Override
     public UsersDto getUserById(int id){
         Users user = usersDao.getUserById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        return UsersDto.builder()
+        UsersDto corrected = UsersDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .surname(user.getSurname())
@@ -33,13 +35,15 @@ public class UsersServiceImpl implements UsersService {
                 .avatar(user.getAvatar())
                 .accountType(user.getAccountType())
                 .build();
+        log.info("Printed user by id");
+        return corrected;
     }
 
     @Override
     public List<UsersDto> getAllUsers() {
         var list = usersDao.getAllUsers();
 
-        return list.stream()
+        List<UsersDto> sorted =  list.stream()
                 .map(e -> UsersDto.builder()
                         .id(e.getId())
                         .name(e.getName())
@@ -51,6 +55,8 @@ public class UsersServiceImpl implements UsersService {
                         .avatar(e.getAvatar())
                         .accountType(e.getAccountType())
                         .build()).toList();
+        log.info("Printed all users");
+        return sorted;
     }
 
     @Override
@@ -58,7 +64,7 @@ public class UsersServiceImpl implements UsersService {
         Users user = usersDao.getUserByName(name)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return UsersDto.builder()
+        UsersDto corrected = UsersDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .surname(user.getSurname())
@@ -69,6 +75,8 @@ public class UsersServiceImpl implements UsersService {
                 .avatar(user.getAvatar())
                 .accountType(user.getAccountType())
                 .build();
+        log.info("Printed user by name");
+        return corrected;
 
     }
 
@@ -77,7 +85,7 @@ public class UsersServiceImpl implements UsersService {
         Users user = usersDao.getUserByPhoneNumber(phoneNumber)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return UsersDto.builder()
+        UsersDto corrected = UsersDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .surname(user.getSurname())
@@ -88,6 +96,8 @@ public class UsersServiceImpl implements UsersService {
                 .avatar(user.getAvatar())
                 .accountType(user.getAccountType())
                 .build();
+        log.info("Printed user by phone number");
+        return corrected;
 
     }
 
@@ -96,7 +106,7 @@ public class UsersServiceImpl implements UsersService {
         Users user = usersDao.getUserByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return UsersDto.builder()
+        UsersDto corrected = UsersDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .surname(user.getSurname())
@@ -107,11 +117,15 @@ public class UsersServiceImpl implements UsersService {
                 .avatar(user.getAvatar())
                 .accountType(user.getAccountType())
                 .build();
+        log.info("Printed user by email");
+        return corrected;
 
     }
 
     @Override
     public Boolean checkUserByEmail(String email){
-       return usersDao.checkUserByEmail(email);
+        Boolean checked = usersDao.checkUserByEmail(email);
+        log.info("Checked user by email");
+        return checked;
     }
 }
