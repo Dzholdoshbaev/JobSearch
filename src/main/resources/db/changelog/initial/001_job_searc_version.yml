@@ -141,10 +141,10 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: created_date
-                  type: DATE
+                  type: DATETIME
               - column:
                   name: update_time
-                  type: DATE
+                  type: DATETIME
   - changeSet:
       id: create resumes table
       author: Chyngyz Dzholdoshbaev
@@ -183,10 +183,10 @@ databaseChangeLog:
                   type: BOOLEAN
               - column:
                   name: created_date
-                  type: DATE
+                  type: DATETIME
               - column:
                   name: update_time
-                  type: DATE
+                  type: DATETIME
   - changeSet:
       id: create responded_applicants table
       author: Chyngyz Dzholdoshbaev

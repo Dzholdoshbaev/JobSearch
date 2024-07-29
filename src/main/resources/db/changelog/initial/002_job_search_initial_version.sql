@@ -11,11 +11,11 @@ VALUES ('adilet', 'urmat',47, 'urmat@gmail.com', 'password1','0555433444', 'empl
        ('mirbek', 'alishev',45, 'mirbek@gmail.com', 'password3','0555433447', 'applicant');
 
 INSERT INTO resumes (applicant_id, name, category_id, salary, is_active,created_date)
-VALUES (2, 'Resume 1', 1, 2800.00, TRUE,current_date),
-       (3, 'Resume 2', 2, 3200.00, TRUE,current_date);
+VALUES (2, 'Resume 1', 1, 2800.00, TRUE,current_timestamp()),
+       (3, 'Resume 2', 2, 3200.00, TRUE,current_timestamp());
 
 INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id,created_date)
-VALUES ('Job 1', 'Description for Job 1', 1, 3000.00, 2, 5, TRUE, 1,current_date);
+VALUES ('Job 1', 'Description for Job 1', 1, 3000.00, 2, 5, TRUE, 1,current_timestamp());
 
 INSERT INTO responded_applicants (resume_id, vacancy_id, confirmation)
 VALUES (1, 1, TRUE),
