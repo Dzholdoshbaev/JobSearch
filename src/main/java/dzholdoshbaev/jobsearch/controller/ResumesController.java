@@ -27,8 +27,8 @@ public class ResumesController {
     }
 
     @PutMapping("/edit/{resumeId}")
-    public ResponseEntity<String> editResume(@PathVariable Long resumeId, @RequestBody ResumesDto resumeDto) {
-        resumesService.editResume(resumeId,resumeDto);
+    public ResponseEntity<String> editResume(@PathVariable Long resumeId, @RequestBody Resumes resume) {
+        resumesService.editResume(resume);
         return ResponseEntity.ok("Резюме успешно отредактировано");
     }
 

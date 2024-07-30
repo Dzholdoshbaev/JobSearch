@@ -24,13 +24,15 @@ public class ResumesServiceImpl implements ResumesService {
     }
 
     @Override
-    public void editResume(Long resumeId, ResumesDto resumeDto) {
-        System.out.println(resumeId + " " + resumeDto);
+    public void editResume(Resumes resume) {
+        resumesDao.editResume(resume);
+        log.info("Edited resume with name {}", resume.getName());
     }
 
     @Override
     public void deleteResume(Long resumeId) {
-        System.out.println(resumeId);
+        resumesDao.deleteResume(resumeId);
+        log.info("Deleted resume");
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 public interface ResumesService {
     void createResumes(Resumes resume, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo);
 
-    void editResume(Long resumeId, ResumesDto resumeDto);
+    void editResume( Resumes resume);
 
     void deleteResume(Long resumeId);
 
