@@ -12,3 +12,9 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/master.yml
+
+#logging:
+#  level:
+#    root: info
+#  file:
+#    path: logs
