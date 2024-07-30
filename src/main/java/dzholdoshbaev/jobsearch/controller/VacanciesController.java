@@ -2,6 +2,7 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 
+import dzholdoshbaev.jobsearch.dto.ResumesDto;
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
@@ -24,9 +25,9 @@ public class VacanciesController {
         return ResponseEntity.ok("Вакансия успешно создана");
     }
 
-    @PutMapping("/edit/{vacancyId}")
-    public ResponseEntity<String> editVacancy(@PathVariable Long vacancyId, @RequestBody VacanciesDto vacanciesDto) {
-        vacanciesService.editVacancy(vacancyId,vacanciesDto);
+    @PutMapping("/edit")
+    public ResponseEntity<String> editVacancy(@RequestBody Vacancies vacancies) {
+        vacanciesService.editVacancy(vacancies);
         return ResponseEntity.ok("Вакансия успешно отредактирована");
     }
 
@@ -36,13 +37,18 @@ public class VacanciesController {
         return ResponseEntity.ok("Вакансия успешно удалена");
     }
 
-    @GetMapping("/resumes")
+    @GetMapping
     public ResponseEntity<List<VacanciesDto>> getAllVacancies() {
         return ResponseEntity.ok(vacanciesService.getAllVacancies());
     }
 
-    @GetMapping("/resumes/{categoryId}")
+    @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<VacanciesDto>> getResumesByCategory(@PathVariable int categoryId) {
         return ResponseEntity.ok(vacanciesService.getAllVacanciesByCategory(categoryId));
+    }
+
+    @GetMapping("/{vacanciesId}")
+    public ResponseEntity<VacanciesDto> getAllResumesByUser(@PathVariable int vacanciesId) {
+        return ResponseEntity.ok(vacanciesService.getVacanciesById(vacanciesId));
     }
 }

@@ -3,7 +3,9 @@ package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
 
+import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
+import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +21,14 @@ public class ResumesController {
     private final ResumesService resumesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createResume(@RequestBody Resumes resume) {
-        resumesService.createResumes(resume);
+    public ResponseEntity<String> createResume(@RequestBody Resumes resume , EducationInfo educationInfo , WorkExperienceInfo workExperienceInfo) {
+        resumesService.createResumes(resume,educationInfo,workExperienceInfo);
         return ResponseEntity.ok("Резюме успешно создано");
     }
 
     @PutMapping("/edit/{resumeId}")
-    public ResponseEntity<String> editResume(@PathVariable Long resumeId, @RequestBody ResumesDto resumeDto) {
-        resumesService.editResume(resumeId,resumeDto);
+    public ResponseEntity<String> editResume(@PathVariable Long resumeId, @RequestBody Resumes resume) {
+        resumesService.editResume(resume);
         return ResponseEntity.ok("Резюме успешно отредактировано");
     }
 
@@ -51,5 +53,9 @@ public class ResumesController {
         return ResponseEntity.ok(resumesService.getAllResumesByUser(applicantId));
     }
 
+    @GetMapping("/{resumesId}")
+    public ResponseEntity<ResumesDto> getResumesById(@PathVariable int resumesId) {
+        return ResponseEntity.ok(resumesService.getResumeById(resumesId));
+    }
 
 }
