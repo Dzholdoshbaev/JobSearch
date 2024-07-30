@@ -1,7 +1,6 @@
 package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Resumes;
-import dzholdoshbaev.jobsearch.model.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -10,7 +9,9 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -29,6 +30,28 @@ public class ResumesDao {
                 .addValue("isActive",resumes.isActive())
                 .addValue("createdDate", resumes.getCreatedDate())
                 .addValue("updateTime",resumes.getUpdateTime()));
+    }
+
+    public void editResume(Resumes resumes) {
+        String sql = """
+            UPDATE resumes
+            SET name = :name,
+                category_id = :categoryId,
+                salary = :salary,
+                is_active = :isActive,
+                update_time = :updateTime
+            WHERE applicant_id = :applicantId
+            """;
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", resumes.getName());
+        params.put("categoryId", resumes.getCategoryId());
+        params.put("salary", resumes.getSalary());
+        params.put("isActive", resumes.isActive());
+        params.put("updateTime", resumes.getUpdateTime());
+        params.put("applicantId", resumes.getApplicantId());
+
+        namedParameterJdbcTemplate.update(sql, params);
     }
 
 
