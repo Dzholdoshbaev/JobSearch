@@ -49,8 +49,8 @@ public class UsersDao {
                 .addValue("age", user.getAge())
                 .addValue("email", user.getEmail())
                 .addValue("password", user.getPassword())
-                .addValue("phone_number", user.getPhoneNumber())
-                .addValue("account_type",user.getAccountType()));
+                .addValue("phoneNumber", user.getPhoneNumber())
+                .addValue("accountType",user.getAccountType()));
 
     }
 

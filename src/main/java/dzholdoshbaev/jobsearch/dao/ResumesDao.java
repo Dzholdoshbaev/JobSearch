@@ -1,36 +1,63 @@
 package dzholdoshbaev.jobsearch.dao;
 
+import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
+import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.sql.PreparedStatement;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
 public class ResumesDao {
     private final JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
-    public void addResume(Resumes resumes) {
-        String sql = "insert into resumes (applicant_id,name,category_id,salary,is_active,created_date,update_time) values ( :applicantId, :name, :categoryId, :salary, :isActive, :createdDate, :updateTime)";
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
-                .addValue("applicantId", resumes.getApplicantId())
-                .addValue("name", resumes.getName())
-                .addValue("categoryId", resumes.getCategoryId())
-                .addValue("salary", resumes.getSalary())
-                .addValue("isActive",resumes.isActive())
-                .addValue("createdDate", resumes.getCreatedDate())
-                .addValue("updateTime",resumes.getUpdateTime()));
+    public void addResume(Resumes resume, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo) {
+        String resumeSql = "INSERT INTO resumes (applicant_id, name, category_id, salary, is_active, created_date, update_time) VALUES (?,?,?,?,?,?,?)";
+
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(resumeSql,new String[]{"id"});
+            ps.setInt(1, resume.getApplicantId());
+            ps.setString(2, resume.getName());
+            ps.setInt(3, resume.getCategoryId());
+            ps.setDouble(4, resume.getSalary());
+            ps.setBoolean(5, resume.isActive());
+            ps.setObject(6, resume.getCreatedDate());
+            ps.setObject(7, resume.getUpdateTime());
+            return ps;
+        },keyHolder);
+
+         int resumeId = Objects.requireNonNull(keyHolder.getKey()).intValue();
+
+        String educationSql = "INSERT INTO education_info (resume_id, degree, institution, PROGRAM,START_DATE,END_DATE) VALUES (:resumeId, :degree, :institution, :PROGRAM , :startDate, :endDate)";
+        namedParameterJdbcTemplate.update(educationSql, new MapSqlParameterSource()
+                .addValue("resumeId", resumeId)
+                .addValue("degree", educationInfo.getDegree())
+                .addValue("institution", educationInfo.getInstitution())
+                .addValue("PROGRAM", educationInfo.getProgram())
+                .addValue("startDate", educationInfo.getStartDate())
+                .addValue("endDate", educationInfo.getEndDate()));
+
+        String workExperienceSql = "INSERT INTO work_experience_info (resume_id, company_name, position,YEARS,RESPONSIBILITIES) VALUES (:resumeId, :companyName, :position, :YEARS, :RESPONSIBILITIES)";
+        namedParameterJdbcTemplate.update(workExperienceSql, new MapSqlParameterSource()
+                .addValue("resumeId", resumeId)
+                .addValue("companyName", workExperienceInfo.getCompanyName())
+                .addValue("position", workExperienceInfo.getPosition())
+                .addValue("YEARS", workExperienceInfo.getYear())
+                .addValue("RESPONSIBILITIES", workExperienceInfo.getResponsibilities()));
     }
+
 
     public void editResume(Resumes resumes) {
         String sql = """

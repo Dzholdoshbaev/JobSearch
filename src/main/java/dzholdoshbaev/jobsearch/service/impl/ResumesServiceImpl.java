@@ -2,7 +2,9 @@ package dzholdoshbaev.jobsearch.service.impl;
 
 import dzholdoshbaev.jobsearch.dao.ResumesDao;
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
+import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
+import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +18,8 @@ public class ResumesServiceImpl implements ResumesService {
     private final ResumesDao resumesDao;
 
     @Override
-    public void createResumes(Resumes resume) {
-        resumesDao.addResume(resume);
+    public void createResumes(Resumes resume, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo) {
+        resumesDao.addResume(resume , educationInfo , workExperienceInfo);
         log.info("Created resume with id");
     }
 
