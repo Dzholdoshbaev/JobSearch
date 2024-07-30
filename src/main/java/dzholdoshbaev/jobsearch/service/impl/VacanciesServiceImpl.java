@@ -22,13 +22,15 @@ public class VacanciesServiceImpl implements VacanciesService {
     }
 
     @Override
-    public void editVacancy(Long vacancyId, VacanciesDto vacanciesDto) {
-        System.out.println(vacancyId + " " + vacanciesDto);
+    public void editVacancy( Vacancies vacancies) {
+        vacanciesDao.editVacancies(vacancies);
+        log.info("Edited vacancies: {}", vacancies.getName());
     }
 
     @Override
     public void deleteVacancy(Long vacancyId) {
-        System.out.println(vacancyId);
+        vacanciesDao.deleteVacancies(vacancyId);
+        log.info("Deleted vacancies: {}", vacancyId);
     }
 
     @Override

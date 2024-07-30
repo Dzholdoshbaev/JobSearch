@@ -67,7 +67,7 @@ public class ResumesDao {
                 salary = :salary,
                 is_active = :isActive,
                 update_time = :updateTime
-            WHERE applicant_id = :applicantId
+            WHERE ID = :id;
             """;
 
         Map<String, Object> params = new HashMap<>();
@@ -76,7 +76,7 @@ public class ResumesDao {
         params.put("salary", resumes.getSalary());
         params.put("isActive", resumes.isActive());
         params.put("updateTime", resumes.getUpdateTime());
-        params.put("applicantId", resumes.getApplicantId());
+        params.put("id", resumes.getId());
 
         namedParameterJdbcTemplate.update(sql, params);
     }

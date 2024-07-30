@@ -25,9 +25,9 @@ public class VacanciesController {
         return ResponseEntity.ok("Вакансия успешно создана");
     }
 
-    @PutMapping("/edit/{vacancyId}")
-    public ResponseEntity<String> editVacancy(@PathVariable Long vacancyId, @RequestBody VacanciesDto vacanciesDto) {
-        vacanciesService.editVacancy(vacancyId,vacanciesDto);
+    @PutMapping("/edit")
+    public ResponseEntity<String> editVacancy(@RequestBody Vacancies vacancies) {
+        vacanciesService.editVacancy(vacancies);
         return ResponseEntity.ok("Вакансия успешно отредактирована");
     }
 

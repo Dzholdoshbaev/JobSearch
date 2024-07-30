@@ -8,7 +8,7 @@ import java.util.List;
 public interface VacanciesService {
     void createVacancies(Vacancies vacancies);
 
-    void editVacancy(Long vacancyId, VacanciesDto vacanciesDto);
+    void editVacancy(Vacancies vacancies);
 
     void deleteVacancy(Long vacancyId);
 
