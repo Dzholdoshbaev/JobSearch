@@ -54,6 +54,15 @@ public class ResumesDao {
         namedParameterJdbcTemplate.update(sql, params);
     }
 
+    public void deleteResume(Long resumeId) {
+        String sql = "DELETE FROM resumes WHERE id = :resumeId";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("resumeId", resumeId);
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
+
 
     public List<Resumes> getAllResumes() {
         String sql = "select * from resumes";
