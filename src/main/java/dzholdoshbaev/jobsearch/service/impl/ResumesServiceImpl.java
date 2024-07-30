@@ -87,4 +87,22 @@ public class ResumesServiceImpl implements ResumesService {
         log.info("All resumes printed by user");
         return sorted;
     }
+
+    @Override
+    public ResumesDto getResumeById(int resumesId) {
+        var object = resumesDao.getResumeById(resumesId)
+                .orElseThrow(() -> new RuntimeException("resume not found"));
+        ResumesDto corrected = ResumesDto.builder()
+                .id(object.getId())
+                .applicantId(object.getApplicantId())
+                .name(object.getName())
+                .categoryId(object.getCategoryId())
+                .salary(object.getSalary())
+                .isActive(object.isActive())
+                .createdDate(object.getCreatedDate())
+                .updateTime(object.getUpdateTime())
+                .build();
+        log.info("resume printed");
+        return corrected;
+    }
 }

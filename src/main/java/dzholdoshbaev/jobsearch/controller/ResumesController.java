@@ -51,5 +51,9 @@ public class ResumesController {
         return ResponseEntity.ok(resumesService.getAllResumesByUser(applicantId));
     }
 
+    @GetMapping("/{resumesId}")
+    public ResponseEntity<ResumesDto> getResumesById(@PathVariable int resumesId) {
+        return ResponseEntity.ok(resumesService.getResumeById(resumesId));
+    }
 
 }

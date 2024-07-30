@@ -74,4 +74,26 @@ public class VacanciesServiceImpl implements VacanciesService {
         log.info("printed all vacancies by category");
         return sorted;
     }
+
+    @Override
+    public VacanciesDto getVacanciesById(int vacanciesId) {
+        var object = vacanciesDao.getVacanciesById(vacanciesId)
+                .orElseThrow(() -> new RuntimeException("vacancies not found"));
+
+        VacanciesDto corrected = VacanciesDto.builder()
+                .id(object.getId())
+                .name(object.getName())
+                .description(object.getDescription())
+                .categoryId(object.getCategoryId())
+                .salary(object.getSalary())
+                .expFrom(object.getExpFrom())
+                .expTo(object.getExpTo())
+                .isActive(object.isActive())
+                .authorId(object.getAuthorId())
+                .createdDate(object.getCreatedDate())
+                .updateTime(object.getUpdateTime())
+                .build();
+        log.info("printed corrected vacancies by id {}", corrected.getId());
+        return corrected;
+    }
 }

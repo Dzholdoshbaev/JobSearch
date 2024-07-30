@@ -17,4 +17,6 @@ public interface ResumesService {
     List<ResumesDto> getAllResumesByCategory(int categoryId);
 
     List<ResumesDto> getAllResumesByUser(int applicantId);
+
+    ResumesDto getResumeById(int resumesId);
 }
