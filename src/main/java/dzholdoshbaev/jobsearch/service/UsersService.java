@@ -6,7 +6,7 @@ import dzholdoshbaev.jobsearch.model.Users;
 import java.util.List;
 
 public interface UsersService {
-    void createUser(Users user);
+    void createUser(UsersDto usersDto);
 
     UsersDto getUserById(int id);
 

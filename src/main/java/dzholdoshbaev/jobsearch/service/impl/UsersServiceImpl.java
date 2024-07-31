@@ -16,7 +16,20 @@ public class UsersServiceImpl implements UsersService {
     private final UsersDao usersDao;
 
     @Override
-    public void createUser(Users user) {
+    public void createUser(UsersDto usersDto) {
+
+        Users user = Users.builder()
+                .id(usersDto.getId())
+                .name(usersDto.getName())
+                .surname(usersDto.getSurname())
+                .age(usersDto.getAge())
+                .email(usersDto.getEmail())
+                .password(usersDto.getPassword())
+                .phoneNumber(usersDto.getPhoneNumber())
+                .avatar(usersDto.getAvatar())
+                .accountType(usersDto.getAccountType())
+                .build();
+
         usersDao.addUser(user);
         log.info("Created user: {}", user.getEmail());
     }

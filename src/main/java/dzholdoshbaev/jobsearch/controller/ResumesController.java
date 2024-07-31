@@ -1,8 +1,10 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
+import dzholdoshbaev.jobsearch.dto.EducationInfoDto;
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
 
+import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
@@ -21,14 +23,14 @@ public class ResumesController {
     private final ResumesService resumesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createResume(@RequestBody Resumes resume , EducationInfo educationInfo , WorkExperienceInfo workExperienceInfo) {
-        resumesService.createResumes(resume,educationInfo,workExperienceInfo);
+    public ResponseEntity<String> createResume(@RequestBody ResumesDto resumesDto , EducationInfoDto educationInfoDto , WorkExperienceInfoDto workExperienceInfoDto) {
+        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto);
         return ResponseEntity.ok("Резюме успешно создано");
     }
 
-    @PutMapping("/edit/{resumeId}")
-    public ResponseEntity<String> editResume(@PathVariable Long resumeId, @RequestBody Resumes resume) {
-        resumesService.editResume(resume);
+    @PutMapping("/edit")
+    public ResponseEntity<String> editResume(@RequestBody ResumesDto resumesDto) {
+        resumesService.editResume(resumesDto);
         return ResponseEntity.ok("Резюме успешно отредактировано");
     }
 

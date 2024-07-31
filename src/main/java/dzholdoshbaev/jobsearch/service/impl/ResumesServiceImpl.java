@@ -1,7 +1,9 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
 import dzholdoshbaev.jobsearch.dao.ResumesDao;
+import dzholdoshbaev.jobsearch.dto.EducationInfoDto;
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
+import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
@@ -18,15 +20,58 @@ public class ResumesServiceImpl implements ResumesService {
     private final ResumesDao resumesDao;
 
     @Override
-    public void createResumes(Resumes resume, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo) {
-        resumesDao.addResume(resume , educationInfo , workExperienceInfo);
+    public void createResumes(ResumesDto resumesDto, EducationInfoDto educationInfoDto, WorkExperienceInfoDto workExperienceInfoDto) {
+
+        Resumes resumes = Resumes.builder()
+                .id(resumesDto.getId())
+                .applicantId(resumesDto.getApplicantId())
+                .name(resumesDto.getName())
+                .categoryId(resumesDto.getCategoryId())
+                .salary(resumesDto.getSalary())
+                .isActive(resumesDto.isActive())
+                .createdDate(resumesDto.getCreatedDate())
+                .updateTime(resumesDto.getUpdateTime())
+                .build();
+
+        EducationInfo educationInfo = EducationInfo.builder()
+                .id(educationInfoDto.getId())
+                .resumeId(educationInfoDto.getResumeId())
+                .institution(educationInfoDto.getInstitution())
+                .program(educationInfoDto.getProgram())
+                .startDate(educationInfoDto.getStartDate())
+                .endDate(educationInfoDto.getEndDate())
+                .degree(educationInfoDto.getDegree())
+                .build();
+
+        WorkExperienceInfo workExperienceInfo = WorkExperienceInfo.builder()
+                .id(workExperienceInfoDto.getId())
+                .resumeId(workExperienceInfoDto.getResumeId())
+                .year(workExperienceInfoDto.getYear())
+                .companyName(workExperienceInfoDto.getCompanyName())
+                .position(workExperienceInfoDto.getPosition())
+                .responsibilities(workExperienceInfoDto.getResponsibilities())
+                .build();
+
+        resumesDao.addResume(resumes , educationInfo , workExperienceInfo);
         log.info("Created resume with id");
     }
 
     @Override
-    public void editResume(Resumes resume) {
-        resumesDao.editResume(resume);
-        log.info("Edited resume with name {}", resume.getName());
+    public void editResume(ResumesDto resumesDto) {
+
+        Resumes resumes = Resumes.builder()
+                .id(resumesDto.getId())
+                .applicantId(resumesDto.getApplicantId())
+                .name(resumesDto.getName())
+                .categoryId(resumesDto.getCategoryId())
+                .salary(resumesDto.getSalary())
+                .isActive(resumesDto.isActive())
+                .createdDate(resumesDto.getCreatedDate())
+                .updateTime(resumesDto.getUpdateTime())
+                .build();
+
+        resumesDao.editResume(resumes);
+        log.info("Edited resume with name {}", resumes.getName());
     }
 
     @Override

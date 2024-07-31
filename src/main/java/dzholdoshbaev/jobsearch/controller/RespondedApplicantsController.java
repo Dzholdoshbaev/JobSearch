@@ -18,8 +18,8 @@ public class RespondedApplicantsController {
     private final RespondedApplicantsService respondedApplicantsService;
 
     @PostMapping("/responded")
-    public ResponseEntity<String> respondToVacancy(@RequestBody RespondedApplicants respondedApplicants) {
-        respondedApplicantsService.addResponded(respondedApplicants);
+    public ResponseEntity<String> respondToVacancy(@RequestBody RespondedApplicantsDto respondedApplicantsDto) {
+        respondedApplicantsService.addResponded(respondedApplicantsDto);
         return ResponseEntity.ok("Отклик на вакансию отправлен успешно");
     }
 

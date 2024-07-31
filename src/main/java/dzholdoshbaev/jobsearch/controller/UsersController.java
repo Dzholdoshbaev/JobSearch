@@ -18,8 +18,8 @@ public class UsersController {
     private final UsersService usersService;
 
     @PostMapping
-    public ResponseEntity<String> registerEmployer(@RequestBody Users user) {
-        usersService.createUser(user);
+    public ResponseEntity<String> registerEmployer(@RequestBody UsersDto usersDto) {
+        usersService.createUser(usersDto);
         return ResponseEntity.ok("Пользователь успешно зарегистрирован");
     }
 

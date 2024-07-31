@@ -12,5 +12,5 @@ public interface RespondedApplicantsService {
 
     List<RespondedApplicantsDto> respondedApplicantsByVacancy(int vacancyId);
 
-    void addResponded(RespondedApplicants respondedApplicants);
+    void addResponded(RespondedApplicantsDto respondedApplicantsDto);
 }
