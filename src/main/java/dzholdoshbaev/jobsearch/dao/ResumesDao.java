@@ -3,6 +3,8 @@ package dzholdoshbaev.jobsearch.dao;
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -12,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.PreparedStatement;
 import java.util.*;
@@ -23,7 +26,7 @@ public class ResumesDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
-    public void addResume(Resumes resume, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo) {
+    public void addResume(@RequestBody @Valid Resumes resume,@RequestBody @Valid EducationInfo educationInfo,@RequestBody @Valid WorkExperienceInfo workExperienceInfo) {
         String resumeSql = "INSERT INTO resumes (applicant_id, name, category_id, salary, is_active, created_date, update_time) VALUES (?,?,?,?,?,?,?)";
 
         jdbcTemplate.update(con -> {
@@ -59,7 +62,7 @@ public class ResumesDao {
     }
 
 
-    public void editResume(Resumes resumes) {
+    public void editResume(@RequestBody @Valid Resumes resumes) {
         String sql = """
             UPDATE resumes
             SET name = :name,
@@ -81,7 +84,7 @@ public class ResumesDao {
         namedParameterJdbcTemplate.update(sql, params);
     }
 
-    public void deleteResume(Long resumeId) {
+    public void deleteResume(@NotNull @Valid Long resumeId) {
         String sql = "DELETE FROM resumes WHERE id = :resumeId";
 
         Map<String, Object> params = new HashMap<>();
@@ -96,17 +99,17 @@ public class ResumesDao {
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Resumes.class));
     }
 
-    public List<Resumes> getAllResumesByCategory(int categoryId) {
+    public List<Resumes> getAllResumesByCategory(@NotNull @Valid int categoryId) {
         String sql = "SELECT * FROM resumes where category_id = ?";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Resumes.class),categoryId);
     }
 
-    public List<Resumes> getAllResumesByUser(int applicantId) {
+    public List<Resumes> getAllResumesByUser(@NotNull @Valid int applicantId) {
         String sql = "SELECT * FROM resumes where applicant_id = ?";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Resumes.class),applicantId);
     }
 
-    public Optional<Resumes> getResumeById(int id) {
+    public Optional<Resumes> getResumeById(@NotNull @Valid int id) {
         String sql = "select * from resumes where id = ?";
         return Optional.ofNullable(
                 DataAccessUtils.singleResult(

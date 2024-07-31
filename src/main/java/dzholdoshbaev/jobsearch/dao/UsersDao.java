@@ -2,6 +2,9 @@ package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Users;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.sql.PreparedStatement;
@@ -24,7 +28,7 @@ public class UsersDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
-    public Integer create(Users user) {
+    public Integer create(@RequestBody @Valid Users user) {
         String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (?,?,?,?,?,?,?)";
         
         jdbcTemplate.update(con -> {
@@ -41,7 +45,7 @@ public class UsersDao {
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
-    public void addUser(Users user) {
+    public void addUser(@RequestBody @Valid Users user) {
         String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (:name, :surname, :age, :email, :password, :phoneNumber, :accountType)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
         .addValue("name", user.getName())
@@ -59,7 +63,7 @@ public class UsersDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Users.class));
     }
 
-    public Optional<Users> getUserById(int id) {
+    public Optional<Users> getUserById(@NotNull @Valid int id) {
         String sql = "select * from users where id = ?";
         return Optional.ofNullable(
                 DataAccessUtils.singleResult(
@@ -68,25 +72,25 @@ public class UsersDao {
         );
     }
 
-    public Optional<Users> getUserByName(String name) {
+    public Optional<Users> getUserByName(@NotBlank @Valid String name) {
         String sql = "select * from users where name = ?";
         Users user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), name);
         return Optional.ofNullable(user);
     }
 
-    public Optional<Users> getUserByPhoneNumber(String phoneNumber) {
+    public Optional<Users> getUserByPhoneNumber(@NotBlank @Valid String phoneNumber) {
         String sql = "select * from users where phone_number = ?";
         Users user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), phoneNumber);
         return Optional.ofNullable(user);
     }
 
-    public Optional<Users> getUserByEmail(String email) {
+    public Optional<Users> getUserByEmail(@NotBlank @Valid String email) {
         String sql = "select * from users where email = ?";
         Users user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), email);
         return Optional.ofNullable(user);
     }
 
-    public Boolean checkUserByEmail(String email) {
+    public Boolean checkUserByEmail(@NotBlank @Valid String email) {
         String sql = "select * from users where email = ?";
         Users users = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), email);
         return users != null;

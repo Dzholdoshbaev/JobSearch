@@ -2,6 +2,8 @@ package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.Vacancies;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -9,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +24,7 @@ public class VacanciesDao {
     private final JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public void addVacancies(Vacancies vacancies) {
+    public void addVacancies(@RequestBody @Valid Vacancies vacancies) {
         String sql = "insert into vacancies (name, description, category_id, salary, exp_from, exp_to, is_active,author_id,created_date,update_time) values (name, :description, :categoryId, :salary, :expFrom, :expTo, :isActive, :authorId, :createdDate, :updateTime)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
                 .addValue("name", vacancies.getName())
@@ -36,7 +39,7 @@ public class VacanciesDao {
                 .addValue("update_time", vacancies.getUpdateTime()));
     }
 
-    public void editVacancies(Vacancies vacancies) {
+    public void editVacancies(@RequestBody @Valid Vacancies vacancies) {
         String sql = """
             UPDATE vacancies
             SET name = :name,
@@ -64,7 +67,7 @@ public class VacanciesDao {
         namedParameterJdbcTemplate.update(sql, params);
     }
 
-    public void deleteVacancies(Long vacancyId) {
+    public void deleteVacancies(@NotNull @Valid Long vacancyId) {
         String sql = "delete from vacancies where id = :vacancyId";
 
         Map<String, Object> params = new HashMap<>();
@@ -79,12 +82,12 @@ public class VacanciesDao {
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Vacancies.class));
     }
 
-    public List<Vacancies> getAllVacanciesByCategory(int categoryId) {
+    public List<Vacancies> getAllVacanciesByCategory(@NotNull @Valid int categoryId) {
         String sql = "SELECT * FROM vacancies where category_id = ?";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Vacancies.class),categoryId);
     }
 
-    public Optional<Vacancies> getVacanciesById(int id) {
+    public Optional<Vacancies> getVacanciesById(@NotNull @Valid int id) {
         String sql = "select * from vacancies where id = ?";
         return Optional.ofNullable(
                 DataAccessUtils.singleResult(
