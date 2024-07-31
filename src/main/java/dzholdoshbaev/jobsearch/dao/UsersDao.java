@@ -3,6 +3,7 @@ package dzholdoshbaev.jobsearch.dao;
 import dzholdoshbaev.jobsearch.model.Users;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -84,13 +85,13 @@ public class UsersDao {
         return Optional.ofNullable(user);
     }
 
-    public Optional<Users> getUserByEmail(@NotBlank @Valid String email) {
+    public Optional<Users> getUserByEmail(@NotBlank @Email @Valid String email) {
         String sql = "select * from users where email = ?";
         Users user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), email);
         return Optional.ofNullable(user);
     }
 
-    public Boolean checkUserByEmail(@NotBlank @Valid String email) {
+    public Boolean checkUserByEmail(@NotBlank @Email @Valid String email) {
         String sql = "select * from users where email = ?";
         Users users = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), email);
         return users != null;
