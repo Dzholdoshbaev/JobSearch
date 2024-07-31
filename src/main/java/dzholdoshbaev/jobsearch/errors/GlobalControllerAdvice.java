@@ -4,8 +4,6 @@ import dzholdoshbaev.jobsearch.service.ErrorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,8 +16,8 @@ public class GlobalControllerAdvice {
     private final ErrorService errorService;
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ErrorResponse handleNoSuchElementException(NoSuchElementException e) {
-        return ErrorResponse.builder(e, HttpStatus.NOT_FOUND,e.getMessage()).build();
+    public ResponseEntity<ErrorResponseBody> handleNoSuchElementException(NoSuchElementException e) {
+        return new ResponseEntity<>(errorService.makeResponse(e),HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

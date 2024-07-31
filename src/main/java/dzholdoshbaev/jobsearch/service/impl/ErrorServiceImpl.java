@@ -2,8 +2,6 @@ package dzholdoshbaev.jobsearch.service.impl;
 
 import dzholdoshbaev.jobsearch.errors.ErrorResponseBody;
 import dzholdoshbaev.jobsearch.service.ErrorService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -14,6 +12,16 @@ import java.util.Map;
 
 @Service
 public class ErrorServiceImpl implements ErrorService {
+
+    @Override
+    public ErrorResponseBody makeResponse(Exception exception) {
+        String message = exception.getMessage();
+        return ErrorResponseBody.builder()
+                .error(message)
+                .reasons(Map.of("errors",List.of(message)))
+                .build();
+    }
+
     @Override
     public ErrorResponseBody makeResponse(BindingResult bindingResult) {
         Map<String , List<String>> reasons = new HashMap<>();
