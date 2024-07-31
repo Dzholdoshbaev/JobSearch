@@ -3,10 +3,6 @@ package dzholdoshbaev.jobsearch.service;
 import dzholdoshbaev.jobsearch.dto.EducationInfoDto;
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
 import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
-import dzholdoshbaev.jobsearch.model.EducationInfo;
-import dzholdoshbaev.jobsearch.model.Resumes;
-import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
-
 import java.util.List;
 
 public interface ResumesService {

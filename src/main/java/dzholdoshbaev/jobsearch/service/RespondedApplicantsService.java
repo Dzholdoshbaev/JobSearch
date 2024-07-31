@@ -1,7 +1,6 @@
 package dzholdoshbaev.jobsearch.service;
 
 import dzholdoshbaev.jobsearch.dto.RespondedApplicantsDto;
-import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 
 import java.util.List;
 

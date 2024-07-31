@@ -2,8 +2,6 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 import dzholdoshbaev.jobsearch.dto.RespondedApplicantsDto;
-import dzholdoshbaev.jobsearch.dto.ResumesDto;
-import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 import dzholdoshbaev.jobsearch.service.RespondedApplicantsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

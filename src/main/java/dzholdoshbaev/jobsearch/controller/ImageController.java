@@ -2,7 +2,6 @@ package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.service.ImageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

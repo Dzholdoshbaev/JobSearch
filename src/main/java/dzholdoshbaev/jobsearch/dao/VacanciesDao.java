@@ -1,6 +1,5 @@
 package dzholdoshbaev.jobsearch.dao;
 
-import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

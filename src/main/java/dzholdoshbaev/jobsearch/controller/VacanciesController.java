@@ -2,9 +2,8 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 
-import dzholdoshbaev.jobsearch.dto.ResumesDto;
+
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
-import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

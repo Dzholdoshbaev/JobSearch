@@ -1,8 +1,6 @@
 package dzholdoshbaev.jobsearch.service;
 
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
-import dzholdoshbaev.jobsearch.model.Vacancies;
-
 import java.util.List;
 
 public interface VacanciesService {

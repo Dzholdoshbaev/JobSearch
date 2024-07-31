@@ -3,7 +3,7 @@ package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.dto.UsersDto;
 
-import dzholdoshbaev.jobsearch.model.Users;
+
 import dzholdoshbaev.jobsearch.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
