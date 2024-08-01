@@ -64,7 +64,7 @@ public class UsersDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Users.class));
     }
 
-    public Optional<Users> getUserById(@NotNull @Valid int id) {
+    public Optional<Users> getUserById(int id) {
         String sql = "select * from users where id = ?";
         return Optional.ofNullable(
                 DataAccessUtils.singleResult(
@@ -73,25 +73,25 @@ public class UsersDao {
         );
     }
 
-    public Optional<Users> getUserByName(@NotBlank @Valid String name) {
+    public Optional<Users> getUserByName(String name) {
         String sql = "select * from users where name = ?";
         Users user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), name);
         return Optional.ofNullable(user);
     }
 
-    public Optional<Users> getUserByPhoneNumber(@NotBlank @Valid String phoneNumber) {
+    public Optional<Users> getUserByPhoneNumber(String phoneNumber) {
         String sql = "select * from users where phone_number = ?";
         Users user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), phoneNumber);
         return Optional.ofNullable(user);
     }
 
-    public Optional<Users> getUserByEmail(@NotBlank @Email @Valid String email) {
+    public Optional<Users> getUserByEmail(String email) {
         String sql = "select * from users where email = ?";
         Users user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), email);
         return Optional.ofNullable(user);
     }
 
-    public Boolean checkUserByEmail(@NotBlank @Email @Valid String email) {
+    public Boolean checkUserByEmail(String email) {
         String sql = "select * from users where email = ?";
         Users users = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Users.class), email);
         return users != null;

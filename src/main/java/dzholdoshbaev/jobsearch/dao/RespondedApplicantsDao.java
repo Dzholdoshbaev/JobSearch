@@ -31,12 +31,12 @@ public class RespondedApplicantsDao {
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(RespondedApplicants.class));
     }
 
-    public List<RespondedApplicants> respondedApplicantsListByResume(@NotNull @Valid int resumeId) {
+    public List<RespondedApplicants> respondedApplicantsListByResume(int resumeId) {
         String sql = "select * from responded_applicants where resume_id = ?";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(RespondedApplicants.class),resumeId);
     }
 
-    public List<RespondedApplicants> respondedApplicantsByVacancy(@NotNull @Valid int vacancyId) {
+    public List<RespondedApplicants> respondedApplicantsByVacancy(int vacancyId) {
         String sql = "select * from responded_applicants where vacancy_id = ?";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(RespondedApplicants.class),vacancyId);
     }

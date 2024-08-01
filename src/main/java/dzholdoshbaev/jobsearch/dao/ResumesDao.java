@@ -84,7 +84,7 @@ public class ResumesDao {
         namedParameterJdbcTemplate.update(sql, params);
     }
 
-    public void deleteResume(@NotNull @Valid Long resumeId) {
+    public void deleteResume(Long resumeId) {
         String sql = "DELETE FROM resumes WHERE id = :resumeId";
 
         Map<String, Object> params = new HashMap<>();
@@ -99,17 +99,17 @@ public class ResumesDao {
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Resumes.class));
     }
 
-    public List<Resumes> getAllResumesByCategory(@NotNull @Valid int categoryId) {
+    public List<Resumes> getAllResumesByCategory(int categoryId) {
         String sql = "SELECT * FROM resumes where category_id = ?";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Resumes.class),categoryId);
     }
 
-    public List<Resumes> getAllResumesByUser(@NotNull @Valid int applicantId) {
+    public List<Resumes> getAllResumesByUser(int applicantId) {
         String sql = "SELECT * FROM resumes where applicant_id = ?";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Resumes.class),applicantId);
     }
 
-    public Optional<Resumes> getResumeById(@NotNull @Valid int id) {
+    public Optional<Resumes> getResumeById(int id) {
         String sql = "select * from resumes where id = ?";
         return Optional.ofNullable(
                 DataAccessUtils.singleResult(
