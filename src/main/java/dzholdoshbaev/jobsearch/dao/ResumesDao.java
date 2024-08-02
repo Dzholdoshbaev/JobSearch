@@ -26,7 +26,7 @@ public class ResumesDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
-    public void addResume(@RequestBody @Valid Resumes resume,@RequestBody @Valid EducationInfo educationInfo,@RequestBody @Valid WorkExperienceInfo workExperienceInfo) {
+    public void addResume( Resumes resume,EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo) {
         String resumeSql = "INSERT INTO resumes (applicant_id, name, category_id, salary, is_active, created_date, update_time) VALUES (?,?,?,?,?,?,?)";
 
         jdbcTemplate.update(con -> {
@@ -62,7 +62,7 @@ public class ResumesDao {
     }
 
 
-    public void editResume(@RequestBody @Valid Resumes resumes) {
+    public void editResume(Resumes resumes) {
         String sql = """
             UPDATE resumes
             SET name = :name,

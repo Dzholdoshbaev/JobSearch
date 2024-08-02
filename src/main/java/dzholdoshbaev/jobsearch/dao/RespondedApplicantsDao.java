@@ -19,7 +19,7 @@ public class RespondedApplicantsDao {
     private final JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public void  addRespondApplicants(@RequestBody @Valid RespondedApplicants respondApplicants) {
+    public void  addRespondApplicants(RespondedApplicants respondApplicants) {
         String sql = "insert into responded_applicants (resume_id,vacancy_id) values ( :resumeId, :vacancyId)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
         .addValue("resumeId", respondApplicants.getResumeId())

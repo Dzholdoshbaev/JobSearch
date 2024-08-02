@@ -5,6 +5,7 @@ package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +20,13 @@ public class VacanciesController {
     private final VacanciesService vacanciesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createVacancy(@RequestBody VacanciesDto vacanciesDto) {
+    public ResponseEntity<String> createVacancy(@RequestBody @Valid VacanciesDto vacanciesDto) {
         vacanciesService.createVacancies(vacanciesDto);
         return ResponseEntity.ok("Вакансия успешно создана");
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> editVacancy(@RequestBody VacanciesDto vacanciesDto) {
+    public ResponseEntity<String> editVacancy(@RequestBody @Valid  VacanciesDto vacanciesDto) {
         vacanciesService.editVacancy(vacanciesDto);
         return ResponseEntity.ok("Вакансия успешно отредактирована");
     }

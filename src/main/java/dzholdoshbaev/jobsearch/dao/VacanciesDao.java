@@ -23,7 +23,7 @@ public class VacanciesDao {
     private final JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public void addVacancies(@RequestBody @Valid Vacancies vacancies) {
+    public void addVacancies(Vacancies vacancies) {
         String sql = "insert into vacancies (name, description, category_id, salary, exp_from, exp_to, is_active,author_id,created_date,update_time) values (name, :description, :categoryId, :salary, :expFrom, :expTo, :isActive, :authorId, :createdDate, :updateTime)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
                 .addValue("name", vacancies.getName())
@@ -38,7 +38,7 @@ public class VacanciesDao {
                 .addValue("update_time", vacancies.getUpdateTime()));
     }
 
-    public void editVacancies(@RequestBody @Valid Vacancies vacancies) {
+    public void editVacancies(Vacancies vacancies) {
         String sql = """
             UPDATE vacancies
             SET name = :name,

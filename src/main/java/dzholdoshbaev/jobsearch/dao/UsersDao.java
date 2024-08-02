@@ -29,7 +29,7 @@ public class UsersDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
-    public Integer create(@RequestBody @Valid Users user) {
+    public Integer create(Users user) {
         String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (?,?,?,?,?,?,?)";
         
         jdbcTemplate.update(con -> {
@@ -46,7 +46,7 @@ public class UsersDao {
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
-    public void addUser(@RequestBody @Valid Users user) {
+    public void addUser(Users user) {
         String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (:name, :surname, :age, :email, :password, :phoneNumber, :accountType)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
         .addValue("name", user.getName())
