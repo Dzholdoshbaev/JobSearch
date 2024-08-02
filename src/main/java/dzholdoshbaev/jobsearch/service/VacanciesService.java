@@ -1,14 +1,12 @@
 package dzholdoshbaev.jobsearch.service;
 
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
-import dzholdoshbaev.jobsearch.model.Vacancies;
-
 import java.util.List;
 
 public interface VacanciesService {
-    void createVacancies(Vacancies vacancies);
+    void createVacancies(VacanciesDto vacanciesDto);
 
-    void editVacancy(Vacancies vacancies);
+    void editVacancy(VacanciesDto vacanciesDto);
 
     void deleteVacancy(Long vacancyId);
 

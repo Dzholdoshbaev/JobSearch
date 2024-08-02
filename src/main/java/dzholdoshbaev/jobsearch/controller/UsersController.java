@@ -3,8 +3,9 @@ package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.dto.UsersDto;
 
-import dzholdoshbaev.jobsearch.model.Users;
+
 import dzholdoshbaev.jobsearch.service.UsersService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class UsersController {
     private final UsersService usersService;
 
     @PostMapping
-    public ResponseEntity<String> registerEmployer(@RequestBody Users user) {
-        usersService.createUser(user);
+    public ResponseEntity<String> registerEmployer(@RequestBody @Valid UsersDto usersDto) {
+        usersService.createUser(usersDto);
         return ResponseEntity.ok("Пользователь успешно зарегистрирован");
     }
 

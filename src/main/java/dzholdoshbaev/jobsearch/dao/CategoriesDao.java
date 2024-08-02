@@ -1,7 +1,6 @@
 package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Categories;
-import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,7 +1,6 @@
 package dzholdoshbaev.jobsearch.service;
 
 import dzholdoshbaev.jobsearch.dto.RespondedApplicantsDto;
-import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 
 import java.util.List;
 
@@ -12,5 +11,5 @@ public interface RespondedApplicantsService {
 
     List<RespondedApplicantsDto> respondedApplicantsByVacancy(int vacancyId);
 
-    void addResponded(RespondedApplicants respondedApplicants);
+    void addResponded(RespondedApplicantsDto respondedApplicantsDto);
 }

@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ResumesDto {
     private int id;
+    @NotBlank
     private int applicantId;
+    @NotBlank
     private String name;
     private int categoryId;
     private double salary;

@@ -16,7 +16,13 @@ public class RespondedApplicantsServiceImpl implements RespondedApplicantsServic
     private final RespondedApplicantsDao respondedApplicantsDao;
 
     @Override
-    public void addResponded( RespondedApplicants respondedApplicants) {
+    public void addResponded( RespondedApplicantsDto respondedApplicantsDto) {
+        RespondedApplicants respondedApplicants = RespondedApplicants.builder()
+                .id(respondedApplicantsDto.getId())
+                .resumeId(respondedApplicantsDto.getResumeId())
+                .vacancyId(respondedApplicantsDto.getVacancyId())
+                .confirmation(respondedApplicantsDto.isConfirmation())
+                .build();
         respondedApplicantsDao.addRespondApplicants(respondedApplicants);
         log.info("Responded applicants added");
     }

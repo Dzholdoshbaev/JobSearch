@@ -16,13 +16,43 @@ public class VacanciesServiceImpl implements VacanciesService {
     private final VacanciesDao vacanciesDao;
 
     @Override
-    public void createVacancies(Vacancies vacancies) {
+    public void createVacancies(VacanciesDto vacanciesDto) {
+
+        Vacancies vacancies = Vacancies.builder()
+                .id(vacanciesDto.getId())
+                .name(vacanciesDto.getName())
+                .description(vacanciesDto.getDescription())
+                .categoryId(vacanciesDto.getCategoryId())
+                .salary(vacanciesDto.getSalary())
+                .expFrom(vacanciesDto.getExpFrom())
+                .expTo(vacanciesDto.getExpTo())
+                .isActive(vacanciesDto.isActive())
+                .authorId(vacanciesDto.getAuthorId())
+                .createdDate(vacanciesDto.getCreatedDate())
+                .updateTime(vacanciesDto.getUpdateTime())
+                .build();
+
         vacanciesDao.addVacancies(vacancies);
         log.info("Created vacancies: {}", vacancies.getName());
     }
 
     @Override
-    public void editVacancy( Vacancies vacancies) {
+    public void editVacancy( VacanciesDto vacanciesDto) {
+
+        Vacancies vacancies = Vacancies.builder()
+                .id(vacanciesDto.getId())
+                .name(vacanciesDto.getName())
+                .description(vacanciesDto.getDescription())
+                .categoryId(vacanciesDto.getCategoryId())
+                .salary(vacanciesDto.getSalary())
+                .expFrom(vacanciesDto.getExpFrom())
+                .expTo(vacanciesDto.getExpTo())
+                .isActive(vacanciesDto.isActive())
+                .authorId(vacanciesDto.getAuthorId())
+                .createdDate(vacanciesDto.getCreatedDate())
+                .updateTime(vacanciesDto.getUpdateTime())
+                .build();
+
         vacanciesDao.editVacancies(vacancies);
         log.info("Edited vacancies: {}", vacancies.getName());
     }

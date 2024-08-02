@@ -2,9 +2,8 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 import dzholdoshbaev.jobsearch.dto.RespondedApplicantsDto;
-import dzholdoshbaev.jobsearch.dto.ResumesDto;
-import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 import dzholdoshbaev.jobsearch.service.RespondedApplicantsService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,8 @@ public class RespondedApplicantsController {
     private final RespondedApplicantsService respondedApplicantsService;
 
     @PostMapping("/responded")
-    public ResponseEntity<String> respondToVacancy(@RequestBody RespondedApplicants respondedApplicants) {
-        respondedApplicantsService.addResponded(respondedApplicants);
+    public ResponseEntity<String> respondToVacancy(@RequestBody @Valid RespondedApplicantsDto respondedApplicantsDto) {
+        respondedApplicantsService.addResponded(respondedApplicantsDto);
         return ResponseEntity.ok("Отклик на вакансию отправлен успешно");
     }
 

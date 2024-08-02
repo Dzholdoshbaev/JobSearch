@@ -1,12 +1,12 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
+import dzholdoshbaev.jobsearch.dto.EducationInfoDto;
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
 
-import dzholdoshbaev.jobsearch.model.EducationInfo;
-import dzholdoshbaev.jobsearch.model.Resumes;
-import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
+import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
 import dzholdoshbaev.jobsearch.service.ResumesService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +21,14 @@ public class ResumesController {
     private final ResumesService resumesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createResume(@RequestBody Resumes resume , EducationInfo educationInfo , WorkExperienceInfo workExperienceInfo) {
-        resumesService.createResumes(resume,educationInfo,workExperienceInfo);
+    public ResponseEntity<String> createResume(@RequestBody @Valid ResumesDto resumesDto ,@RequestBody @Valid  EducationInfoDto educationInfoDto ,@RequestBody @Valid  WorkExperienceInfoDto workExperienceInfoDto) {
+        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto);
         return ResponseEntity.ok("Резюме успешно создано");
     }
 
-    @PutMapping("/edit/{resumeId}")
-    public ResponseEntity<String> editResume(@PathVariable Long resumeId, @RequestBody Resumes resume) {
-        resumesService.editResume(resume);
+    @PutMapping("/edit")
+    public ResponseEntity<String> editResume(@RequestBody @Valid  ResumesDto resumesDto) {
+        resumesService.editResume(resumesDto);
         return ResponseEntity.ok("Резюме успешно отредактировано");
     }
 
