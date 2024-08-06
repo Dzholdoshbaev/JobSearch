@@ -13,8 +13,15 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/master.yml
 
-#logging:
-#  level:
-#    root: info
-#  file:
-#    path: logs
+  org:
+    springframework:
+      security: debug
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        security: debug
+  file:
+    path: logs

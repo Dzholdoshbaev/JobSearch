@@ -87,11 +87,6 @@ databaseChangeLog:
               - column:
                   name: avatar
                   type: varchar(255)
-              - column:
-                  name: account_type
-                  type: varchar(60)
-                  constraints:
-                    nullable: false
   - changeSet:
       id: create vacancies table
       author: Chyngyz Dzholdoshbaev

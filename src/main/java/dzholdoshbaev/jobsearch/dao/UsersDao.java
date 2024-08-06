@@ -30,7 +30,7 @@ public class UsersDao {
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
     public Integer create(Users user) {
-        String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (?,?,?,?,?,?,?)";
+        String sql = "insert into users (name, surname, age, email, password, phone_number, AUTHORITY_ID,ENABLED) values (?,?,?,?,?,?,?,?)";
         
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql,new String[]{"id"});
@@ -40,14 +40,15 @@ public class UsersDao {
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getPassword());
             ps.setString(6, user.getPhoneNumber());
-            ps.setString(7, user.getAccountType());
+            ps.setLong(7, user.getAuthority_id());
+            ps.setBoolean(8, user.isEnabled());
             return ps;
         },keyHolder);
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
     public void addUser(Users user) {
-        String sql = "insert into users (name, surname, age, email, password, phone_number, account_type) values (:name, :surname, :age, :email, :password, :phoneNumber, :accountType)";
+        String sql = "insert into users (name, surname, age, email, password, phone_number, AUTHORITY_ID ,ENABLED) values (:name, :surname, :age, :email, :password, :phoneNumber, :authorityId, :enabled)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
         .addValue("name", user.getName())
                 .addValue("surname", user.getSurname())
@@ -55,7 +56,8 @@ public class UsersDao {
                 .addValue("email", user.getEmail())
                 .addValue("password", user.getPassword())
                 .addValue("phoneNumber", user.getPhoneNumber())
-                .addValue("accountType",user.getAccountType()));
+                .addValue("authorityId",user.getAuthority_id())
+                .addValue("enabled", user.isEnabled()));
 
     }
 
