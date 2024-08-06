@@ -18,5 +18,6 @@ public class Users {
     private String password;
     private String phoneNumber;
     private String avatar;
-    private String accountType;
+    private boolean enabled;
+    private long authority_id;
 }

@@ -5,16 +5,15 @@ VALUES ('It', NULL),
        ('Web', 1),
        ('Dent', 2);
 
-//$2a$12$VBdxN5LHWqk8IF4f6JJZ.OTOKHUE6GGPO2sQbs0ONi/FdBJMCSn/u = Qwerty777
-INSERT INTO users (name, surname, age, email, password, phone_number, account_type, enabled, authority_id)
-VALUES ('adilet', 'urmat', 47, 'urmat@gmail.com', '$2a$12$VBdxN5LHWqk8IF4f6JJZ.OTOKHUE6GGPO2sQbs0ONi/FdBJMCSn/u
-', '0555433444', 'employer', true, select id from AUTHORITIES where AUTHORITY = 'EMPLOYER'),
-       ('alibek', 'bek', 35, 'alibek@gmail.com', '$2a$12$VBdxN5LHWqk8IF4f6JJZ.OTOKHUE6GGPO2sQbs0ONi/FdBJMCSn/u
-', '0555433443', 'applicant', true, select id from AUTHORITIES where AUTHORITY = 'APPLICANT'),
-       ('mirbek', 'alishev', 45, 'mirbek@gmail.com', '$2a$12$VBdxN5LHWqk8IF4f6JJZ.OTOKHUE6GGPO2sQbs0ONi/FdBJMCSn/u
-', '0555433447', 'applicant', true, select id from AUTHORITIES where AUTHORITY = 'APPLICANT'),
-       ('Chyngyz', 'Dzholdoshbaev', 24, 'chyngyz@gmail.com', '$2a$12$VBdxN5LHWqk8IF4f6JJZ.OTOKHUE6GGPO2sQbs0ONi/FdBJMCSn/u
-', '0504110800', 'admin', true, select id from AUTHORITIES where AUTHORITY = 'ADMIN');
+INSERT INTO users (name, surname, age, email, password, phone_number, enabled, authority_id)
+VALUES ('adilet', 'urmat', 47, 'urmat@gmail.com', '$2a$12$DhJJHN2URYvOhvgexSyi/uOpmE.JWrfxmmDJB0oz4jsK1fH3v70rW
+', '0555433444',  true, select id from AUTHORITIES where AUTHORITY = 'EMPLOYER'),
+       ('alibek', 'bek', 35, 'alibek@gmail.com', '$2a$12$DhJJHN2URYvOhvgexSyi/uOpmE.JWrfxmmDJB0oz4jsK1fH3v70rW
+', '0555433443',  true, select id from AUTHORITIES where AUTHORITY = 'APPLICANT'),
+       ('mirbek', 'alishev', 45, 'mirbek@gmail.com', '$2a$12$DhJJHN2URYvOhvgexSyi/uOpmE.JWrfxmmDJB0oz4jsK1fH3v70rW
+', '0555433447',  true, select id from AUTHORITIES where AUTHORITY = 'APPLICANT'),
+       ('Chyngyz', 'Dzholdoshbaev', 24, 'chyngyz@gmail.com', '$2a$12$DhJJHN2URYvOhvgexSyi/uOpmE.JWrfxmmDJB0oz4jsK1fH3v70rW
+', '0504110800',  true, select id from AUTHORITIES where AUTHORITY = 'ADMIN');
 
 INSERT INTO resumes (applicant_id, name, category_id, salary, is_active, created_date)
 VALUES (select id from USERS where EMAIL = 'alibek@gmail.com', 'Resume 1', 1, 2800.00, TRUE, current_timestamp()),
