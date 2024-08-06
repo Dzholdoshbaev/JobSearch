@@ -4,15 +4,15 @@ VALUES ('It', NULL),
        ('Building', 1),
        ('Web', 1),
        ('Dent', 2);
-
+//Qwe password
 INSERT INTO users (name, surname, age, email, password, phone_number, enabled, authority_id)
-VALUES ('adilet', 'urmat', 47, 'urmat@gmail.com', '$2a$12$DhJJHN2URYvOhvgexSyi/uOpmE.JWrfxmmDJB0oz4jsK1fH3v70rW
+VALUES ('adilet', 'urmat', 47, 'urmat@gmail.com', '$2a$12$v.bDeXDKSRPNA1gOhV2BqOhcM7jITQGque3gaagdEBJvRA1fY7CVC
 ', '0555433444',  true, select id from AUTHORITIES where AUTHORITY = 'EMPLOYER'),
-       ('alibek', 'bek', 35, 'alibek@gmail.com', '$2a$12$DhJJHN2URYvOhvgexSyi/uOpmE.JWrfxmmDJB0oz4jsK1fH3v70rW
+       ('alibek', 'bek', 35, 'alibek@gmail.com', '$2a$12$v.bDeXDKSRPNA1gOhV2BqOhcM7jITQGque3gaagdEBJvRA1fY7CVC
 ', '0555433443',  true, select id from AUTHORITIES where AUTHORITY = 'APPLICANT'),
-       ('mirbek', 'alishev', 45, 'mirbek@gmail.com', '$2a$12$DhJJHN2URYvOhvgexSyi/uOpmE.JWrfxmmDJB0oz4jsK1fH3v70rW
+       ('mirbek', 'alishev', 45, 'mirbek@gmail.com', '$2a$12$v.bDeXDKSRPNA1gOhV2BqOhcM7jITQGque3gaagdEBJvRA1fY7CVC
 ', '0555433447',  true, select id from AUTHORITIES where AUTHORITY = 'APPLICANT'),
-       ('Chyngyz', 'Dzholdoshbaev', 24, 'chyngyz@gmail.com', '$2a$12$DhJJHN2URYvOhvgexSyi/uOpmE.JWrfxmmDJB0oz4jsK1fH3v70rW
+       ('Chyngyz', 'Dzholdoshbaev', 24, 'chyngyz@gmail.com', '$2a$12$v.bDeXDKSRPNA1gOhV2BqOhcM7jITQGque3gaagdEBJvRA1fY7CVC
 ', '0504110800',  true, select id from AUTHORITIES where AUTHORITY = 'ADMIN');
 
 INSERT INTO resumes (applicant_id, name, category_id, salary, is_active, created_date)
