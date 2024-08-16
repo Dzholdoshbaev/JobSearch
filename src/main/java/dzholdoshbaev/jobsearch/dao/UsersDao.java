@@ -55,9 +55,8 @@ public class UsersDao {
                 .addValue("email", user.getEmail())
                 .addValue("password", user.getPassword())
                 .addValue("phoneNumber", user.getPhoneNumber())
-                .addValue("authorityId",user.getAuthority_id())
-                .addValue("enabled", user.isEnabled()));
-
+                .addValue("AUTHORITY_ID",user.getAuthority_id())
+                .addValue("enabled", true));
     }
 
     public List<Users> getAllUsers() {

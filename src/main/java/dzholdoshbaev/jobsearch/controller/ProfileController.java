@@ -1,20 +1,14 @@
 package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.dto.UsersDto;
-import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.service.AuthoritiesService;
 import dzholdoshbaev.jobsearch.service.UsersService;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.security.Principal;
 
 
@@ -26,15 +20,19 @@ public class ProfileController {
     private final AuthoritiesService authoritiesService;
 
     @GetMapping
-    public String profile(Model model) {
-       String username = "urmat@gmail.com";
+    public String profile(Model model, Principal principal) {
+       String username = principal.getName();
        UsersDto user = usersService.getUserByEmail(username);
        model.addAttribute("user", user);
        return "profile/profile";
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody @Valid UsersDto usersDto) {
+    public String register(@Valid UsersDto usersDto) {
+//        var user = usersService.getUserByEmail(usersDto.getEmail());
+//        if (user == null) {
+//            return "redirect:profile/profile";
+//        }
         usersService.createUser(usersDto);
         return "profile/profile";
     }

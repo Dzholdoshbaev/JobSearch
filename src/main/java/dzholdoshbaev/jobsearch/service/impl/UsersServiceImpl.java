@@ -6,7 +6,6 @@ import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(usersDto.getPassword())
                 .phoneNumber(usersDto.getPhoneNumber())
                 .avatar(usersDto.getAvatar())
-                .authority_id(usersDto.getAuthority_id())
+                .authority_id(usersDto.getAuthorityId())
                 .enabled(usersDto.isEnabled())
                 .build();
 
@@ -48,7 +47,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
-                .authority_id(user.getAuthority_id())
+                .authorityId(user.getAuthority_id())
                 .enabled(user.isEnabled())
                 .build();
         log.info("Printed user by id");
@@ -69,7 +68,7 @@ public class UsersServiceImpl implements UsersService {
                         .password(e.getPassword())
                         .phoneNumber(e.getPhoneNumber())
                         .avatar(e.getAvatar())
-                        .authority_id(e.getAuthority_id())
+                        .authorityId(e.getAuthority_id())
                         .enabled(e.isEnabled())
                         .build()).toList();
         log.info("Printed all users");
@@ -90,7 +89,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
-                .authority_id(user.getAuthority_id())
+                .authorityId(user.getAuthority_id())
                 .enabled(user.isEnabled())
                 .build();
         log.info("Printed user by name");
@@ -112,7 +111,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
-                .authority_id(user.getAuthority_id())
+                .authorityId(user.getAuthority_id())
                 .enabled(user.isEnabled())
                 .build();
         log.info("Printed user by phone number");
@@ -134,7 +133,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
-                .authority_id(user.getAuthority_id())
+                .authorityId(user.getAuthority_id())
                 .enabled(user.isEnabled())
                 .build();
         log.info("Printed user by email");
@@ -160,7 +159,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(usersDto.getPassword())
                 .phoneNumber(usersDto.getPhoneNumber())
                 .avatar(usersDto.getAvatar())
-                .authority_id(usersDto.getAuthority_id())
+                .authority_id(usersDto.getAuthorityId())
                 .enabled(usersDto.isEnabled())
                 .build();
 

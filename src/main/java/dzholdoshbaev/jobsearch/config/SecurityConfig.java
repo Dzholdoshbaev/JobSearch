@@ -49,7 +49,8 @@ public class SecurityConfig {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(fetchUsers)
-                .authoritiesByUsernameQuery(fetchAuthorities);
+                .authoritiesByUsernameQuery(fetchAuthorities)
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Bean
@@ -58,7 +59,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .formLogin(form -> form
                         .loginPage("/auth/login")
-                        .loginProcessingUrl("/auth/login")
+//                        .loginProcessingUrl("/auth/login")
                         .defaultSuccessUrl("/profile")
                         .failureUrl("/auth/login?error=true")
                         .permitAll()

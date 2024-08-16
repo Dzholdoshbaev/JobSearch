@@ -17,9 +17,4 @@ public class AuthController {
     public String login() {
         return "profile/login";
     }
-
-    @PostMapping("/login")
-    public String loginPost() {
-        return "redirect:/profile";
-    }
 }
