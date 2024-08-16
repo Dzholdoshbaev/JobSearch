@@ -15,10 +15,6 @@ import java.util.NoSuchElementException;
 public class GlobalControllerAdvice {
     private final ErrorService errorService;
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseBody> handleGlobalException(Exception e) {
-        return new ResponseEntity<>(errorService.makeResponse(e),HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ErrorResponseBody> handleNoSuchElementException(NoSuchElementException e) {

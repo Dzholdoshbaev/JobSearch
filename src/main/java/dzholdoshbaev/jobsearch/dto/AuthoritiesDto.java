@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthoritiesDto {
-    private long id;
+    private int id;
     private String authority;
 }

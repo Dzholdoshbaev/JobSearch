@@ -21,7 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class VacanciesDao {
     private final JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public void addVacancies(Vacancies vacancies) {
         String sql = "insert into vacancies (name, description, category_id, salary, exp_from, exp_to, is_active,author_id,created_date,update_time) values (name, :description, :categoryId, :salary, :expFrom, :expTo, :isActive, :authorId, :createdDate, :updateTime)";

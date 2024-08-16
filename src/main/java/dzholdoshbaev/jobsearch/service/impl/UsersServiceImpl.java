@@ -27,7 +27,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(usersDto.getPassword())
                 .phoneNumber(usersDto.getPhoneNumber())
                 .avatar(usersDto.getAvatar())
-                .authority_id(usersDto.getAuthority_id())
+                .authority_id(usersDto.getAuthorityId())
                 .enabled(usersDto.isEnabled())
                 .build();
 
@@ -47,7 +47,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
-                .authority_id(user.getAuthority_id())
+                .authorityId(user.getAuthority_id())
                 .enabled(user.isEnabled())
                 .build();
         log.info("Printed user by id");
@@ -68,7 +68,7 @@ public class UsersServiceImpl implements UsersService {
                         .password(e.getPassword())
                         .phoneNumber(e.getPhoneNumber())
                         .avatar(e.getAvatar())
-                        .authority_id(e.getAuthority_id())
+                        .authorityId(e.getAuthority_id())
                         .enabled(e.isEnabled())
                         .build()).toList();
         log.info("Printed all users");
@@ -89,7 +89,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
-                .authority_id(user.getAuthority_id())
+                .authorityId(user.getAuthority_id())
                 .enabled(user.isEnabled())
                 .build();
         log.info("Printed user by name");
@@ -111,7 +111,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
-                .authority_id(user.getAuthority_id())
+                .authorityId(user.getAuthority_id())
                 .enabled(user.isEnabled())
                 .build();
         log.info("Printed user by phone number");
@@ -133,7 +133,7 @@ public class UsersServiceImpl implements UsersService {
                 .password(user.getPassword())
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
-                .authority_id(user.getAuthority_id())
+                .authorityId(user.getAuthority_id())
                 .enabled(user.isEnabled())
                 .build();
         log.info("Printed user by email");
@@ -146,5 +146,24 @@ public class UsersServiceImpl implements UsersService {
         Boolean checked = usersDao.checkUserByEmail(email);
         log.info("Checked user by email");
         return checked;
+    }
+
+    @Override
+    public void editResume(UsersDto usersDto) {
+        Users user = Users.builder()
+                .id(usersDto.getId())
+                .name(usersDto.getName())
+                .surname(usersDto.getSurname())
+                .age(usersDto.getAge())
+                .email(usersDto.getEmail())
+                .password(usersDto.getPassword())
+                .phoneNumber(usersDto.getPhoneNumber())
+                .avatar(usersDto.getAvatar())
+                .authority_id(usersDto.getAuthorityId())
+                .enabled(usersDto.isEnabled())
+                .build();
+
+        usersDao.editUser(user);
+        log.info("Edited user");
     }
 }

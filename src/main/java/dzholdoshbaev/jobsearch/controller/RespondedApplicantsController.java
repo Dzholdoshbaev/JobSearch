@@ -6,11 +6,12 @@ import dzholdoshbaev.jobsearch.service.RespondedApplicantsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/applicants")
 @RequiredArgsConstructor
 public class RespondedApplicantsController {

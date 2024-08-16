@@ -8,12 +8,14 @@ import dzholdoshbaev.jobsearch.service.VacanciesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/vacancies")
 @RequiredArgsConstructor
 public class VacanciesController {
@@ -38,8 +40,9 @@ public class VacanciesController {
     }
 
     @GetMapping
-    public ResponseEntity<List<VacanciesDto>> getAllVacancies() {
-        return ResponseEntity.ok(vacanciesService.getAllVacancies());
+    public String getAllVacancies(Model model) {
+        model.addAttribute("vacancies", vacanciesService.getAllVacancies());
+        return "vacancies/vacancies";
     }
 
     @GetMapping("/category/{categoryId}")

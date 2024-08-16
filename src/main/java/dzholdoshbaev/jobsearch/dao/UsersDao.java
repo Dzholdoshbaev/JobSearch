@@ -19,14 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.sql.PreparedStatement;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+
 @Component
 @RequiredArgsConstructor
 public class UsersDao {
     private final JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
     public Integer create(Users user) {
@@ -56,9 +55,8 @@ public class UsersDao {
                 .addValue("email", user.getEmail())
                 .addValue("password", user.getPassword())
                 .addValue("phoneNumber", user.getPhoneNumber())
-                .addValue("authorityId",user.getAuthority_id())
-                .addValue("enabled", user.isEnabled()));
-
+                .addValue("AUTHORITY_ID",user.getAuthority_id())
+                .addValue("enabled", true));
     }
 
     public List<Users> getAllUsers() {
@@ -99,5 +97,32 @@ public class UsersDao {
         return users != null;
     }
 
+    public void editUser(Users user) {
+        String sql = """
+            UPDATE users
+            SET name = :name,
+                surname = :surname,
+                age = :age,
+                password = :password,
+                PHONE_NUMBER = :phoneNumber,
+                avatar = :avatar,
+                enabled = :enabled,
+                authority_id = :authority_id
 
+            WHERE email = :email;
+            """;
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", user.getName());
+        params.put("surname", user.getSurname());
+        params.put("age", user.getAge());
+        params.put("email", user.getEmail());
+        params.put("password", user.getPassword());
+        params.put("PHONE_NUMBER", user.getPhoneNumber());
+        params.put("avatar", user.getAvatar());
+        params.put("enabled",user.isEnabled());
+        params.put("authority_id", user.getAuthority_id());
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
 }

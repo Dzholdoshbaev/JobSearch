@@ -19,5 +19,5 @@ public class Users {
     private String phoneNumber;
     private String avatar;
     private boolean enabled;
-    private long authority_id;
+    private int authority_id;
 }
