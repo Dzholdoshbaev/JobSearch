@@ -6,6 +6,7 @@ import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -146,5 +147,24 @@ public class UsersServiceImpl implements UsersService {
         Boolean checked = usersDao.checkUserByEmail(email);
         log.info("Checked user by email");
         return checked;
+    }
+
+    @Override
+    public void editResume(UsersDto usersDto) {
+        Users user = Users.builder()
+                .id(usersDto.getId())
+                .name(usersDto.getName())
+                .surname(usersDto.getSurname())
+                .age(usersDto.getAge())
+                .email(usersDto.getEmail())
+                .password(usersDto.getPassword())
+                .phoneNumber(usersDto.getPhoneNumber())
+                .avatar(usersDto.getAvatar())
+                .authority_id(usersDto.getAuthority_id())
+                .enabled(usersDto.isEnabled())
+                .build();
+
+        usersDao.editUser(user);
+        log.info("Edited user");
     }
 }

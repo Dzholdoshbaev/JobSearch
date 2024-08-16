@@ -9,12 +9,14 @@ import dzholdoshbaev.jobsearch.service.ResumesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/resumes")
 @RequiredArgsConstructor
 public class ResumesController {
@@ -39,8 +41,9 @@ public class ResumesController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ResumesDto>> getAllResumes() {
-        return ResponseEntity.ok(resumesService.getAllResumes());
+    public String getAllResumes(Model model) {
+        model.addAttribute("resumes", resumesService.getAllResumes());
+        return "resumes/resumes";
     }
 
     @GetMapping("/category/{categoryId}")

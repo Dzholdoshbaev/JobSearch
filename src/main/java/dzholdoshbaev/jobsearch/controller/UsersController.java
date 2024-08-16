@@ -4,25 +4,47 @@ package dzholdoshbaev.jobsearch.controller;
 import dzholdoshbaev.jobsearch.dto.UsersDto;
 
 
+import dzholdoshbaev.jobsearch.service.AuthoritiesService;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UsersController {
     private final UsersService usersService;
+    private final AuthoritiesService authoritiesService;
 
-    @PostMapping
-    public ResponseEntity<String> registerEmployer(@RequestBody @Valid UsersDto usersDto) {
-        usersService.createUser(usersDto);
-        return ResponseEntity.ok("Пользователь успешно зарегистрирован");
-    }
+//    @PostMapping("/create")
+//    public String register(@RequestBody @Valid UsersDto usersDto) {
+//        usersService.createUser(usersDto);
+//        return "profile/profile";
+//    }
+//
+//    @GetMapping("/create")
+//    public String create(Model model) {
+//        model.addAttribute("authorities", authoritiesService.getAllAuthorities());
+//        return "profile/register";
+//    }
+//
+//    @PutMapping("/edit")
+//    public String editResume(@RequestBody @Valid UsersDto usersDto) {
+//        usersService.editResume(usersDto);
+//        return "profile/profile";
+//    }
+//
+//    @GetMapping("/edit")
+//    public String editResume(Model model) {
+//        model.addAttribute("authorities", authoritiesService.getAllAuthorities());
+//        return "users/editUser";
+//    }
 
     @GetMapping
     public ResponseEntity<List<UsersDto>> getAllUsers() {

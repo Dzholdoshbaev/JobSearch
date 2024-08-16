@@ -18,4 +18,6 @@ public interface UsersService {
     UsersDto getUserByEmail(String email);
 
     Boolean checkUserByEmail(String email);
+
+    void editResume(UsersDto usersDto);
 }

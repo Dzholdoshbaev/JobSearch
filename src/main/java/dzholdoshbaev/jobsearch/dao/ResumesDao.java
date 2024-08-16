@@ -23,7 +23,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ResumesDao {
     private final JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
     public void addResume( Resumes resume,EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo) {
