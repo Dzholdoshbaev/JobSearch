@@ -22,30 +22,6 @@ public class UsersController {
     private final UsersService usersService;
     private final AuthoritiesService authoritiesService;
 
-//    @PostMapping("/create")
-//    public String register(@RequestBody @Valid UsersDto usersDto) {
-//        usersService.createUser(usersDto);
-//        return "profile/profile";
-//    }
-//
-//    @GetMapping("/create")
-//    public String create(Model model) {
-//        model.addAttribute("authorities", authoritiesService.getAllAuthorities());
-//        return "profile/register";
-//    }
-//
-//    @PutMapping("/edit")
-//    public String editResume(@RequestBody @Valid UsersDto usersDto) {
-//        usersService.editResume(usersDto);
-//        return "profile/profile";
-//    }
-//
-//    @GetMapping("/edit")
-//    public String editResume(Model model) {
-//        model.addAttribute("authorities", authoritiesService.getAllAuthorities());
-//        return "users/editUser";
-//    }
-
     @GetMapping
     public ResponseEntity<List<UsersDto>> getAllUsers() {
         return ResponseEntity.ok(usersService.getAllUsers());
