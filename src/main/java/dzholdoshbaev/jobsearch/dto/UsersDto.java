@@ -26,10 +26,8 @@ public class UsersDto {
     @Size(min = 4, max = 20, message = "Length must be >= 4 and <= 20")
     @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).+$", message = "Should contain at least one uppercase letter, one number")
     private String password;
-    @JsonProperty("phone_number")
     private String phoneNumber;
     private String avatar;
     private boolean enabled;
-    @JsonProperty("authority_id")
-    private int authorityId;
+    private Long authorityId;
 }

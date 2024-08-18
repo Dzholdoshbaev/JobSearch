@@ -2,10 +2,6 @@ package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Users;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -15,7 +11,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.sql.PreparedStatement;
@@ -39,7 +34,7 @@ public class UsersDao {
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getPassword());
             ps.setString(6, user.getPhoneNumber());
-            ps.setLong(7, user.getAuthority_id());
+            ps.setLong(7, user.getAuthorityId());
             ps.setBoolean(8, user.isEnabled());
             return ps;
         },keyHolder);
@@ -55,7 +50,7 @@ public class UsersDao {
                 .addValue("email", user.getEmail())
                 .addValue("password", user.getPassword())
                 .addValue("phoneNumber", user.getPhoneNumber())
-                .addValue("AUTHORITY_ID",user.getAuthority_id())
+                .addValue("AUTHORITY_ID",user.getAuthorityId())
                 .addValue("enabled", true));
     }
 
@@ -121,7 +116,7 @@ public class UsersDao {
         params.put("PHONE_NUMBER", user.getPhoneNumber());
         params.put("avatar", user.getAvatar());
         params.put("enabled",user.isEnabled());
-        params.put("authority_id", user.getAuthority_id());
+        params.put("authority_id", user.getAuthorityId());
 
         namedParameterJdbcTemplate.update(sql, params);
     }
