@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -22,6 +24,7 @@ public class UsersDao {
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Integer create(Users user) {
         String sql = "insert into users (name, surname, age, email, password, phone_number, AUTHORITY_ID,ENABLED) values (?,?,?,?,?,?,?,?)";
@@ -48,7 +51,7 @@ public class UsersDao {
                 .addValue("surname", user.getSurname())
                 .addValue("age", user.getAge())
                 .addValue("email", user.getEmail())
-                .addValue("password", user.getPassword())
+                .addValue("password", passwordEncoder.encode(user.getPassword()))
                 .addValue("phoneNumber", user.getPhoneNumber())
                 .addValue("AUTHORITY_ID",user.getAuthorityId())
                 .addValue("enabled", true));

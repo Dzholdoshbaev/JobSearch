@@ -20,7 +20,7 @@ public class AuthoritiesServiceImpl implements AuthoritiesService {
 
     @Override
     public List<AuthoritiesDto> getAllAuthorities() {
-       var list = authoritiesDao.findAll();
+        List<Authorities> list = authoritiesDao.findAll();
 
        List<AuthoritiesDto> authoritiesDtos = list.stream()
                .map(a -> AuthoritiesDto.builder()

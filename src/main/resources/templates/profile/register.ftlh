@@ -1,6 +1,6 @@
 <#import "../layout.ftlh" as main>
 
-<@main.layout>
+<@main.layout ; spring>
 
 
 
@@ -21,11 +21,13 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Email</span>
-            <input type="text" class="form-control" aria-label="Email" aria-describedby="email" name="email">
+            <@spring.formInput "usersDto.email" 'class="form-control" aria-label="Email" aria-describedby="email" name="email"' />
+<#--            <input type="text" class="form-control" aria-label="Email" aria-describedby="email" name="email">-->
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Password</span>
-            <input type="text" class="form-control" aria-label="Password" aria-describedby="password" name="password">
+            <@spring.formInput "usersDto.password" 'class="form-control" aria-label="Password" aria-describedby="password" name="password"' />
+<#--            <input type="text" class="form-control" aria-label="Password" aria-describedby="password" name="password">-->
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Phone Number</span>
@@ -33,13 +35,16 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="director">Account type</span>
-            <select class="form-select" aria-label="Director" aria-describedby="director" name="authority_id">
+            <select class="form-select" aria-label="Director" aria-describedby="director" name="authorityId">
                 <option selected>Open this select menu</option>
-                <#list authorities as item>
+                <#list authoritiesUser as item>
                     <option value="${item.id}">${item.authority}</option>
                 </#list>
             </select>
         </div>
+        <@spring.showErrors "<br> " "error text-danger" />
+
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
