@@ -2,10 +2,6 @@ package dzholdoshbaev.jobsearch.dao;
 
 import dzholdoshbaev.jobsearch.model.Users;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,8 +10,9 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.sql.PreparedStatement;
@@ -27,6 +24,7 @@ public class UsersDao {
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Integer create(Users user) {
         String sql = "insert into users (name, surname, age, email, password, phone_number, AUTHORITY_ID,ENABLED) values (?,?,?,?,?,?,?,?)";
@@ -39,7 +37,7 @@ public class UsersDao {
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getPassword());
             ps.setString(6, user.getPhoneNumber());
-            ps.setLong(7, user.getAuthority_id());
+            ps.setLong(7, user.getAuthorityId());
             ps.setBoolean(8, user.isEnabled());
             return ps;
         },keyHolder);
@@ -47,16 +45,17 @@ public class UsersDao {
     }
 
     public void addUser(Users user) {
-        String sql = "insert into users (name, surname, age, email, password, phone_number, AUTHORITY_ID ,ENABLED) values (:name, :surname, :age, :email, :password, :phoneNumber, :authorityId, :enabled)";
+        String sql = "insert into users (name, surname, age, email, password, phone_number, AUTHORITY_ID ,ENABLED , AVATAR) values (:name, :surname, :age, :email, :password, :phoneNumber, :authorityId, :enabled , :avatar)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
         .addValue("name", user.getName())
                 .addValue("surname", user.getSurname())
                 .addValue("age", user.getAge())
                 .addValue("email", user.getEmail())
-                .addValue("password", user.getPassword())
+                .addValue("password", passwordEncoder.encode(user.getPassword()))
                 .addValue("phoneNumber", user.getPhoneNumber())
-                .addValue("AUTHORITY_ID",user.getAuthority_id())
-                .addValue("enabled", true));
+                .addValue("authorityId",user.getAuthorityId())
+                .addValue("enabled", user.isEnabled())
+                .addValue("avatar", user.getAvatar()));
     }
 
     public List<Users> getAllUsers() {
@@ -121,7 +120,21 @@ public class UsersDao {
         params.put("PHONE_NUMBER", user.getPhoneNumber());
         params.put("avatar", user.getAvatar());
         params.put("enabled",user.isEnabled());
-        params.put("authority_id", user.getAuthority_id());
+        params.put("authority_id", user.getAuthorityId());
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
+
+    public void addPhoto(String username, String avatar) {
+        String sql = """
+            UPDATE users
+            SET avatar = :avatar
+            WHERE email = :email;
+            """;
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("email",username);
+        params.put("avatar",avatar);
 
         namedParameterJdbcTemplate.update(sql, params);
     }

@@ -1,9 +1,11 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
 import dzholdoshbaev.jobsearch.dao.ResumesDao;
+import dzholdoshbaev.jobsearch.dto.ContactsInfoDto;
 import dzholdoshbaev.jobsearch.dto.EducationInfoDto;
 import dzholdoshbaev.jobsearch.dto.ResumesDto;
 import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
+import dzholdoshbaev.jobsearch.model.ContactsInfo;
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
@@ -20,7 +22,7 @@ public class ResumesServiceImpl implements ResumesService {
     private final ResumesDao resumesDao;
 
     @Override
-    public void createResumes(ResumesDto resumesDto, EducationInfoDto educationInfoDto, WorkExperienceInfoDto workExperienceInfoDto) {
+    public void createResumes(ResumesDto resumesDto, EducationInfoDto educationInfoDto, WorkExperienceInfoDto workExperienceInfoDto, int userId , ContactsInfoDto contactsInfoDto) {
 
         Resumes resumes = Resumes.builder()
                 .id(resumesDto.getId())
@@ -52,7 +54,15 @@ public class ResumesServiceImpl implements ResumesService {
                 .responsibilities(workExperienceInfoDto.getResponsibilities())
                 .build();
 
-        resumesDao.addResume(resumes , educationInfo , workExperienceInfo);
+
+        ContactsInfo contactsInfo = ContactsInfo.builder()
+                .id(contactsInfoDto.getId())
+                .info(contactsInfoDto.getInfo())
+                .resumeId(contactsInfoDto.getResumeId())
+                .typeId(contactsInfoDto.getTypeId())
+                .build();
+
+        resumesDao.addResume(resumes , educationInfo , workExperienceInfo , userId , contactsInfo);
         log.info("Created resume with id");
     }
 

@@ -31,7 +31,7 @@
             <input type="text" class="form-control" aria-label="Phone Number" aria-describedby="phone_number" name="phone_number">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="director">Director</span>
+            <span class="input-group-text" id="director">Account type</span>
             <select class="form-select" aria-label="Director" aria-describedby="director" name="directorId">
                 <option selected>Open this select menu</option>
                 <#list authorities as item>

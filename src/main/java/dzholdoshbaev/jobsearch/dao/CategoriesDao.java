@@ -8,11 +8,12 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class CategoriesDao {
     private final JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public List<Categories> getAllCategories() {
         String sql = "select * from categories";

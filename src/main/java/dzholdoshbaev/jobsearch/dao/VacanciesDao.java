@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.dao;
 
+import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,18 +26,19 @@ public class VacanciesDao {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public void addVacancies(Vacancies vacancies) {
-        String sql = "insert into vacancies (name, description, category_id, salary, exp_from, exp_to, is_active,author_id,created_date,update_time) values (name, :description, :categoryId, :salary, :expFrom, :expTo, :isActive, :authorId, :createdDate, :updateTime)";
+        String sql =
+                "insert into vacancies (name, description, category_id, salary, exp_from, exp_to, is_active,author_id,created_date,update_time) values (:name, :description, :categoryId, :salary, :expFrom, :expTo, :isActive, :authorId, :createdDate, :updateTime)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
                 .addValue("name", vacancies.getName())
                 .addValue("description", vacancies.getDescription())
-                .addValue("category_id", vacancies.getCategoryId())
+                .addValue("categoryId", vacancies.getCategoryId())
                 .addValue("salary", vacancies.getSalary())
-                .addValue("exp_from", vacancies.getExpFrom())
-                .addValue("exp_to", vacancies.getExpTo())
-                .addValue("is_active", vacancies.isActive())
-                .addValue("author_id", vacancies.getAuthorId())
-                .addValue("created_date", vacancies.getCreatedDate())
-                .addValue("update_time", vacancies.getUpdateTime()));
+                .addValue("expFrom", vacancies.getExpFrom())
+                .addValue("expTo", vacancies.getExpTo())
+                .addValue("isActive", vacancies.isActive())
+                .addValue("authorId", vacancies.getAuthorId())
+                .addValue("createdDate", LocalDateTime.now())
+                .addValue("updateTime", LocalDateTime.now()));
     }
 
     public void editVacancies(Vacancies vacancies) {
@@ -93,6 +96,11 @@ public class VacanciesDao {
                         jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Vacancies.class),id)
                 )
         );
+    }
+
+    public List<Vacancies> getAllVacanciesByUser(int authorId) {
+        String sql = "SELECT * FROM vacancies where author_id = ?";
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Vacancies.class),authorId);
     }
 
 }

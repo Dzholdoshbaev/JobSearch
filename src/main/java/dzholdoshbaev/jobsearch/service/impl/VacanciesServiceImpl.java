@@ -16,7 +16,7 @@ public class VacanciesServiceImpl implements VacanciesService {
     private final VacanciesDao vacanciesDao;
 
     @Override
-    public void createVacancies(VacanciesDto vacanciesDto) {
+    public void createVacancies(VacanciesDto vacanciesDto , int userId) {
 
         Vacancies vacancies = Vacancies.builder()
                 .id(vacanciesDto.getId())
@@ -27,7 +27,7 @@ public class VacanciesServiceImpl implements VacanciesService {
                 .expFrom(vacanciesDto.getExpFrom())
                 .expTo(vacanciesDto.getExpTo())
                 .isActive(vacanciesDto.isActive())
-                .authorId(vacanciesDto.getAuthorId())
+                .authorId(userId)
                 .createdDate(vacanciesDto.getCreatedDate())
                 .updateTime(vacanciesDto.getUpdateTime())
                 .build();
@@ -127,5 +127,27 @@ public class VacanciesServiceImpl implements VacanciesService {
                 .build();
         log.info("printed corrected vacancies by id {}", corrected.getId());
         return corrected;
+    }
+
+    @Override
+    public List<VacanciesDto> getAllVacanciesByUser(int id) {
+        var list = vacanciesDao.getAllVacanciesByUser(id);
+
+        List<VacanciesDto> sorted = list.stream()
+                .map(e -> VacanciesDto.builder()
+                        .id(e.getId())
+                        .name(e.getName())
+                        .description(e.getDescription())
+                        .categoryId(e.getCategoryId())
+                        .salary(e.getSalary())
+                        .expFrom(e.getExpFrom())
+                        .expTo(e.getExpTo())
+                        .isActive(e.isActive())
+                        .authorId(e.getAuthorId())
+                        .createdDate(e.getCreatedDate())
+                        .updateTime(e.getUpdateTime())
+                        .build()).toList();
+        log.info("printed all vacancies by user");
+        return sorted;
     }
 }

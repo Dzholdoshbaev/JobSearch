@@ -20,7 +20,12 @@ public class AuthoritiesDao {
 
     public List<Authorities> findAll() {
         String sql = "select * from authorities";
+
         List<Authorities> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Authorities.class));
-        return list;
+        for (Authorities authorities : list) {
+            System.out.println(authorities.getAuthority());
+            System.out.println(authorities.getId());
+        };
+      return  list;
     }
 }

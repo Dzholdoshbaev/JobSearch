@@ -1,35 +1,54 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
-import dzholdoshbaev.jobsearch.dto.EducationInfoDto;
-import dzholdoshbaev.jobsearch.dto.ResumesDto;
+import dzholdoshbaev.jobsearch.dto.*;
 
-import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
+import dzholdoshbaev.jobsearch.service.CategoriesService;
+import dzholdoshbaev.jobsearch.service.ContactTypesService;
 import dzholdoshbaev.jobsearch.service.ResumesService;
+import dzholdoshbaev.jobsearch.service.UsersService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequestMapping("/resumes")
 @RequiredArgsConstructor
 public class ResumesController {
+    @Autowired
     private final ResumesService resumesService;
+    private final CategoriesService categoriesService;
+    private final ContactTypesService contactTypesService;
+    private final UsersService usersService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createResume(@RequestBody @Valid ResumesDto resumesDto ,@RequestBody @Valid  EducationInfoDto educationInfoDto ,@RequestBody @Valid  WorkExperienceInfoDto workExperienceInfoDto) {
-        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto);
-        return ResponseEntity.ok("Резюме успешно создано");
+    public String createResume(ResumesDto resumesDto , EducationInfoDto educationInfoDto , WorkExperienceInfoDto workExperienceInfoDto, ContactsInfoDto contactsInfoDto, Principal principal, Model model) {
+        String username = principal.getName();
+        UsersDto user = usersService.getUserByEmail(username);
+        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto,user.getId() , contactsInfoDto);
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/create")
+    public String createResume(Model model , Principal principal) {
+        String username = principal.getName();
+        UsersDto user = usersService.getUserByEmail(username);
+        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+        model.addAttribute("userDto", user);
+        return "resumes/createResume";
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> editResume(@RequestBody @Valid  ResumesDto resumesDto) {
+    public ResponseEntity<String> editResume( ResumesDto resumesDto) {
         resumesService.editResume(resumesDto);
         return ResponseEntity.ok("Резюме успешно отредактировано");
     }

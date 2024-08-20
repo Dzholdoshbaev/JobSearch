@@ -3,7 +3,10 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 
+import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
+import dzholdoshbaev.jobsearch.service.CategoriesService;
+import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -20,15 +24,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VacanciesController {
     private final VacanciesService vacanciesService;
+    private final UsersService usersService;
+    private final CategoriesService categoriesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createVacancy(@RequestBody @Valid VacanciesDto vacanciesDto) {
-        vacanciesService.createVacancies(vacanciesDto);
-        return ResponseEntity.ok("Вакансия успешно создана");
+    public String createVacancy(VacanciesDto vacanciesDto , Principal principal) {
+        String username = principal.getName();
+        UsersDto user = usersService.getUserByEmail(username);
+        vacanciesService.createVacancies(vacanciesDto,user.getId());
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/create")
+    public String createVacancy(Model model) {
+        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        return "vacancies/create";
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> editVacancy(@RequestBody @Valid  VacanciesDto vacanciesDto) {
+    public ResponseEntity<String> editVacancy( VacanciesDto vacanciesDto) {
         vacanciesService.editVacancy(vacanciesDto);
         return ResponseEntity.ok("Вакансия успешно отредактирована");
     }

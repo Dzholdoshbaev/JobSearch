@@ -5,6 +5,8 @@ spring:
     name: JobSearch
   mvc:
     static-path-pattern: /static/**
+  freemarker:
+      expose-session-attributes: true
 
   datasource:
     url: jdbc:h2:./db/jobSearch;AUTO_SERVER=TRUE
@@ -18,6 +20,10 @@ spring:
   org:
     springframework:
       security: debug
+
+  output:
+    ansi:
+      enabled: always
 
 logging:
   level:
