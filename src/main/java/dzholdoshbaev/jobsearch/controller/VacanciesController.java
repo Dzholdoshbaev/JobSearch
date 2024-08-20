@@ -28,17 +28,16 @@ public class VacanciesController {
     private final CategoriesService categoriesService;
 
     @PostMapping("/create")
-    public String createVacancy(VacanciesDto vacanciesDto , Principal principal, Model model) {
-        vacanciesService.createVacancies(vacanciesDto);
+    public String createVacancy(VacanciesDto vacanciesDto , Principal principal) {
+        String username = principal.getName();
+        UsersDto user = usersService.getUserByEmail(username);
+        vacanciesService.createVacancies(vacanciesDto,user.getId());
         return "redirect:/profile";
     }
 
     @GetMapping("/create")
-    public String createVacancy(Model model, Principal principal) {
-        String username = principal.getName();
-        UsersDto user = usersService.getUserByEmail(username);
+    public String createVacancy(Model model) {
         model.addAttribute("categoriesDto",categoriesService.getCategories());
-        model.addAttribute("userDto", user);
         return "vacancies/create";
     }
 

@@ -16,7 +16,7 @@ public class VacanciesServiceImpl implements VacanciesService {
     private final VacanciesDao vacanciesDao;
 
     @Override
-    public void createVacancies(VacanciesDto vacanciesDto) {
+    public void createVacancies(VacanciesDto vacanciesDto , int userId) {
 
         Vacancies vacancies = Vacancies.builder()
                 .id(vacanciesDto.getId())
@@ -27,7 +27,7 @@ public class VacanciesServiceImpl implements VacanciesService {
                 .expFrom(vacanciesDto.getExpFrom())
                 .expTo(vacanciesDto.getExpTo())
                 .isActive(vacanciesDto.isActive())
-                .authorId(vacanciesDto.getAuthorId())
+                .authorId(userId)
                 .createdDate(vacanciesDto.getCreatedDate())
                 .updateTime(vacanciesDto.getUpdateTime())
                 .build();

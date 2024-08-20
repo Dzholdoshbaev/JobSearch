@@ -4,7 +4,7 @@ import dzholdoshbaev.jobsearch.dto.VacanciesDto;
 import java.util.List;
 
 public interface VacanciesService {
-    void createVacancies(VacanciesDto vacanciesDto);
+    void createVacancies(VacanciesDto vacanciesDto , int userId);
 
     void editVacancy(VacanciesDto vacanciesDto);
 
