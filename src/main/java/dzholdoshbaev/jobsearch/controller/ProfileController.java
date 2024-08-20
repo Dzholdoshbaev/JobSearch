@@ -71,9 +71,9 @@ public class ProfileController {
     }
 
     @PutMapping("/edit")
-    public String editResume(@RequestBody @Valid UsersDto usersDto) {
+    public String editResume( UsersDto usersDto) {
         usersService.editResume(usersDto);
-        return "profile/profile";
+        return "redirect:/profile";
     }
 
     @GetMapping("/edit")

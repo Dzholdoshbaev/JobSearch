@@ -1,11 +1,12 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
-import dzholdoshbaev.jobsearch.dto.EducationInfoDto;
-import dzholdoshbaev.jobsearch.dto.ResumesDto;
+import dzholdoshbaev.jobsearch.dto.*;
 
-import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
+import dzholdoshbaev.jobsearch.service.CategoriesService;
+import dzholdoshbaev.jobsearch.service.ContactTypesService;
 import dzholdoshbaev.jobsearch.service.ResumesService;
+import dzholdoshbaev.jobsearch.service.UsersService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,26 @@ import java.util.List;
 public class ResumesController {
     @Autowired
     private final ResumesService resumesService;
+    private final CategoriesService categoriesService;
+    private final ContactTypesService contactTypesService;
+    private final UsersService usersService;
 
     @PostMapping("/create")
-    public String createResume(ResumesDto resumesDto , EducationInfoDto educationInfoDto , WorkExperienceInfoDto workExperienceInfoDto, Principal principal, Model model) {
-        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto);
+    public String createResume(ResumesDto resumesDto , EducationInfoDto educationInfoDto , WorkExperienceInfoDto workExperienceInfoDto, ContactsInfoDto contactsInfoDto, Principal principal, Model model) {
+        String username = principal.getName();
+        UsersDto user = usersService.getUserByEmail(username);
+        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto,user.getId() , contactsInfoDto);
         return "redirect:/profile";
+    }
+
+    @GetMapping("/create")
+    public String createResume(Model model , Principal principal) {
+        String username = principal.getName();
+        UsersDto user = usersService.getUserByEmail(username);
+        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+        model.addAttribute("userDto", user);
+        return "resumes/createResume";
     }
 
     @PutMapping("/edit")

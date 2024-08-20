@@ -3,7 +3,10 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 
+import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.dto.VacanciesDto;
+import dzholdoshbaev.jobsearch.service.CategoriesService;
+import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +24,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VacanciesController {
     private final VacanciesService vacanciesService;
+    private final UsersService usersService;
+    private final CategoriesService categoriesService;
 
     @PostMapping("/create")
     public String createVacancy(VacanciesDto vacanciesDto , Principal principal, Model model) {
         vacanciesService.createVacancies(vacanciesDto);
         return "redirect:/profile";
+    }
+
+    @GetMapping("/create")
+    public String createVacancy(Model model, Principal principal) {
+        String username = principal.getName();
+        UsersDto user = usersService.getUserByEmail(username);
+        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("userDto", user);
+        return "vacancies/create";
     }
 
     @PutMapping("/edit")

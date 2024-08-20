@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.dao;
 
+import dzholdoshbaev.jobsearch.model.ContactsInfo;
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
@@ -14,9 +15,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -26,22 +27,22 @@ public class ResumesDao {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
-    public void addResume( Resumes resume,EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo) {
+    public void addResume(Resumes resume, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo , int userId , ContactsInfo contactsInfo) {
         String resumeSql = "INSERT INTO resumes (applicant_id, name, category_id, salary, is_active, created_date, update_time) VALUES (?,?,?,?,?,?,?)";
 
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(resumeSql,new String[]{"id"});
-            ps.setInt(1, resume.getApplicantId());
+            ps.setInt(1, userId);
             ps.setString(2, resume.getName());
             ps.setInt(3, resume.getCategoryId());
             ps.setDouble(4, resume.getSalary());
             ps.setBoolean(5, resume.isActive());
-            ps.setObject(6, resume.getCreatedDate());
-            ps.setObject(7, resume.getUpdateTime());
+            ps.setObject(6, LocalDateTime.now());
+            ps.setObject(7,  LocalDateTime.now());
             return ps;
         },keyHolder);
 
-         int resumeId = Objects.requireNonNull(keyHolder.getKey()).intValue();
+        int resumeId = Objects.requireNonNull(keyHolder.getKey()).intValue();
 
         String educationSql = "INSERT INTO education_info (resume_id, degree, institution, PROGRAM,START_DATE,END_DATE) VALUES (:resumeId, :degree, :institution, :PROGRAM , :startDate, :endDate)";
         namedParameterJdbcTemplate.update(educationSql, new MapSqlParameterSource()
@@ -59,6 +60,12 @@ public class ResumesDao {
                 .addValue("position", workExperienceInfo.getPosition())
                 .addValue("YEARS", workExperienceInfo.getYear())
                 .addValue("RESPONSIBILITIES", workExperienceInfo.getResponsibilities()));
+
+        String contactsInfoSql = "insert into contacts_info (TYPE_ID, RESUME_ID, INFO) values (:typeId, :resumeId, :info)";
+        namedParameterJdbcTemplate.update(contactsInfoSql, new MapSqlParameterSource()
+                .addValue("info" , contactsInfo.getInfo())
+                .addValue("resumeId",resumeId)
+                .addValue("typeId",contactsInfo.getTypeId()));
     }
 
 

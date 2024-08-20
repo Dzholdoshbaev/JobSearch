@@ -115,6 +115,7 @@
                         <h5 class="card-title">${resume.name}</h5>
                         <p class="card-text">${resume.createdDate}</p>
                         <a href="/resumes/edit" class="btn btn-primary">Edit Resumes</a>
+                        <a href="#" class="btn btn-primary">Update</a>
                     </div>
                 </div>
             </#list>
@@ -134,6 +135,7 @@
                         <p class="card-text">${vacancy.description}</p>
                         <p class="card-text">${vacancy.createdDate}</p>
                         <a href="/vacancies/edit" class="btn btn-primary">Edit vacancy</a>
+                        <a href="#" class="btn btn-primary">Update</a>
                     </div>
                 </div>
             </#list>
