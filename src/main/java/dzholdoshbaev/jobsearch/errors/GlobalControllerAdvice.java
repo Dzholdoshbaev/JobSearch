@@ -19,17 +19,6 @@ public class GlobalControllerAdvice {
     private final ErrorService errorService;
 
 
-//    @ExceptionHandler(NoSuchElementException.class)
-//    public ResponseEntity<ErrorResponseBody> handleNoSuchElementException(NoSuchElementException e) {
-//        return new ResponseEntity<>(errorService.makeResponse(e),HttpStatus.NOT_FOUND);
-//    }
-//
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<ErrorResponseBody> validationHandler(MethodArgumentNotValidException e) {
-//        return new ResponseEntity<>(errorService.makeResponse(e.getBindingResult()),HttpStatus.BAD_REQUEST);
-//    }
-
-
     @ExceptionHandler(NoSuchElementException.class)
     public String notFound(HttpServletRequest request, Model model) {
         model.addAttribute("status", HttpStatus.NOT_FOUND.value());

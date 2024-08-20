@@ -59,14 +59,14 @@
 <div class="container">
 
     <div class="row backpost">
-        <form action="/images" method="post">
-        <div class="col col-12 col-md-6 colpost">
-            <img src="${userDto.avatar}" alt="ProfilePhoto"/>
-            <div class="file btn btn-lg btn-primary">
-                Change Photo
-                <input type="file" name="file"/>
+        <form action="/images" method="post" enctype="multipart/form-data">
+            <div class="col col-12 col-md-6 colpost">
+                <img src="${userDto.avatar}" alt="ProfilePhoto"/>
+                <div class="file btn btn-lg btn-primary">
+                    Change Photo
+                    <input type="file" name="file"/>
+                </div>
             </div>
-        </div>
             <button type="submit" class="btn btn-primary">Change Photo</button>
         </form>
 

@@ -51,11 +51,4 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-//    @Override
-//    public ResponseEntity<?> download(String name) {
-//        var response = ImageService.downloadImage(name , MediaType.IMAGE_JPEG);
-//        log.info("Image downloaded successfully");
-//        return ResponseEntity.ok(response);
-//    }
-
 }
