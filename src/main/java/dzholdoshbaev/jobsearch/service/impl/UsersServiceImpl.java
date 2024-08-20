@@ -26,9 +26,9 @@ public class UsersServiceImpl implements UsersService {
                 .email(usersDto.getEmail())
                 .password(usersDto.getPassword())
                 .phoneNumber(usersDto.getPhoneNumber())
-                .avatar(usersDto.getAvatar())
+                .avatar("/static/images/nophoto.jpg")
                 .authorityId(usersDto.getAuthorityId())
-                .enabled(usersDto.isEnabled())
+                .enabled(true)
                 .build();
 
         usersDao.addUser(user);

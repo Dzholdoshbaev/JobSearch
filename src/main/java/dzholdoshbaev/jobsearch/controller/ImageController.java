@@ -8,19 +8,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/images")
 @RequiredArgsConstructor
 public class ImageController {
 
+    private final ImageService imageService;
+
     @PostMapping
-    public ResponseEntity<String> uploadAvatar(@RequestParam("file") MultipartFile file) {
-        return ResponseEntity.ok(ImageService.uploadImage(file));
+    public String uploadAvatar(@RequestParam("file") MultipartFile file , Principal principal) {
+        String username = principal.getName();
+        imageService.uploadImage(file,username);
+        return "redirect:/profile";
     }
 
 
-    @GetMapping("byName")
-    public ResponseEntity<?>download(@RequestParam( name = "name") String name) {
-        return ImageService.downloadImage(name, MediaType.IMAGE_JPEG);
-    }
+//    @GetMapping("byName")
+//    public ResponseEntity<?>download(@RequestParam( name = "name") String name) {
+//        return ImageService.downloadImage(name, MediaType.IMAGE_JPEG);
+//    }
 }

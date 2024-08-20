@@ -34,7 +34,7 @@ public class GlobalControllerAdvice {
     public String notFound(HttpServletRequest request, Model model) {
         model.addAttribute("status", HttpStatus.NOT_FOUND.value());
         model.addAttribute("reason", HttpStatus.NOT_FOUND.getReasonPhrase());
-        model.addAttribute("details" , request);
+        model.addAttribute("details", request);
         return "errors/error";
     }
 

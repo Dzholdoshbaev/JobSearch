@@ -17,43 +17,20 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 public interface ImageService {
-    Path PATH = Path.of("data/images");
+    void uploadImage(MultipartFile file, String username);
 
-    String upload(MultipartFile file);
 
-    String UPLOAD_DIR = "data/images/";
-
-    ResponseEntity<?> download(String name);
-
-@SneakyThrows
-    static String uploadImage(MultipartFile file) {
-        String uuidFile = UUID.randomUUID().toString();
-        String resultFileName = uuidFile + "_" + file.getOriginalFilename();
-
-        Path pathDir = Paths.get(UPLOAD_DIR);
-        Files.createDirectories(pathDir);
-
-        Path filePath = Paths.get(pathDir + "/" + resultFileName);
-        if (!Files.exists(filePath)) {
-            Files.createFile(filePath);
-        }
-        try (OutputStream os = Files.newOutputStream(filePath)) {
-            os.write(file.getBytes());
-        }
-        return resultFileName;
-    }
-
-    static ResponseEntity<?> downloadImage(String filename, MediaType mediaType) {
-        try {
-            byte[] image = Files.readAllBytes(Paths.get(UPLOAD_DIR + filename));
-            Resource resource = new ByteArrayResource(image);
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
-                    .contentLength(resource.contentLength())
-                    .contentType(mediaType)
-                    .body(resource);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Image not found");
-        }
-    }
+//    static ResponseEntity<?> downloadImage(String filename, MediaType mediaType) {
+//        try {
+//            byte[] image = Files.readAllBytes(Paths.get(UPLOAD_DIR + filename));
+//            Resource resource = new ByteArrayResource(image);
+//            return ResponseEntity.ok()
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+//                    .contentLength(resource.contentLength())
+//                    .contentType(mediaType)
+//                    .body(resource);
+//        } catch (IOException e) {
+//            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Image not found");
+//        }
+//    }
 }

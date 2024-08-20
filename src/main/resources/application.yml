@@ -21,6 +21,10 @@ spring:
     springframework:
       security: debug
 
+  output:
+    ansi:
+      enabled: always
+
 logging:
   level:
     root: info

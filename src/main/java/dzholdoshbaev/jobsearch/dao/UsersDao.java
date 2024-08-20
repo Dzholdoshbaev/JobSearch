@@ -45,7 +45,7 @@ public class UsersDao {
     }
 
     public void addUser(Users user) {
-        String sql = "insert into users (name, surname, age, email, password, phone_number, AUTHORITY_ID ,ENABLED) values (:name, :surname, :age, :email, :password, :phoneNumber, :authorityId, :enabled)";
+        String sql = "insert into users (name, surname, age, email, password, phone_number, AUTHORITY_ID ,ENABLED , AVATAR) values (:name, :surname, :age, :email, :password, :phoneNumber, :authorityId, :enabled , :avatar)";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
         .addValue("name", user.getName())
                 .addValue("surname", user.getSurname())
@@ -53,8 +53,9 @@ public class UsersDao {
                 .addValue("email", user.getEmail())
                 .addValue("password", passwordEncoder.encode(user.getPassword()))
                 .addValue("phoneNumber", user.getPhoneNumber())
-                .addValue("AUTHORITY_ID",user.getAuthorityId())
-                .addValue("enabled", true));
+                .addValue("authorityId",user.getAuthorityId())
+                .addValue("enabled", user.isEnabled())
+                .addValue("avatar", user.getAvatar()));
     }
 
     public List<Users> getAllUsers() {
@@ -120,6 +121,20 @@ public class UsersDao {
         params.put("avatar", user.getAvatar());
         params.put("enabled",user.isEnabled());
         params.put("authority_id", user.getAuthorityId());
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
+
+    public void addPhoto(String username, String avatar) {
+        String sql = """
+            UPDATE users
+            SET avatar = :avatar
+            WHERE email = :email;
+            """;
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("email",username);
+        params.put("avatar",avatar);
 
         namedParameterJdbcTemplate.update(sql, params);
     }

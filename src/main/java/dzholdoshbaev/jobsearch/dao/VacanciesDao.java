@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.dao;
 
+import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -93,6 +94,11 @@ public class VacanciesDao {
                         jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Vacancies.class),id)
                 )
         );
+    }
+
+    public List<Vacancies> getAllVacanciesByUser(int authorId) {
+        String sql = "SELECT * FROM vacancies where author_id = ?";
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Vacancies.class),authorId);
     }
 
 }

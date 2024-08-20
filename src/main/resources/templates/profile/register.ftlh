@@ -31,11 +31,11 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Phone Number</span>
-            <input type="text" class="form-control" aria-label="Phone Number" aria-describedby="phone_number" name="phone_number">
+            <input type="text" class="form-control" aria-label="Phone Number" aria-describedby="phone_number" name="phoneNumber">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="director">Account type</span>
-            <select class="form-select" aria-label="Director" aria-describedby="director" name="authorityId">
+            <span class="input-group-text" id="authorityId">Account type</span>
+            <select class="form-select" aria-label="authorityId" aria-describedby="authorityId" name="authorityId">
                 <option selected>Open this select menu</option>
                 <#list authoritiesUser as item>
                     <option value="${item.id}">${item.authority}</option>
@@ -43,8 +43,6 @@
             </select>
         </div>
         <@spring.showErrors "<br> " "error text-danger" />
-
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,13 +23,13 @@ public class VacanciesController {
     private final VacanciesService vacanciesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createVacancy(@RequestBody @Valid VacanciesDto vacanciesDto) {
+    public String createVacancy(VacanciesDto vacanciesDto , Principal principal, Model model) {
         vacanciesService.createVacancies(vacanciesDto);
-        return ResponseEntity.ok("Вакансия успешно создана");
+        return "redirect:/profile";
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> editVacancy(@RequestBody @Valid  VacanciesDto vacanciesDto) {
+    public ResponseEntity<String> editVacancy( VacanciesDto vacanciesDto) {
         vacanciesService.editVacancy(vacanciesDto);
         return ResponseEntity.ok("Вакансия успешно отредактирована");
     }

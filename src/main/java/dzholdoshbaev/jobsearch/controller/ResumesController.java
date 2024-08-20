@@ -8,28 +8,31 @@ import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequestMapping("/resumes")
 @RequiredArgsConstructor
 public class ResumesController {
+    @Autowired
     private final ResumesService resumesService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createResume(@RequestBody @Valid ResumesDto resumesDto ,@RequestBody @Valid  EducationInfoDto educationInfoDto ,@RequestBody @Valid  WorkExperienceInfoDto workExperienceInfoDto) {
+    public String createResume(ResumesDto resumesDto , EducationInfoDto educationInfoDto , WorkExperienceInfoDto workExperienceInfoDto, Principal principal, Model model) {
         resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto);
-        return ResponseEntity.ok("Резюме успешно создано");
+        return "redirect:/profile";
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> editResume(@RequestBody @Valid  ResumesDto resumesDto) {
+    public ResponseEntity<String> editResume( ResumesDto resumesDto) {
         resumesService.editResume(resumesDto);
         return ResponseEntity.ok("Резюме успешно отредактировано");
     }
