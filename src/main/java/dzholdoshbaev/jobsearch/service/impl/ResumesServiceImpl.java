@@ -1,14 +1,10 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
-import dzholdoshbaev.jobsearch.dao.ResumesDao;
-import dzholdoshbaev.jobsearch.dto.ContactsInfoDto;
-import dzholdoshbaev.jobsearch.dto.EducationInfoDto;
-import dzholdoshbaev.jobsearch.dto.ResumesDto;
-import dzholdoshbaev.jobsearch.dto.WorkExperienceInfoDto;
 import dzholdoshbaev.jobsearch.model.ContactsInfo;
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
+import dzholdoshbaev.jobsearch.repository.ResumesRepository;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,149 +15,62 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ResumesServiceImpl implements ResumesService {
-    private final ResumesDao resumesDao;
+    private final ResumesRepository resumesRepository;
 
     @Override
-    public void createResumes(ResumesDto resumesDto, EducationInfoDto educationInfoDto, WorkExperienceInfoDto workExperienceInfoDto, int userId , ContactsInfoDto contactsInfoDto) {
-
-        Resumes resumes = Resumes.builder()
-                .id(resumesDto.getId())
-                .applicantId(resumesDto.getApplicantId())
-                .name(resumesDto.getName())
-                .categoryId(resumesDto.getCategoryId())
-                .salary(resumesDto.getSalary())
-                .isActive(resumesDto.isActive())
-                .createdDate(resumesDto.getCreatedDate())
-                .updateTime(resumesDto.getUpdateTime())
-                .build();
-
-        EducationInfo educationInfo = EducationInfo.builder()
-                .id(educationInfoDto.getId())
-                .resumeId(educationInfoDto.getResumeId())
-                .institution(educationInfoDto.getInstitution())
-                .program(educationInfoDto.getProgram())
-                .startDate(educationInfoDto.getStartDate())
-                .endDate(educationInfoDto.getEndDate())
-                .degree(educationInfoDto.getDegree())
-                .build();
-
-        WorkExperienceInfo workExperienceInfo = WorkExperienceInfo.builder()
-                .id(workExperienceInfoDto.getId())
-                .resumeId(workExperienceInfoDto.getResumeId())
-                .year(workExperienceInfoDto.getYear())
-                .companyName(workExperienceInfoDto.getCompanyName())
-                .position(workExperienceInfoDto.getPosition())
-                .responsibilities(workExperienceInfoDto.getResponsibilities())
-                .build();
-
-
-        ContactsInfo contactsInfo = ContactsInfo.builder()
-                .id(contactsInfoDto.getId())
-                .info(contactsInfoDto.getInfo())
-                .resumeId(contactsInfoDto.getResumeId())
-                .typeId(contactsInfoDto.getTypeId())
-                .build();
-
-        resumesDao.addResume(resumes , educationInfo , workExperienceInfo , userId , contactsInfo);
+    public void createResumes(Resumes resumesDto, EducationInfo educationInfoDto, WorkExperienceInfo workExperienceInfoDto, Long userId , ContactsInfo contactsInfoDto) {
         log.info("Created resume with id");
     }
 
     @Override
-    public void editResume(ResumesDto resumesDto) {
-
-        Resumes resumes = Resumes.builder()
-                .id(resumesDto.getId())
-                .applicantId(resumesDto.getApplicantId())
-                .name(resumesDto.getName())
-                .categoryId(resumesDto.getCategoryId())
-                .salary(resumesDto.getSalary())
-                .isActive(resumesDto.isActive())
-                .createdDate(resumesDto.getCreatedDate())
-                .updateTime(resumesDto.getUpdateTime())
-                .build();
-
-        resumesDao.editResume(resumes);
+    public void editResume(Resumes resumes) {
         log.info("Edited resume with name {}", resumes.getName());
     }
 
     @Override
     public void deleteResume(Long resumeId) {
-        resumesDao.deleteResume(resumeId);
         log.info("Deleted resume");
     }
 
     @Override
-    public List<ResumesDto> getAllResumes() {
-        var list = resumesDao.getAllResumes();
-
-        List<ResumesDto> sorted = list.stream()
-                .map(e -> ResumesDto.builder()
-                        .id(e.getId())
-                        .applicantId(e.getApplicantId())
-                        .name(e.getName())
-                        .categoryId(e.getCategoryId())
-                        .salary(e.getSalary())
-                        .isActive(e.isActive())
-                        .createdDate(e.getCreatedDate())
-                        .updateTime(e.getUpdateTime())
-                        .build()).toList();
+    public List<Resumes> getAllResumes() {
         log.info("All resumes printed");
-        return sorted;
+        return resumesRepository.findAll();
     }
 
     @Override
-    public List<ResumesDto> getAllResumesByCategory(int categoryId) {
-        var list = resumesDao.getAllResumesByCategory(categoryId);
-
-        List<ResumesDto> sorted = list.stream()
-                .map(e -> ResumesDto.builder()
-                        .id(e.getId())
-                        .applicantId(e.getApplicantId())
-                        .name(e.getName())
-                        .categoryId(e.getCategoryId())
-                        .salary(e.getSalary())
-                        .isActive(e.isActive())
-                        .createdDate(e.getCreatedDate())
-                        .updateTime(e.getUpdateTime())
-                        .build()).toList();
-        log.info("All resumes printed by category");
-        return sorted;
+    public List<Resumes> getAllResumesByCategory(Long categoryId) {
+        return List.of();
     }
 
-    @Override
-    public List<ResumesDto> getAllResumesByUser(int applicantId){
-        var list = resumesDao.getAllResumesByUser(applicantId);
+//    @Override
+//    public List<ResumesDto> getAllResumesByCategory(Long categoryId) {
+//        var list = resumesDao.getAllResumesByCategory(categoryId);
+//
+//        List<ResumesDto> sorted = list.stream()
+//                .map(e -> ResumesDto.builder()
+////                        .id(e.getId())
+////                        .applicantId(e.getApplicantId())
+//                        .name(e.getName())
+////                        .categoryId(e.getCategoryId())
+//                        .salary(e.getSalary())
+////                        .isActive(e.getIsActive())
+//                        .createdDate(e.getCreatedDate())
+//                        .updateTime(e.getUpdateTime())
+//                        .build()).toList();
+//        log.info("All resumes printed by category");
+//        return sorted;
+//    }
 
-        List<ResumesDto> sorted = list.stream()
-                .map(e -> ResumesDto.builder()
-                        .id(e.getId())
-                        .applicantId(e.getApplicantId())
-                        .name(e.getName())
-                        .categoryId(e.getCategoryId())
-                        .salary(e.getSalary())
-                        .isActive(e.isActive())
-                        .createdDate(e.getCreatedDate())
-                        .updateTime(e.getUpdateTime())
-                        .build()).toList();
+    @Override
+    public List<Resumes> getAllResumesByUser(Long applicantId){
+        var list = resumesRepository.findAllByApplicantId(applicantId);
         log.info("All resumes printed by user");
-        return sorted;
+        return list;
     }
 
     @Override
-    public ResumesDto getResumeById(int resumesId) {
-        var object = resumesDao.getResumeById(resumesId)
-                .orElseThrow(() -> new RuntimeException("resume not found"));
-        ResumesDto corrected = ResumesDto.builder()
-                .id(object.getId())
-                .applicantId(object.getApplicantId())
-                .name(object.getName())
-                .categoryId(object.getCategoryId())
-                .salary(object.getSalary())
-                .isActive(object.isActive())
-                .createdDate(object.getCreatedDate())
-                .updateTime(object.getUpdateTime())
-                .build();
-        log.info("resume printed");
-        return corrected;
+    public Resumes getResumeById(Long resumesId) {
+        return new Resumes();
     }
 }

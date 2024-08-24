@@ -1,16 +1,12 @@
 package dzholdoshbaev.jobsearch.controller;
 
-import dzholdoshbaev.jobsearch.dao.ResumesDao;
-import dzholdoshbaev.jobsearch.dao.VacanciesDao;
-import dzholdoshbaev.jobsearch.dto.AuthoritiesDto;
-import dzholdoshbaev.jobsearch.dto.ResumesDto;
-import dzholdoshbaev.jobsearch.dto.UsersDto;
-import dzholdoshbaev.jobsearch.dto.VacanciesDto;
+import dzholdoshbaev.jobsearch.model.Resumes;
+import dzholdoshbaev.jobsearch.model.Users;
+import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.service.AuthoritiesService;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,46 +28,38 @@ public class ProfileController {
 
     @GetMapping
     public String profile(Model model, Principal principal) {
-       String username = principal.getName();
-       UsersDto user = usersService.getUserByEmail(username);
-       model.addAttribute("userDto", user);
-        if (user.getAuthorityId() == 1){
-            List<ResumesDto> resumes = resumesService.getAllResumesByUser(user.getId());
+        String username = principal.getName();
+        Users user = usersService.getUserByEmail(username);
+        Long authorityId = user.getAuthorities().getId();
+        System.out.println(authorityId);
+        model.addAttribute("userDto", user);
+        if (authorityId == 1){
+            List<Resumes> resumes = resumesService.getAllResumesByUser(user.getId());
             model.addAttribute("resumes", resumes);
         }else {
-            List<VacanciesDto> vacancies = vacanciesService.getAllVacanciesByUser(user.getId());
+            List<Vacancies> vacancies = vacanciesService.getAllVacanciesByUser(user.getId());
             model.addAttribute("vacancies", vacancies);
         }
-       return "profile/profile";
+        return "profile/profile";
     }
 
     @PostMapping("/register")
-    public String register( UsersDto usersDto , BindingResult bindingResult , Model model) {
-//        var user = usersService.getUserByEmail(usersDto.getEmail());
-//        if (user == null) {
-//            return "redirect:profile/profile";
-//        }
-//
-//        if (!bindingResult.hasErrors()) {
-//            usersService.createUser(usersDto);
-//            return "redirect:/";
-//        }
+    public String register( Users users , BindingResult bindingResult , Model model) {
+        usersService.createUser(users);
 
-        usersService.createUser(usersDto);
-
-        model.addAttribute("usersDto", usersDto);
+        model.addAttribute("usersDto", users);
         return "redirect:/";
     }
 
     @GetMapping("/register")
     public String create(Model model) {
         model.addAttribute("authoritiesUser", authoritiesService.getAllAuthorities());
-        model.addAttribute("usersDto", new UsersDto());
+        model.addAttribute("usersDto", new Users());
         return "profile/register";
     }
 
     @PutMapping("/edit")
-    public String editResume( UsersDto usersDto) {
+    public String editResume( Users usersDto) {
         usersService.editResume(usersDto);
         return "redirect:/profile";
     }

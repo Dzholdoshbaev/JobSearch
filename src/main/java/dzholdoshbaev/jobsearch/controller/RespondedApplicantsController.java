@@ -1,7 +1,6 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
-import dzholdoshbaev.jobsearch.dto.RespondedApplicantsDto;
 import dzholdoshbaev.jobsearch.service.RespondedApplicantsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,25 +16,25 @@ import java.util.List;
 public class RespondedApplicantsController {
     private final RespondedApplicantsService respondedApplicantsService;
 
-    @PostMapping("/responded")
-    public ResponseEntity<String> respondToVacancy(@RequestBody @Valid RespondedApplicantsDto respondedApplicantsDto) {
-        respondedApplicantsService.addResponded(respondedApplicantsDto);
-        return ResponseEntity.ok("Отклик на вакансию отправлен успешно");
-    }
+//    @PostMapping("/responded")
+//    public ResponseEntity<String> respondToVacancy(@RequestBody @Valid RespondedApplicantsDto respondedApplicantsDto) {
+//        respondedApplicantsService.addResponded(respondedApplicantsDto);
+//        return ResponseEntity.ok("Отклик на вакансию отправлен успешно");
+//    }
+//
+//    @GetMapping
+//    public ResponseEntity<List<RespondedApplicantsDto>> getRespondedApplicants() {
+//        return ResponseEntity.ok(respondedApplicantsService.getRespondedApplicants());
+//    }
 
-    @GetMapping
-    public ResponseEntity<List<RespondedApplicantsDto>> getRespondedApplicants() {
-        return ResponseEntity.ok(respondedApplicantsService.getRespondedApplicants());
-    }
-
-    @GetMapping("/resume/{resumeId}")
-    public ResponseEntity<List<RespondedApplicantsDto>> respondedApplicantsListByResume(@PathVariable int resumeId) {
-        return ResponseEntity.ok(respondedApplicantsService.respondedApplicantsListByResume(resumeId));
-    }
-
-    @GetMapping("/vacancy/{vacancyId}")
-    public ResponseEntity<List<RespondedApplicantsDto>> respondedApplicantsByVacancy(@PathVariable int vacancyId) {
-        return ResponseEntity.ok(respondedApplicantsService.respondedApplicantsByVacancy(vacancyId));
-    }
+//    @GetMapping("/resume/{resumeId}")
+//    public ResponseEntity<List<RespondedApplicantsDto>> respondedApplicantsListByResume(@PathVariable int resumeId) {
+//        return ResponseEntity.ok(respondedApplicantsService.respondedApplicantsListByResume(resumeId));
+//    }
+//
+//    @GetMapping("/vacancy/{vacancyId}")
+//    public ResponseEntity<List<RespondedApplicantsDto>> respondedApplicantsByVacancy(@PathVariable int vacancyId) {
+//        return ResponseEntity.ok(respondedApplicantsService.respondedApplicantsByVacancy(vacancyId));
+//    }
 
 }

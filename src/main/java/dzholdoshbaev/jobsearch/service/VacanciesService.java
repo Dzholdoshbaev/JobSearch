@@ -1,20 +1,22 @@
 package dzholdoshbaev.jobsearch.service;
 
-import dzholdoshbaev.jobsearch.dto.VacanciesDto;
+import dzholdoshbaev.jobsearch.model.Vacancies;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface VacanciesService {
-    void createVacancies(VacanciesDto vacanciesDto , int userId);
+    void createVacancies(Vacancies vacanciesDto , Long userId);
 
-    void editVacancy(VacanciesDto vacanciesDto);
+    void editVacancy(Vacancies vacanciesDto);
 
     void deleteVacancy(Long vacancyId);
 
-    List<VacanciesDto> getAllVacancies();
+    List<Vacancies> getAllVacancies();
 
-    List<VacanciesDto> getAllVacanciesByCategory(int categoryId);
+    List<Vacancies> getAllVacanciesByCategory(Long categoryId);
 
-    VacanciesDto getVacanciesById(int vacanciesId);
+    Optional<Vacancies> getVacanciesById(Long vacanciesId);
 
-    List<VacanciesDto> getAllVacanciesByUser(int id);
+    List<Vacancies> getAllVacanciesByUser(Long id);
 }

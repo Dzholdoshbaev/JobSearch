@@ -1,9 +1,10 @@
 package dzholdoshbaev.jobsearch.service;
 
-import dzholdoshbaev.jobsearch.dto.CategoriesDto;
+
+import dzholdoshbaev.jobsearch.model.Categories;
 
 import java.util.List;
 
 public interface CategoriesService {
-    List<CategoriesDto> getCategories();
+    List<Categories> getCategories();
 }

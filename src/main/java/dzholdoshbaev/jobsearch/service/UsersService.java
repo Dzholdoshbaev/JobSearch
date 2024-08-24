@@ -1,23 +1,25 @@
 package dzholdoshbaev.jobsearch.service;
 
-import dzholdoshbaev.jobsearch.dto.UsersDto;
+
+import dzholdoshbaev.jobsearch.model.Users;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsersService {
-    void createUser(UsersDto usersDto);
+    void createUser(Users users);
 
-    UsersDto getUserById(int id);
+    Optional<Users> getUserById(Long id);
 
-    List<UsersDto> getAllUsers();
+    List<Users> getAllUsers();
 
-    UsersDto getUserByName(String name);
+    Users getUserByName(String name);
 
-    UsersDto getUserByPhoneNumber(String phoneNumber);
+    Users getUserByPhoneNumber(String phoneNumber);
 
-    UsersDto getUserByEmail(String email);
+    Users getUserByEmail(String email);
 
     Boolean checkUserByEmail(String email);
 
-    void editResume(UsersDto usersDto);
+    void editResume(Users usersDto);
 }

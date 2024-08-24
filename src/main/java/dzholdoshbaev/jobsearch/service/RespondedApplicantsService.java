@@ -1,15 +1,16 @@
 package dzholdoshbaev.jobsearch.service;
 
-import dzholdoshbaev.jobsearch.dto.RespondedApplicantsDto;
+
+import dzholdoshbaev.jobsearch.model.RespondedApplicants;
 
 import java.util.List;
 
 public interface RespondedApplicantsService {
-    List<RespondedApplicantsDto> getRespondedApplicants();
+    List<RespondedApplicants> getRespondedApplicants();
 
-    List<RespondedApplicantsDto> respondedApplicantsListByResume(int resumeId);
+    List<RespondedApplicants> respondedApplicantsListByResume(Long resumeId);
 
-    List<RespondedApplicantsDto> respondedApplicantsByVacancy(int vacancyId);
+    List<RespondedApplicants> respondedApplicantsByVacancy(Long vacancyId);
 
-    void addResponded(RespondedApplicantsDto respondedApplicantsDto);
+    void addResponded(RespondedApplicants respondedApplicantsDto);
 }

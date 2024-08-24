@@ -19,7 +19,7 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <#if userDto.authorityId == 1>
+                    <#if userDto.authorities.id == 1>
                         <a class="nav-link active" aria-current="page" href="/vacancies">Vacancies</a>
                     <#else>
                         <a class="nav-link" href="/resumes">Resumes</a>
@@ -61,7 +61,7 @@
     <div class="row backpost">
         <form action="/images" method="post" enctype="multipart/form-data">
             <div class="col col-12 col-md-6 colpost">
-                <img src="${userDto.avatar}" alt="ProfilePhoto"/>
+                <img src="/static/images/nophoto.jpg" alt="ProfilePhoto"/>
                 <div class="file btn btn-lg btn-primary">
                     Change Photo
                     <input type="file" name="file"/>
@@ -77,7 +77,7 @@
                 <p class="card-text">${userDto.age}</p>
                 <p class="card-text">${userDto.email}</p>
                 <p class="card-text">${userDto.phoneNumber}</p>
-                <#if userDto.authorityId == 1>
+                <#if userDto.authorities.id == 1>
                     <p class="card-text">APPLICANT</p>
                     <#else>
                         <p class="card-text">EMPLOYER</p>
@@ -86,7 +86,7 @@
                 <a href="profile/edit" class="btn btn-primary">Edit profile</a>
             </div>
 
-            <#if userDto.authorityId == 1>
+            <#if userDto.authorities.id == 1>
                 <div class="col col-12 col-md-4 colpost">
                     <a href="/resumes/create" class="btn btn-primary">Created resume</a>
                 </div>
@@ -103,7 +103,7 @@
 
     </div>
 
-    <#if userDto.authorityId == 1>
+    <#if userDto.authorities.id == 1>
 
         <h5 class="allResumes">Resumes : </h5>
 

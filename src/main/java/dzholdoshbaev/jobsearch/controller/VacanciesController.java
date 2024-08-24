@@ -3,8 +3,8 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 
-import dzholdoshbaev.jobsearch.dto.UsersDto;
-import dzholdoshbaev.jobsearch.dto.VacanciesDto;
+import dzholdoshbaev.jobsearch.model.Users;
+import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.service.CategoriesService;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
@@ -28,9 +28,9 @@ public class VacanciesController {
     private final CategoriesService categoriesService;
 
     @PostMapping("/create")
-    public String createVacancy(VacanciesDto vacanciesDto , Principal principal) {
+    public String createVacancy(Vacancies vacanciesDto , Principal principal) {
         String username = principal.getName();
-        UsersDto user = usersService.getUserByEmail(username);
+        Users user = usersService.getUserByEmail(username);
         vacanciesService.createVacancies(vacanciesDto,user.getId());
         return "redirect:/profile";
     }
@@ -42,7 +42,7 @@ public class VacanciesController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> editVacancy( VacanciesDto vacanciesDto) {
+    public ResponseEntity<String> editVacancy( Vacancies vacanciesDto) {
         vacanciesService.editVacancy(vacanciesDto);
         return ResponseEntity.ok("Вакансия успешно отредактирована");
     }
@@ -59,13 +59,13 @@ public class VacanciesController {
         return "vacancies/vacancies";
     }
 
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<VacanciesDto>> getResumesByCategory(@PathVariable int categoryId) {
-        return ResponseEntity.ok(vacanciesService.getAllVacanciesByCategory(categoryId));
-    }
-
-    @GetMapping("/{vacanciesId}")
-    public ResponseEntity<VacanciesDto> getAllResumesByUser(@PathVariable int vacanciesId) {
-        return ResponseEntity.ok(vacanciesService.getVacanciesById(vacanciesId));
-    }
+//    @GetMapping("/category/{categoryId}")
+//    public ResponseEntity<List<Vacancies>> getResumesByCategory(@PathVariable Long categoryId) {
+//        return ResponseEntity.ok(vacanciesService.getAllVacanciesByCategory(categoryId));
+//    }
+//
+//    @GetMapping("/{vacanciesId}")
+//    public ResponseEntity<Vacancies> getAllResumesByUser(@PathVariable Long vacanciesId) {
+//        return ResponseEntity.ok(vacanciesService.getVacanciesById(vacanciesId));
+//    }
 }

@@ -1,32 +1,24 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
-import dzholdoshbaev.jobsearch.dao.ContactTypesDao;
-import dzholdoshbaev.jobsearch.dto.ContactTypesDto;
+import dzholdoshbaev.jobsearch.model.ContactTypes;
+import dzholdoshbaev.jobsearch.repository.ContactTypesRepository;
 import dzholdoshbaev.jobsearch.service.ContactTypesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class ContactTypesServiceImpl implements ContactTypesService {
-    private final ContactTypesDao contactTypesDao;
+    private final ContactTypesRepository contactTypesRepository;
 
     @Override
-    public List<ContactTypesDto> getAllTypes() {
-        var list  = contactTypesDao.getAllContactTypes();
+    public List<ContactTypes> getAllTypes() {
 
-        List<ContactTypesDto> contactTypesDtos = list.stream()
-                .map(e -> ContactTypesDto.builder()
-                        .id(e.getId())
-                        .type(e.getType())
-                        .build()).toList();
-
-        log.info("ContactTypes list: {}", contactTypesDtos);
-        return contactTypesDtos;
+        log.info("ContactTypes list");
+        return contactTypesRepository.findAll();
     }
 }

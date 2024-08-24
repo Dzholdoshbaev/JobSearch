@@ -1,9 +1,10 @@
 package dzholdoshbaev.jobsearch.service;
 
-import dzholdoshbaev.jobsearch.dto.AuthoritiesDto;
+
+import dzholdoshbaev.jobsearch.model.Authorities;
 
 import java.util.List;
 
 public interface AuthoritiesService {
-    List<AuthoritiesDto> getAllAuthorities();
+    List<Authorities> getAllAuthorities();
 }

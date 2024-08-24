@@ -1,8 +1,8 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
-import dzholdoshbaev.jobsearch.dto.*;
 
+import dzholdoshbaev.jobsearch.model.*;
 import dzholdoshbaev.jobsearch.service.CategoriesService;
 import dzholdoshbaev.jobsearch.service.ContactTypesService;
 import dzholdoshbaev.jobsearch.service.ResumesService;
@@ -30,34 +30,34 @@ public class ResumesController {
     private final UsersService usersService;
 
     @PostMapping("/create")
-    public String createResume(ResumesDto resumesDto , EducationInfoDto educationInfoDto , WorkExperienceInfoDto workExperienceInfoDto, ContactsInfoDto contactsInfoDto, Principal principal, Model model) {
+    public String createResume(Resumes resumesDto , EducationInfo educationInfoDto , WorkExperienceInfo workExperienceInfoDto, ContactsInfo contactsInfoDto, Principal principal, Model model) {
         String username = principal.getName();
-        UsersDto user = usersService.getUserByEmail(username);
-        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto,user.getId() , contactsInfoDto);
+        Users user = usersService.getUserByEmail(username);
+        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto,user.getAuthorities().getId(), contactsInfoDto);
         return "redirect:/profile";
     }
 
     @GetMapping("/create")
     public String createResume(Model model , Principal principal) {
         String username = principal.getName();
-        UsersDto user = usersService.getUserByEmail(username);
+//        UsersDto user = usersService.getUserByEmail(username);
         model.addAttribute("categoriesDto",categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
-        model.addAttribute("userDto", user);
+//        model.addAttribute("userDto", user);
         return "resumes/createResume";
     }
 
-    @PutMapping("/edit")
-    public ResponseEntity<String> editResume( ResumesDto resumesDto) {
-        resumesService.editResume(resumesDto);
-        return ResponseEntity.ok("Резюме успешно отредактировано");
-    }
-
-    @DeleteMapping("/delete/{resumeId}")
-    public ResponseEntity<String> deleteResume(@PathVariable Long resumeId) {
-        resumesService.deleteResume(resumeId);
-        return ResponseEntity.ok("Резюме успешно удалено");
-    }
+//    @PutMapping("/edit")
+//    public ResponseEntity<String> editResume( ResumesDto resumesDto) {
+//        resumesService.editResume(resumesDto);
+//        return ResponseEntity.ok("Резюме успешно отредактировано");
+//    }
+//
+//    @DeleteMapping("/delete/{resumeId}")
+//    public ResponseEntity<String> deleteResume(@PathVariable Long resumeId) {
+//        resumesService.deleteResume(resumeId);
+//        return ResponseEntity.ok("Резюме успешно удалено");
+//    }
 
     @GetMapping
     public String getAllResumes(Model model) {
@@ -65,19 +65,19 @@ public class ResumesController {
         return "resumes/resumes";
     }
 
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<ResumesDto>> getAllResumesByCategory(@PathVariable int categoryId) {
-        return ResponseEntity.ok(resumesService.getAllResumesByCategory(categoryId));
-    }
-
-    @GetMapping("/applicant/{applicantId}")
-    public ResponseEntity<List<ResumesDto>> getAllResumesByUser(@PathVariable int applicantId) {
-        return ResponseEntity.ok(resumesService.getAllResumesByUser(applicantId));
-    }
-
-    @GetMapping("/{resumesId}")
-    public ResponseEntity<ResumesDto> getResumesById(@PathVariable int resumesId) {
-        return ResponseEntity.ok(resumesService.getResumeById(resumesId));
-    }
+//    @GetMapping("/category/{categoryId}")
+//    public ResponseEntity<List<ResumesDto>> getAllResumesByCategory(@PathVariable int categoryId) {
+//        return ResponseEntity.ok(resumesService.getAllResumesByCategory(categoryId));
+//    }
+//
+//    @GetMapping("/applicant/{applicantId}")
+//    public ResponseEntity<List<ResumesDto>> getAllResumesByUser(@PathVariable int applicantId) {
+//        return ResponseEntity.ok(resumesService.getAllResumesByUser(applicantId));
+//    }
+//
+//    @GetMapping("/{resumesId}")
+//    public ResponseEntity<ResumesDto> getResumesById(@PathVariable int resumesId) {
+//        return ResponseEntity.ok(resumesService.getResumeById(resumesId));
+//    }
 
 }

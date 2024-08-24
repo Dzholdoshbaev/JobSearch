@@ -1,169 +1,79 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
-import dzholdoshbaev.jobsearch.dao.UsersDao;
-import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.model.Users;
+import dzholdoshbaev.jobsearch.repository.UsersRepository;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class UsersServiceImpl implements UsersService {
-    private final UsersDao usersDao;
+    private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
-    public void createUser(UsersDto usersDto) {
-
-        Users user = Users.builder()
-                .id(usersDto.getId())
-                .name(usersDto.getName())
-                .surname(usersDto.getSurname())
-                .age(usersDto.getAge())
-                .email(usersDto.getEmail())
-                .password(usersDto.getPassword())
-                .phoneNumber(usersDto.getPhoneNumber())
-                .avatar("/static/images/nophoto.jpg")
-                .authorityId(usersDto.getAuthorityId())
-                .enabled(true)
-                .build();
-
-        usersDao.addUser(user);
-        log.info("Created user: {}", user.getEmail());
+    public void createUser(Users users) {
+        users.setAvatar("/static/images/nophoto.jpg");
+        users.setEnabled(true);
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
+        usersRepository.save(users);
+        log.info("Created user: {}", users.getEmail());
     }
 
     @Override
-    public UsersDto getUserById(int id){
-        Users user = usersDao.getUserById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        UsersDto corrected = UsersDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .age(user.getAge())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
-                .avatar(user.getAvatar())
-                .authorityId(user.getAuthorityId())
-                .enabled(user.isEnabled())
-                .build();
-        log.info("Printed user by id");
-        return corrected;
+    public Optional<Users> getUserById(Long id){
+        return usersRepository.findById(id);
     }
 
     @Override
-    public List<UsersDto> getAllUsers() {
-        var list = usersDao.getAllUsers();
-
-        List<UsersDto> sorted =  list.stream()
-                .map(e -> UsersDto.builder()
-                        .id(e.getId())
-                        .name(e.getName())
-                        .surname(e.getSurname())
-                        .age(e.getAge())
-                        .email(e.getEmail())
-                        .password(e.getPassword())
-                        .phoneNumber(e.getPhoneNumber())
-                        .avatar(e.getAvatar())
-                        .authorityId(e.getAuthorityId())
-                        .enabled(e.isEnabled())
-                        .build()).toList();
+    public List<Users> getAllUsers() {
+        var list = usersRepository.findAll();
         log.info("Printed all users");
-        return sorted;
+        return list;
     }
 
     @Override
-    public UsersDto getUserByName(String name){
-        Users user = usersDao.getUserByName(name)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UsersDto corrected = UsersDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .age(user.getAge())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
-                .avatar(user.getAvatar())
-                .authorityId(user.getAuthorityId())
-                .enabled(user.isEnabled())
-                .build();
+    public Users getUserByName(String name){
         log.info("Printed user by name");
-        return corrected;
-
+        return new Users();
     }
 
     @Override
-    public UsersDto getUserByPhoneNumber(String phoneNumber){
-        Users user = usersDao.getUserByPhoneNumber(phoneNumber)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UsersDto corrected = UsersDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .age(user.getAge())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
-                .avatar(user.getAvatar())
-                .authorityId(user.getAuthorityId())
-                .enabled(user.isEnabled())
-                .build();
+    public Users getUserByPhoneNumber(String phoneNumber){
         log.info("Printed user by phone number");
-        return corrected;
+        return new Users();
 
     }
 
     @Override
-    public UsersDto getUserByEmail(String email){
-        Users user = usersDao.getUserByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UsersDto corrected = UsersDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .age(user.getAge())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
-                .avatar(user.getAvatar())
-                .authorityId(user.getAuthorityId())
-                .enabled(user.isEnabled())
-                .build();
+    public Users getUserByEmail(String email){
         log.info("Printed user by email");
-        return corrected;
-
+        List<Users> users = usersRepository.findAll();
+        Users user = users.get(0);
+        for (Users user1 : users) {
+            if (user1.getEmail().equals(email)) {
+                user = user1;
+            }
+        }
+        return user;
     }
 
     @Override
     public Boolean checkUserByEmail(String email){
-        Boolean checked = usersDao.checkUserByEmail(email);
         log.info("Checked user by email");
-        return checked;
+        return true;
     }
 
     @Override
-    public void editResume(UsersDto usersDto) {
-        Users user = Users.builder()
-                .id(usersDto.getId())
-                .name(usersDto.getName())
-                .surname(usersDto.getSurname())
-                .age(usersDto.getAge())
-                .email(usersDto.getEmail())
-                .password(usersDto.getPassword())
-                .phoneNumber(usersDto.getPhoneNumber())
-                .avatar(usersDto.getAvatar())
-                .authorityId(usersDto.getAuthorityId())
-                .enabled(usersDto.isEnabled())
-                .build();
-
-        usersDao.editUser(user);
+    public void editResume(Users usersDto) {
         log.info("Edited user");
     }
 }

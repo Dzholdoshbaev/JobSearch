@@ -1,6 +1,5 @@
 package dzholdoshbaev.jobsearch.controller;
 
-import dzholdoshbaev.jobsearch.dto.CategoriesDto;
 import dzholdoshbaev.jobsearch.service.CategoriesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,10 +16,10 @@ import java.util.List;
 public class CategoriesController {
 
     private final CategoriesService categoriesService;
-
-    @GetMapping
-   public ResponseEntity<List<CategoriesDto>> getCategories() {
-       return new ResponseEntity<>(categoriesService.getCategories(), HttpStatus.OK);
-   }
+//
+//    @GetMapping
+//   public ResponseEntity<List<CategoriesDto>> getCategories() {
+//       return new ResponseEntity<>(categoriesService.getCategories(), HttpStatus.OK);
+//   }
 
 }

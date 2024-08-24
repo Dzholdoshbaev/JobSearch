@@ -1,65 +1,65 @@
 <#import "spring.ftl" as spring>
 <#macro layout>
 
-<!doctype html>
-<html lang="en">
+    <!doctype html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-          name="viewport">
-    <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Job Search</title>
-    <link href="#" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+              name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+        <title>Job Search</title>
+        <link href="#" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
 
-<body>
+    <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        <#assign known = SPRING_SECURITY_CONTEXT?? >
-        <#if known>
-            <#assign
-            user = SPRING_SECURITY_CONTEXT.authentication.principal
-            name = user.getUsername()
-            >
-            <a href="/profile/${name}" class="text-light m-2 m-sm-0">
-                Hello, ${name}:
-                <#list user.authorities as auth>
-                    <span class="text-danger">${auth}</span>
-                    <#if auth?has_next>
-                        /
-                    </#if>
-                </#list>
-            </a>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <#assign known = SPRING_SECURITY_CONTEXT?? >
+            <#if known>
+                <#assign
+                user = SPRING_SECURITY_CONTEXT.authentication.principal
+                name = user.getUsername()
+                >
+                <a href="/profile/${name}" class="text-light m-2 m-sm-0">
+                    Hello, ${name}:
+                    <#list user.authorities as auth>
+                        <span class="text-danger">${auth}</span>
+                        <#if auth?has_next>
+                            /
+                        </#if>
+                    </#list>
+                </a>
 
-            <a href="/auth/logout" class="btn btn-outline-info m-2"
-               id="logout">Logout</a>
+                <a href="/auth/logout" class="btn btn-outline-info m-2"
+                   id="logout">Logout</a>
 
-        <#else>
-            <a href="/auth/login"
-               class="btn btn-outline-info m-2">Login</a>
-            <a href="profile/register"
-               class="btn btn-outline-info m-2">Register</a>
-        </#if>
+            <#else>
+                <a href="/auth/login"
+                   class="btn btn-outline-info m-2">Login</a>
+                <a href="profile/register"
+                   class="btn btn-outline-info m-2">Register</a>
+            </#if>
 
-    </nav>
-</header>
+        </nav>
+    </header>
 
-<div class="container">
+    <div class="container">
 
-    <#nested spring>
+        <#nested spring>
 
-</div>
+    </div>
 
-</body>
-</html>
+    </body>
+    </html>
 </#macro>

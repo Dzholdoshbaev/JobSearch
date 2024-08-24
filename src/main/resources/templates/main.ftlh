@@ -29,7 +29,7 @@
 
                 <p class="yellowp mt-4 ms-5">Open your heart to work with different people from around world <br>and make a new
                     friends and grow your connections <br>it is not hard to do it just be confident and smile it is sunnah
-                and work hard !</p>
+                    and work hard !</p>
 
             </div>
 

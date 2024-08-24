@@ -1,16 +1,12 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
-import dzholdoshbaev.jobsearch.dao.UsersDao;
 import dzholdoshbaev.jobsearch.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,7 +24,6 @@ public class ImageServiceImpl implements ImageService {
 //        return response;
 //    }
 
-    private  final UsersDao usersDao;
     static Path PATH = Path.of("data/images");
 
     static String UPLOAD_DIR = "data/images/";
@@ -47,7 +42,7 @@ public class ImageServiceImpl implements ImageService {
         }
         try (OutputStream os = Files.newOutputStream(filePath)) {
             os.write(file.getBytes());
-            usersDao.addPhoto(username,UPLOAD_DIR + resultFileName) ;
+//            usersDao.addPhoto(username,UPLOAD_DIR + resultFileName) ;
         }
     }
 
