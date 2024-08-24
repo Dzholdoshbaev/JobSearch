@@ -3,19 +3,19 @@ databaseChangeLog:
       id: create contact_types table
       author: Chyngyz Dzholdoshbaev
       changes:
-        - createTable:
+        - createTable :
             tableName: contact_types
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: type
-                  type: text
+                  type: varchar(255)
                   constraints:
                     nullable: false
   - changeSet:
@@ -27,7 +27,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -39,10 +39,29 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: parent_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_parent_id
                     references: categories(id)
+  - changeSet:
+      id: create authorities table
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: id
+                  type: Long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: authority
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
   - changeSet:
       id: create users table
       author: Chyngyz Dzholdoshbaev
@@ -52,11 +71,23 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
+              - column:
+                  name: enabled
+                  type: Boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: authority_id
+                  type: Long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_authority_usr_id
+                    references: authorities(id)
               - column:
                   name: name
                   type: varchar(255)
@@ -69,7 +100,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: age
-                  type: int
+                  type: Long
               - column:
                   name: email
                   type: varchar(255)
@@ -96,7 +127,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -108,28 +139,28 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: description
-                  type: text
+                  type: varchar(255)
               - column:
                   name: category_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_category_id
                     references: categories(id)
               - column:
                   name: salary
-                  type: real
+                  type: Double
               - column:
                   name: exp_from
-                  type: int
+                  type: Long
               - column:
                   name: exp_to
-                  type: int
+                  type: Long
               - column:
                   name: is_active
-                  type: boolean
+                  type: Boolean
               - column:
                   name: author_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_author_id
                     references: users(id)
@@ -149,33 +180,33 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: applicant_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_applicant_id_for_resumes
                     references: users(id)
                     nullable: false
               - column:
                   name: name
-                  type: text
+                  type: varchar(255)
               - column:
                   name: category_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_category_id_for_resumes
                     references: categories(id)
               - column:
                   name: salary
-                  type: real
+                  type: Double
               - column:
                   name: is_active
-                  type: BOOLEAN
+                  type: Boolean
               - column:
                   name: created_date
                   type: DATETIME
@@ -191,28 +222,28 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: resume_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_resume_id_for_responded_applicants
                     references: resumes(id)
                     nullable: false
               - column:
                   name: vacancy_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_vacancy_id_for_responded_applicants
                     references: vacancies(id)
                     nullable: false
               - column:
                   name: confirmation
-                  type: BOOLEAN
+                  type: Boolean
   - changeSet:
       id: create messages table
       author: Chyngyz Dzholdoshbaev
@@ -222,21 +253,21 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: responded_applicants_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_responded_applicants_id_for_messages
                     references: responded_applicants(id)
                     nullable: false
               - column:
                   name: content
-                  type: text
+                  type: varchar(255)
               - column:
                   name: timestamp
                   type: timestamp
@@ -249,24 +280,24 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: resume_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_resume_id_for_education_info
                     references: resumes(id)
                     nullable: false
               - column:
                   name: institution
-                  type: text
+                  type: varchar(255)
               - column:
                   name: program
-                  type: text
+                  type: varchar(255)
               - column:
                   name: start_date
                   type: DATE
@@ -275,7 +306,7 @@ databaseChangeLog:
                   type: DATE
               - column:
                   name: degree
-                  type: text
+                  type: varchar(255)
   - changeSet:
       id: create contacts_info table
       author: Chyngyz Dzholdoshbaev
@@ -285,28 +316,28 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: type_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_type_id_for_contacts_info
                     references: contact_types(id)
                     nullable: false
               - column:
                   name: resume_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_resume_id_for_contacts_info
                     references: resumes(id)
                     nullable: false
               - column:
                   name: info
-                  type: text
+                  type: varchar(255)
                   constraints:
                     nullable: false
   - changeSet:
@@ -318,29 +349,29 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: resume_id
-                  type: int
+                  type: Long
                   constraints:
                     foreignKeyName: fk_resume_id_for_work_experience_info
                     references: resumes(id)
                     nullable: false
               - column:
                   name: years
-                  type: int
+                  type: Long
               - column:
                   name: company_name
-                  type: text
+                  type: varchar(255)
               - column:
                   name: position
-                  type: text
+                  type: varchar(255)
               - column:
                   name: responsibilities
-                  type: text
+                  type: varchar(255)
 
 
