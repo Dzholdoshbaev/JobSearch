@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +11,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "contacts_info")
 public class ContactsInfo {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "info")
     private String info;
-    private int resumeId;
-    private int typeId;
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    private Resumes resumes;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private ContactTypes contactTypes;
+
 }

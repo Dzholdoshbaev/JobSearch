@@ -1,10 +1,27 @@
 package dzholdoshbaev.jobsearch.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
+@Entity
+@Table(name = "categories")
 public class Categories {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "name")
     private String name;
-    private int parentIdCategories;
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Categories categories;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "categories")
+    private List<Categories> categoriesList;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "categories")
+    private List<Resumes> resumesList;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "categories")
+    private List<Vacancies> vacanciesList;
 }

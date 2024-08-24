@@ -1,12 +1,22 @@
 package dzholdoshbaev.jobsearch.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 @Data
+@Entity
+@Table(name = "messages")
 public class Messages {
-    private int id;
-    private int respondedApplicants;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "responded_applicants_id")
+    private RespondedApplicants respondedApplicants;
+    @Column(name = "content")
     private String content;
+    @Column(name = "timestamp")
     private LocalDateTime timestamp;
 }

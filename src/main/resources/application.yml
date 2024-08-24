@@ -6,13 +6,20 @@ spring:
   mvc:
     static-path-pattern: /static/**
   freemarker:
-      expose-session-attributes: true
+    expose-session-attributes: true
 
   datasource:
     url: jdbc:h2:./db/jobSearch;AUTO_SERVER=TRUE
     username: admin
     password: 12345
     driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
   liquibase:
     change-log: classpath:/db/changelog/master.yml
@@ -31,5 +38,7 @@ logging:
     org:
       springframework:
         security: debug
+      hibernate:
+        stat: trace
   file:
     path: logs

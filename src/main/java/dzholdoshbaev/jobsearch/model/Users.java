@@ -1,23 +1,45 @@
 package dzholdoshbaev.jobsearch.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Entity
+@Table(name = "users")
 public class Users {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "surname")
     private String surname;
-    private int age;
+    @Column(name = "age")
+    private Long age;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
+    @Column(name = "phone_number")
     private String phoneNumber;
+    @Column(name = "avatar")
     private String avatar;
-    private boolean enabled;
-    private Long authorityId;
+    @Column(name = "enabled")
+    private Boolean enabled;
+    @ManyToOne
+    @JoinColumn(name = "authority_id")
+    private Authorities authorities;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private List<Resumes> resumesList;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private List<Vacancies> vacanciesList;
 }
