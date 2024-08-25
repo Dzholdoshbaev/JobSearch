@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WorkExperienceInfoRepository extends JpaRepository<WorkExperienceInfo, Long> {
+    WorkExperienceInfo findByResumes_Id(Long resumeId);
+
 }
