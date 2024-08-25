@@ -1,10 +1,7 @@
 package dzholdoshbaev.jobsearch.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Data
@@ -20,9 +17,11 @@ public class ContactsInfo {
     private Long id;
     @Column(name = "info")
     private String info;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "resume_id")
     private Resumes resumes;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "type_id")
     private ContactTypes contactTypes;
