@@ -1,10 +1,7 @@
 package dzholdoshbaev.jobsearch.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,11 +17,13 @@ public class Resumes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "applicant_id")
     private Users users;
     @Column(name = "name")
     private String name;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Categories categories;

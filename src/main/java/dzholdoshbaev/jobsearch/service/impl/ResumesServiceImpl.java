@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -71,6 +73,8 @@ public class ResumesServiceImpl implements ResumesService {
 
     @Override
     public Resumes getResumeById(Long resumesId) {
-        return new Resumes();
+       Optional<Resumes> resume =  resumesRepository.findById(resumesId);
+       log.info("Retrieved resume with id {}", resumesId);
+       return resume.orElse(null);
     }
 }

@@ -1,12 +1,8 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
-
 import dzholdoshbaev.jobsearch.model.*;
-import dzholdoshbaev.jobsearch.service.CategoriesService;
-import dzholdoshbaev.jobsearch.service.ContactTypesService;
-import dzholdoshbaev.jobsearch.service.ResumesService;
-import dzholdoshbaev.jobsearch.service.UsersService;
+import dzholdoshbaev.jobsearch.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/resumes")
@@ -28,20 +25,23 @@ public class ResumesController {
     private final CategoriesService categoriesService;
     private final ContactTypesService contactTypesService;
     private final UsersService usersService;
+    private final WorkExperienceInfoService workExperienceInfoService;
+    private final EducationInfoService educationInfoService;
+    private final ContactsInfoService contactsInfoService;
 
     @PostMapping("/create")
-    public String createResume(Resumes resumesDto , EducationInfo educationInfoDto , WorkExperienceInfo workExperienceInfoDto, ContactsInfo contactsInfoDto, Principal principal, Model model) {
+    public String createResume(Resumes resumesDto, EducationInfo educationInfoDto, WorkExperienceInfo workExperienceInfoDto, ContactsInfo contactsInfoDto, Principal principal, Model model) {
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
-        resumesService.createResumes(resumesDto,educationInfoDto,workExperienceInfoDto,user.getAuthorities().getId(), contactsInfoDto);
+        resumesService.createResumes(resumesDto, educationInfoDto, workExperienceInfoDto, user.getAuthorities().getId(), contactsInfoDto);
         return "redirect:/profile";
     }
 
     @GetMapping("/create")
-    public String createResume(Model model , Principal principal) {
+    public String createResume(Model model, Principal principal) {
         String username = principal.getName();
 //        UsersDto user = usersService.getUserByEmail(username);
-        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("categoriesDto", categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
 //        model.addAttribute("userDto", user);
         return "resumes/createResume";
@@ -63,6 +63,26 @@ public class ResumesController {
     public String getAllResumes(Model model) {
         model.addAttribute("resumes", resumesService.getAllResumes());
         return "resumes/resumes";
+    }
+
+    @GetMapping("/{resumeId}")
+    public String getResumeById(@PathVariable Long resumeId, Model model) {
+
+        Resumes resume = resumesService.getResumeById(resumeId);
+        if (resume == null) {
+            throw new NoSuchElementException("no such resume found");
+        }
+        WorkExperienceInfo workExperienceInfo = workExperienceInfoService.getByResumeId(resumeId);
+
+        EducationInfo educationInfo = educationInfoService.findByResumeId(resumeId);
+
+        List<ContactsInfo> contactsInfoList = contactsInfoService.findByResumeId(resumeId);
+
+        model.addAttribute("workExperienceInfo", workExperienceInfo);
+        model.addAttribute("educationInfo", educationInfo);
+        model.addAttribute("contactsInfoList", contactsInfoList);
+        model.addAttribute("resume", resume);
+        return "resumes/resume";
     }
 
 //    @GetMapping("/category/{categoryId}")
