@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EducationInfoRepository extends JpaRepository<EducationInfo, Long> {
+     EducationInfo findByResumes_Id(Long resumesId);
 }
