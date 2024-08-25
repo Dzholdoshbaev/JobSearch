@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/vacancies")
@@ -57,6 +59,19 @@ public class VacanciesController {
     public String getAllVacancies(Model model) {
         model.addAttribute("vacancies", vacanciesService.getAllVacancies());
         return "vacancies/vacancies";
+    }
+
+    @GetMapping("/{vacancyId}")
+    public String getVacancy(@PathVariable Long vacancyId ,Model model) {
+
+        Vacancies vacancies = vacanciesService.getVacanciesById(vacancyId);
+
+        if(vacancies == null) {
+            throw new NoSuchElementException("no such vacancy found");
+        }
+
+        model.addAttribute("vacancy", vacancies);
+        return "vacancies/vacancy";
     }
 
 //    @GetMapping("/category/{categoryId}")

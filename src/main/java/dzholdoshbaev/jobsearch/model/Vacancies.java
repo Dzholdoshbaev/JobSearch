@@ -1,10 +1,7 @@
 package dzholdoshbaev.jobsearch.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,6 +21,7 @@ public class Vacancies {
     private String name;
     @Column(name = "description")
     private String description;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Categories categories;
@@ -35,6 +33,7 @@ public class Vacancies {
     private Long expTo;
     @Column(name = "is_active")
     private Boolean isActive;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Users users;

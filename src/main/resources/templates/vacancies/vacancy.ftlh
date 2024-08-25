@@ -6,23 +6,24 @@
 
 
     <div class="row d-flex justify-content-between">
-        <#list vacancies as vacancy>
             <div class="card col-6 m-2" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">${vacancy.name}</h5>
                     <p class="card-text">${vacancy.description}</p>
-                    <p class="card-text">${vacancy.createdDate}</p>
+                    <p class="card-text">${vacancy.salary}</p>
                     <#if vacancy.isActive>
                         <p class="card-text">Vacancy is active</p>
                     <#else>
                         <p class="card-text">Vacancy is not active</p>
                     </#if>
-                    <p class="card-text">${vacancy.salary}</p>
+                    <p class="card-text">${vacancy.categories.name}</p>
+                    <p class="card-text">${vacancy.createdDate}</p>
                     <p class="card-text">${vacancy.updateTime!"Not update yet"}</p>
-                    <a href="/vacancies/${vacancy.id}" class="btn btn-primary">More Info</a>
+                    <p class="card-text">${vacancy.expFrom}</p>
+                    <p class="card-text">${vacancy.expTo}</p>
+                    <a href="/profile" class="btn btn-primary">Back to Profile</a>
                 </div>
             </div>
-        </#list>
     </div>
 
 

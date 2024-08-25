@@ -46,8 +46,10 @@ public class VacanciesServiceImpl implements VacanciesService {
     }
 
     @Override
-    public Optional<Vacancies> getVacanciesById(Long vacanciesId) {
-        return vacanciesRepository.findById(vacanciesId);
+    public Vacancies getVacanciesById(Long vacanciesId) {
+        Optional<Vacancies> vacancies = vacanciesRepository.findById(vacanciesId);
+        log.info("printed vacancies: {}", vacanciesId);
+        return vacancies.orElse(null);
     }
 
     @Override

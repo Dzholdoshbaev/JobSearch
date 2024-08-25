@@ -16,7 +16,7 @@ public interface VacanciesService {
 
     List<Vacancies> getAllVacanciesByCategory(Long categoryId);
 
-    Optional<Vacancies> getVacanciesById(Long vacanciesId);
+    Vacancies getVacanciesById(Long vacanciesId);
 
     List<Vacancies> getAllVacanciesByUser(Long id);
 }
