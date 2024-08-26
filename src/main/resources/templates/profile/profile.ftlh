@@ -61,7 +61,7 @@
     <div class="row backpost">
         <form action="/images" method="post" enctype="multipart/form-data">
             <div class="col col-12 col-md-6 colpost">
-                <img src="${userDto.avatar!"/static/images/nophoto.jpg"}" alt="ProfilePhoto"/>
+                <img src="<#if userDto.avatar?? && (userDto.avatar != '')>/images/${userDto.avatar}<#else>/static/images/nophoto.jpg</#if>" alt="ProfilePhoto"/>
                 <div class="file btn btn-lg btn-primary">
                     Change Photo
                     <input type="file" name="file"/>
@@ -69,6 +69,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Change Photo</button>
         </form>
+
+
 
         <div class="col col-12 col-md-6 colpost">
 

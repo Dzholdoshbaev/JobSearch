@@ -25,8 +25,8 @@ public class ImageController {
     }
 
 
-//    @GetMapping("byName")
-//    public ResponseEntity<?>download(@RequestParam( name = "name") String name) {
-//        return ImageService.downloadImage(name, MediaType.IMAGE_JPEG);
-//    }
+    @GetMapping("/{title}")
+    public ResponseEntity<?> download(@PathVariable String title) {
+        return imageService.downloadImage(title, MediaType.IMAGE_JPEG);
+    }
 }

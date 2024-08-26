@@ -1,12 +1,20 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
+import dzholdoshbaev.jobsearch.repository.UsersRepository;
 import dzholdoshbaev.jobsearch.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,14 +25,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class ImageServiceImpl implements ImageService {
-//    @Override
-//    public String upload(MultipartFile file) {
-//        var response = ImageService.uploadImage(file);
-//        log.info("Image uploaded successfully");
-//        return response;
-//    }
 
-    static Path PATH = Path.of("data/images");
+    private final UsersRepository usersRepository;
 
     static String UPLOAD_DIR = "data/images/";
 
@@ -42,7 +44,23 @@ public class ImageServiceImpl implements ImageService {
         }
         try (OutputStream os = Files.newOutputStream(filePath)) {
             os.write(file.getBytes());
-//            usersDao.addPhoto(username,UPLOAD_DIR + resultFileName) ;
+            usersRepository.updateUserPhoto(username,UPLOAD_DIR + resultFileName);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> downloadImage(String filename, MediaType mediaType) {
+        try {
+            Path filePath = Paths.get(UPLOAD_DIR, filename);
+            byte[] image = Files.readAllBytes(filePath);
+            Resource resource = new ByteArrayResource(image);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+                    .contentLength(resource.contentLength())
+                    .contentType(mediaType)
+                    .body(resource);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Image not found");
         }
     }
 

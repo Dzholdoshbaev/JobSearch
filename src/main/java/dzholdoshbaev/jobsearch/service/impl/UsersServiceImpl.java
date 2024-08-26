@@ -21,7 +21,6 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void createUser(Users users) {
-        users.setAvatar("/static/images/nophoto.jpg");
         users.setEnabled(true);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         usersRepository.save(users);
