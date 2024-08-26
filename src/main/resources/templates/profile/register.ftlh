@@ -34,8 +34,8 @@
             <input type="text" class="form-control" aria-label="Phone Number" aria-describedby="phone_number" name="phoneNumber">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="authorityId">Account type</span>
-            <select class="form-select" aria-label="authorityId" aria-describedby="authorityId" name="authorityId">
+            <span class="input-group-text" id="authorities">Account type</span>
+            <select class="form-select" aria-label="authorities" aria-describedby="authorities" name="authorities">
                 <option selected>Open this select menu</option>
                 <#list authoritiesUser as item>
                     <option value="${item.id}">${item.authority}</option>

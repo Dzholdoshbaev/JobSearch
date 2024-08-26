@@ -44,10 +44,8 @@ public class ProfileController {
     }
 
     @PostMapping("/register")
-    public String register( Users users , BindingResult bindingResult , Model model) {
-        usersService.createUser(users);
-
-        model.addAttribute("usersDto", users);
+    public String registerUser(@ModelAttribute Users user) {
+        usersService.createUser(user);
         return "redirect:/";
     }
 
