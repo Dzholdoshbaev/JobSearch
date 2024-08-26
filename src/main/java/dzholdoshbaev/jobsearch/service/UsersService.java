@@ -21,5 +21,5 @@ public interface UsersService {
 
     Boolean checkUserByEmail(String email);
 
-    void editResume(Users usersDto);
+    void editResume(Users usersDto ,String userEmail);
 }

@@ -70,15 +70,13 @@
             <button type="submit" class="btn btn-primary">Change Photo</button>
         </form>
 
-
-
         <div class="col col-12 col-md-6 colpost">
 
             <div class="col col-12 col-md-4 colpost">
                 <h5 class="card-title">${userDto.name}  ${userDto.surname}</h5>
                 <p class="card-text">${userDto.age}</p>
                 <p class="card-text">${userDto.email}</p>
-                <p class="card-text">${userDto.phoneNumber}</p>
+                <p class="card-text">${userDto.phoneNumber!"User Without Phone"}</p>
                 <#if userDto.authorities.id == 1>
                     <p class="card-text">APPLICANT</p>
                     <#else>

@@ -90,7 +90,16 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void editResume(Users usersDto) {
+    public void editResume(Users usersDto , String userEmail) {
+
+        usersRepository.updateUsersByEmail(userEmail,
+                usersDto.getEmail(),
+                usersDto.getName(),
+                usersDto.getSurname(),
+                usersDto.getAge(),
+                passwordEncoder.encode(usersDto.getPassword()),
+                usersDto.getPhoneNumber());
+
         log.info("Edited user");
     }
 }
