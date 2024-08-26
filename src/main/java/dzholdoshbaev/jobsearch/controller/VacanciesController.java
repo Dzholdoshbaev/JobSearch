@@ -45,6 +45,13 @@ public class VacanciesController {
         return "vacancies/create";
     }
 
+    @GetMapping("/update/{vacancyId}")
+    public String updateVacancy(@PathVariable Long vacancyId){
+        vacanciesService.updateVacancy(vacancyId);
+        return "redirect:/profile";
+    }
+
+
     @PostMapping("/edit/{vacancyId}")
     public String editVacancy(@PathVariable Long vacancyId , Vacancies vacancies) {
         vacanciesService.editVacancy(vacancies,vacancyId);

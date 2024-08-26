@@ -19,4 +19,6 @@ public interface VacanciesService {
     Vacancies getVacanciesById(Long vacanciesId);
 
     List<Vacancies> getAllVacanciesByUser(Long id);
+
+    void updateVacancy(Long vacancyId);
 }

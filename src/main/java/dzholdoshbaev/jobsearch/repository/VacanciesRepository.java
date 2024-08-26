@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -35,5 +36,14 @@ public interface VacanciesRepository extends JpaRepository<Vacancies, Long> {
                              @Param("expTo") Long expTo,
                              @Param("isActive") Boolean isActive,
                              @Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query("""
+        UPDATE Vacancies v
+        SET v.updateTime = :updateTime
+        WHERE v.id = :id
+        """)
+    void updateVacanciesUpdateTime(@Param("id") Long VacancyId, @Param("updateTime") LocalDateTime updateTime);
 
 }

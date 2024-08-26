@@ -78,4 +78,11 @@ public class VacanciesServiceImpl implements VacanciesService {
         log.info("printed all vacancies by user");
         return list;
     }
+
+    @Override
+    public void updateVacancy(Long vacancyId) {
+        vacanciesRepository.updateVacanciesUpdateTime(vacancyId, LocalDateTime.now());
+        log.info("Updated vacancies: {}", vacancyId);
+    }
+
 }
