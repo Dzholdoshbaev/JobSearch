@@ -45,10 +45,17 @@ public class VacanciesController {
         return "vacancies/create";
     }
 
-    @PutMapping("/edit")
-    public ResponseEntity<String> editVacancy( Vacancies vacanciesDto) {
-        vacanciesService.editVacancy(vacanciesDto);
-        return ResponseEntity.ok("Вакансия успешно отредактирована");
+    @PostMapping("/edit/{vacancyId}")
+    public String editVacancy(@PathVariable Long vacancyId , Vacancies vacancies) {
+        vacanciesService.editVacancy(vacancies,vacancyId);
+        return "redirect:/profile" ;
+    }
+
+    @GetMapping("/edit/{vacancyId}")
+    public String editVacancy(@PathVariable Long vacancyId ,Model model) {
+        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("vacancyId",vacancyId);
+        return "vacancies/editVacancy";
     }
 
     @DeleteMapping("/delete/{vacancyId}")

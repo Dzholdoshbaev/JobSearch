@@ -36,7 +36,15 @@ public class VacanciesServiceImpl implements VacanciesService {
     }
 
     @Override
-    public void editVacancy( Vacancies vacancies) {
+    public void editVacancy( Vacancies vacancies,Long vacancyId) {
+
+        vacanciesRepository.updateVacanciesById(vacancies.getName(),
+                vacancies.getDescription(),
+                vacancies.getSalary(),
+                vacancies.getExpFrom(),
+                vacancies.getExpTo(),
+                vacancies.getIsActive(),
+                vacancyId);
         log.info("Edited vacancies: {}", vacancies.getName());
     }
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface VacanciesService {
     void createVacancies(Vacancies vacanciesDto);
 
-    void editVacancy(Vacancies vacanciesDto);
+    void editVacancy(Vacancies vacanciesDto,Long vacancyId);
 
     void deleteVacancy(Long vacancyId);
 
