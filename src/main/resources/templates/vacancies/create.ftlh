@@ -12,8 +12,8 @@
             <input type="text" class="form-control" aria-label="Description" aria-describedby="description" name="description" />
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="categoryId">Category ID</span>
-            <select class="form-select" aria-label="Category ID" aria-describedby="categoryId" name="categoryId">
+            <span class="input-group-text" id="categories">Category ID</span>
+            <select class="form-select" aria-label="categories" aria-describedby="categories" name="categories">
                 <option selected>Open this select menu</option>
                 <#list categoriesDto as item>
                     <option value="${item.id}">${item.name}</option>
@@ -22,15 +22,15 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="salary">Salary</span>
-            <input type="text" class="form-control" aria-label="Salary" aria-describedby="salary" name="salary" />
+            <input type="number" class="form-control" aria-label="Salary" aria-describedby="salary" name="salary" />
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="expFrom">Experience From</span>
-            <input type="text" class="form-control" aria-label="Experience From" aria-describedby="expFrom" name="expFrom" />
+            <input type="number" class="form-control" aria-label="Experience From" aria-describedby="expFrom" name="expFrom" />
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="expTo">Experience To</span>
-            <input type="text" class="form-control" aria-label="Experience To" aria-describedby="expTo" name="expTo" />
+            <input type="number" class="form-control" aria-label="Experience To" aria-describedby="expTo" name="expTo" />
         </div>
         <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" id="isActive" name="isActive">

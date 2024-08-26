@@ -1,13 +1,18 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
 
+import dzholdoshbaev.jobsearch.model.Categories;
+import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.model.Vacancies;
+import dzholdoshbaev.jobsearch.repository.CategoriesRepository;
+import dzholdoshbaev.jobsearch.repository.UsersRepository;
 import dzholdoshbaev.jobsearch.repository.VacanciesRepository;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +21,17 @@ import java.util.Optional;
 @Service
 public class VacanciesServiceImpl implements VacanciesService {
     private final VacanciesRepository vacanciesRepository;
+    private final UsersRepository usersRepository;
+    private final CategoriesRepository categoriesRepository;
 
-    @Override
-    public void createVacancies(Vacancies vacanciesDto , Long userId) {
+    public void createVacancies(Vacancies vacanciesDto) {
+        Categories category = categoriesRepository.findById(vacanciesDto.getCategories().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
+        vacanciesDto.setCategories(category);
 
+        vacanciesDto.setCreatedDate(LocalDateTime.now());
+        vacanciesDto.setUpdateTime(LocalDateTime.now());
+        vacanciesRepository.save(vacanciesDto);
         log.info("Created vacancies");
     }
 

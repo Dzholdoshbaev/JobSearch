@@ -30,12 +30,14 @@ public class VacanciesController {
     private final CategoriesService categoriesService;
 
     @PostMapping("/create")
-    public String createVacancy(Vacancies vacanciesDto , Principal principal) {
+    public String createVacancy(@ModelAttribute Vacancies vacancies, Principal principal) {
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
-        vacanciesService.createVacancies(vacanciesDto,user.getId());
+        vacancies.setUsers(user);
+        vacanciesService.createVacancies(vacancies);
         return "redirect:/profile";
     }
+
 
     @GetMapping("/create")
     public String createVacancy(Model model) {
