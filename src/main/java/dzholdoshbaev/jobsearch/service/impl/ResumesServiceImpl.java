@@ -1,15 +1,13 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
-import dzholdoshbaev.jobsearch.model.ContactsInfo;
-import dzholdoshbaev.jobsearch.model.EducationInfo;
-import dzholdoshbaev.jobsearch.model.Resumes;
-import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
-import dzholdoshbaev.jobsearch.repository.ResumesRepository;
+import dzholdoshbaev.jobsearch.model.*;
+import dzholdoshbaev.jobsearch.repository.*;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +16,34 @@ import java.util.Optional;
 @Service
 public class ResumesServiceImpl implements ResumesService {
     private final ResumesRepository resumesRepository;
+    private final EducationInfoRepository educationInfoRepository;
+    private final WorkExperienceInfoRepository workExperienceInfoRepository;
+    private final ContactsInfoRepository contactsInfoRepository;
+    private final CategoriesRepository categoriesRepository;
+    private final ContactTypesRepository  contactTypesRepository;
+    private final UsersRepository      usersRepository;
 
     @Override
-    public void createResumes(Resumes resumesDto, EducationInfo educationInfoDto, WorkExperienceInfo workExperienceInfoDto, Long userId , ContactsInfo contactsInfoDto) {
+    public void createResumes(Resumes resumes, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo,  ContactsInfo contactsInfo) {
+        Categories category = categoriesRepository.findById(resumes.getCategories().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
+        resumes.setCategories(category);
+        resumes.setCreatedDate(LocalDateTime.now());
+        resumes.setUpdateTime(LocalDateTime.now());
+        Resumes resumes1 = resumesRepository.save(resumes);
+
+        workExperienceInfo.setResumes(resumes1);
+        workExperienceInfoRepository.save(workExperienceInfo);
+
+        educationInfo.setResumes(resumes1);
+        educationInfoRepository.save(educationInfo);
+
+        contactsInfo.setResumes(resumes1);
+        ContactTypes contactTypes = contactTypesRepository.findById(contactsInfo.getContactTypes().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid contact types ID"));
+        contactsInfo.setContactTypes(contactTypes);
+        contactsInfoRepository.save(contactsInfo);
+
         log.info("Created resume with id");
     }
 

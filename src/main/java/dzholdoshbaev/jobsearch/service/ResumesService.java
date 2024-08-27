@@ -9,7 +9,7 @@ import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 import java.util.List;
 
 public interface ResumesService {
-    void createResumes(Resumes resumesDto, EducationInfo educationInfoDto, WorkExperienceInfo workExperienceInfoDto, Long userId, ContactsInfo contactsInfoDto);
+    void createResumes(Resumes resumesDto, EducationInfo educationInfoDto, WorkExperienceInfo workExperienceInfoDto, ContactsInfo contactsInfo);
 
     void editResume( Resumes resumesDto);
 

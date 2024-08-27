@@ -30,20 +30,28 @@ public class ResumesController {
     private final ContactsInfoService contactsInfoService;
 
     @PostMapping("/create")
-    public String createResume(Resumes resumesDto, EducationInfo educationInfoDto, WorkExperienceInfo workExperienceInfoDto, ContactsInfo contactsInfoDto, Principal principal, Model model) {
+    public String createResume(
+            @ModelAttribute Resumes resumes,
+            @ModelAttribute EducationInfo educationInfo,
+            @ModelAttribute WorkExperienceInfo workExperienceInfo,
+            @ModelAttribute ContactsInfo contactsInfo,
+            Principal principal, Model model) {
+
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
-        resumesService.createResumes(resumesDto, educationInfoDto, workExperienceInfoDto, user.getAuthorities().getId(), contactsInfoDto);
+        resumes.setUsers(user);
+
+        resumesService.createResumes(resumes, educationInfo, workExperienceInfo, contactsInfo);
+
         return "redirect:/profile";
     }
 
+
+
     @GetMapping("/create")
     public String createResume(Model model, Principal principal) {
-        String username = principal.getName();
-//        UsersDto user = usersService.getUserByEmail(username);
         model.addAttribute("categoriesDto", categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
-//        model.addAttribute("userDto", user);
         return "resumes/createResume";
     }
 
