@@ -98,6 +98,34 @@ public class ResumesServiceImpl implements ResumesService {
 
     @Override
     public void editResume(Long resumeId, Resumes resumes, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo, ContactsInfo contactsInfo) {
+        Categories category = categoriesRepository.findById(resumes.getCategories().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
+       resumesRepository.updateResumesById(resumes.getName(),
+               category,
+               resumes.getSalary(),
+               resumes.getIsActive(),
+               resumeId);
+       Resumes resume = resumesRepository.findById(resumeId)
+               .orElseThrow(() -> new IllegalArgumentException("Invalid resume ID"));
+
+       educationInfoRepository.updateEducationInfoByResumes_Id(educationInfo.getInstitution(),
+               educationInfo.getProgram(),
+               educationInfo.getStartDate(),
+               educationInfo.getEndDate(),
+               educationInfo.getDegree(),
+               resume);
+        workExperienceInfoRepository.updateWorkExperienceInfoByResumeId(workExperienceInfo.getCompanyName(),
+                workExperienceInfo.getPosition(),
+                workExperienceInfo.getYears(),
+                workExperienceInfo.getResponsibilities(),
+                resume);
+
+        ContactTypes contactTypes = contactTypesRepository.findById(contactsInfo.getContactTypes().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid contact types ID"));
+
+        contactsInfoRepository.updateEducationInfoByResumes_Id(contactTypes,contactsInfo.getInfo(),resume);
+
+        log.info("Edited resume with id {}", resumeId);
 
     }
 

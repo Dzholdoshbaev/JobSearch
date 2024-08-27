@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.repository;
 
+import dzholdoshbaev.jobsearch.model.Categories;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +29,20 @@ public interface ResumesRepository extends JpaRepository<Resumes, Long> {
     void updateResumesUpdateTime(@Param("id") Long resumeId, @Param("updateTime") LocalDateTime updateTime);
 
 
-
+    @Transactional
+    @Modifying
+    @Query("""
+            UPDATE Resumes r
+            SET r.name = :name,
+            r.categories = :categories,
+            r.salary = :salary,
+            r.isActive = :isActive
+            WHERE r.id = :id
+            """)
+    void updateResumesById(@Param("name") String name,
+                           @Param("categories") Categories categories,
+                           @Param("salary") Double salary,
+                           @Param("isActive") Boolean isActive,
+                           @Param("id") Long id);
 
 }
