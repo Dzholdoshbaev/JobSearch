@@ -110,10 +110,16 @@
         <div class="row d-flex justify-content-between">
             <#list resumes as resume>
                 <div class="card col-6 m-2" style="width: 18rem;">
-                    <img src="/static/images/nophoto.jpg" class="card-img-top" alt="No image available">
                     <div class="card-body">
                         <h5 class="card-title">${resume.name}</h5>
                         <p class="card-text">${resume.createdDate}</p>
+                        <p class="card-text">${resume.categories.name}</p>
+                        <p class="card-text">${resume.updateTime!"Not update yet"}</p>
+                        <#if resume.isActive>
+                            <p class="card-text">Resume is active</p>
+                        <#else>
+                            <p class="card-text">Resume is not active</p>
+                        </#if>
                         <a href="/resumes/edit" class="btn btn-primary">Edit Resumes</a>
                         <a href="#" class="btn btn-primary">Update</a>
                     </div>
@@ -129,11 +135,20 @@
         <div class="row d-flex justify-content-between">
             <#list vacancies as vacancy>
                 <div class="card col-6 m-2" style="width: 18rem;">
-                    <img src="/static/images/nophoto.jpg" class="card-img-top" alt="No image available">
                     <div class="card-body">
                         <h5 class="card-title">${vacancy.name}</h5>
                         <p class="card-text">${vacancy.description}</p>
                         <p class="card-text">${vacancy.createdDate}</p>
+                        <p class="card-text">${vacancy.categories.name}</p>
+                        <#if vacancy.isActive>
+                            <p class="card-text">vacancy is active</p>
+                        <#else>
+                            <p class="card-text">vacancy is not active</p>
+                        </#if>
+                        <p class="card-text">${vacancy.salary}</p>
+                        <p class="card-text">${vacancy.updateTime!"Not update yet"}</p>
+                        <p class="card-text">${vacancy.expFrom}</p>
+                        <p class="card-text">${vacancy.expTo}</p>
                         <a href="/vacancies/edit/${vacancy.id}" class="btn btn-primary">Edit vacancy</a>
                         <a href="vacancies/update/${vacancy.id}" class="btn btn-primary">Update</a>
                     </div>
