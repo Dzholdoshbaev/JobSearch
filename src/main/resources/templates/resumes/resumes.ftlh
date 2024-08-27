@@ -9,8 +9,8 @@
         <#list resumes as resume>
             <div class="card col-6 m-2" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">${resume.name}</h5>
-                    <p class="card-text">${resume.createdDate}</p>
+                    <h5 class="card-title">${resume.name!"Not specified"}</h5>
+                    <p class="card-text">${resume.createdDate!"Not specified"}</p>
                     <p class="card-text">${resume.updateTime!"Not update yet"}</p>
                     <#if resume.isActive>
                         <p class="card-text">Resume is active</p>
