@@ -11,8 +11,6 @@ import java.util.List;
 public interface ResumesService {
     void createResumes(Resumes resumesDto, EducationInfo educationInfoDto, WorkExperienceInfo workExperienceInfoDto, ContactsInfo contactsInfo);
 
-    void editResume( Resumes resumesDto);
-
     void deleteResume(Long resumeId);
 
     List<Resumes> getAllResumes();
@@ -22,4 +20,8 @@ public interface ResumesService {
     List<Resumes> getAllResumesByUser(Long applicantId);
 
     Resumes getResumeById(Long resumesId);
+
+    void editResume(Long resumeId, Resumes resumes, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo, ContactsInfo contactsInfo);
+
+    void updateResumeTime(Long resumeId);
 }

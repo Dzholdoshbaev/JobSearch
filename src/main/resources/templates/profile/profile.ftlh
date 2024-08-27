@@ -120,8 +120,8 @@
                         <#else>
                             <p class="card-text">Resume is not active</p>
                         </#if>
-                        <a href="/resumes/edit" class="btn btn-primary">Edit Resumes</a>
-                        <a href="#" class="btn btn-primary">Update</a>
+                        <a href="/resumes/edit/${resume.id}" class="btn btn-primary">Edit Resumes</a>
+                        <a href="/resumes/update/${resume.id}" class="btn btn-primary">Update</a>
                     </div>
                 </div>
             </#list>

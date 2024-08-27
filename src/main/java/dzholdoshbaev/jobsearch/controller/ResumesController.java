@@ -35,7 +35,7 @@ public class ResumesController {
             @ModelAttribute EducationInfo educationInfo,
             @ModelAttribute WorkExperienceInfo workExperienceInfo,
             @ModelAttribute ContactsInfo contactsInfo,
-            Principal principal, Model model) {
+            Principal principal) {
 
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
@@ -53,6 +53,31 @@ public class ResumesController {
         model.addAttribute("categoriesDto", categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
         return "resumes/createResume";
+    }
+
+    @GetMapping("/update/{resumeId}")
+    public String updateVacancy(@PathVariable Long resumeId){
+        resumesService.updateResumeTime(resumeId);
+        return "redirect:/profile";
+    }
+
+
+    @PostMapping("/edit/{resumeId}")
+    public String editVacancy(@PathVariable Long resumeId,
+                              @ModelAttribute Resumes resumes,
+                              @ModelAttribute EducationInfo educationInfo,
+                              @ModelAttribute WorkExperienceInfo workExperienceInfo,
+                              @ModelAttribute ContactsInfo contactsInfo) {
+        resumesService.editResume(resumeId,resumes,educationInfo,workExperienceInfo,contactsInfo);
+        return "redirect:/profile" ;
+    }
+
+    @GetMapping("/edit/{resumeId}")
+    public String editVacancy(@PathVariable Long resumeId ,Model model) {
+        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+        model.addAttribute("resumeId",resumeId);
+        return "resumes/editResume";
     }
 
 //    @PutMapping("/edit")

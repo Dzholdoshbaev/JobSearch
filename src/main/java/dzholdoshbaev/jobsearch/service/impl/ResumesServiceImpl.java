@@ -48,11 +48,6 @@ public class ResumesServiceImpl implements ResumesService {
     }
 
     @Override
-    public void editResume(Resumes resumes) {
-        log.info("Edited resume with name {}", resumes.getName());
-    }
-
-    @Override
     public void deleteResume(Long resumeId) {
         log.info("Deleted resume");
     }
@@ -99,5 +94,16 @@ public class ResumesServiceImpl implements ResumesService {
        Optional<Resumes> resume =  resumesRepository.findById(resumesId);
        log.info("Retrieved resume with id {}", resumesId);
        return resume.orElse(null);
+    }
+
+    @Override
+    public void editResume(Long resumeId, Resumes resumes, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo, ContactsInfo contactsInfo) {
+
+    }
+
+    @Override
+    public void updateResumeTime(Long resumeId) {
+        resumesRepository.updateResumesUpdateTime(resumeId, LocalDateTime.now());
+        log.info("Updated resume with id {}", resumeId);
     }
 }
