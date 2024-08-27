@@ -2,6 +2,7 @@ package dzholdoshbaev.jobsearch.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Categories {
     private Long id;
     @Column(name = "name")
     private String name;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Categories categories;

@@ -1,6 +1,8 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
+import dzholdoshbaev.jobsearch.model.Authorities;
 import dzholdoshbaev.jobsearch.model.Users;
+import dzholdoshbaev.jobsearch.repository.AuthoritiesRepository;
 import dzholdoshbaev.jobsearch.repository.UsersRepository;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +20,30 @@ import java.util.Optional;
 public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final AuthoritiesRepository authoritiesRepository;
 
     @Override
     public void createUser(Users users) {
-        users.setAvatar("/static/images/nophoto.jpg");
         users.setEnabled(true);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
+
+        List<Authorities> list = authoritiesRepository.findAll();
+
+        users.setAuthorities(findAuthorities(list, users.getAuthorities().getId()));
+
         usersRepository.save(users);
         log.info("Created user: {}", users.getEmail());
     }
+
+    private Authorities findAuthorities(List<Authorities> list, Long id) {
+        for (Authorities authorities : list) {
+            if (authorities.getId().equals(id)) {
+                return authorities;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public Optional<Users> getUserById(Long id){
@@ -73,7 +90,16 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void editResume(Users usersDto) {
+    public void editResume(Users usersDto , String userEmail) {
+
+        usersRepository.updateUsersByEmail(userEmail,
+                usersDto.getEmail(),
+                usersDto.getName(),
+                usersDto.getSurname(),
+                usersDto.getAge(),
+                passwordEncoder.encode(usersDto.getPassword()),
+                usersDto.getPhoneNumber());
+
         log.info("Edited user");
     }
 }

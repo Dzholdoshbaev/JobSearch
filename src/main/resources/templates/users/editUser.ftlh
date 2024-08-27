@@ -5,7 +5,7 @@
 
 
 
-    <form action="/users/create" method="post">
+    <form action="/profile/edit" method="post">
         <div class="input-group mb-3">
             <span class="input-group-text" id="title">Name</span>
             <input type="text" class="form-control" aria-label="Name" aria-describedby="title" name="name">
@@ -28,21 +28,9 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Phone Number</span>
-            <input type="text" class="form-control" aria-label="Phone Number" aria-describedby="phone_number" name="phone_number">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="director">Account type</span>
-            <select class="form-select" aria-label="Director" aria-describedby="director" name="directorId">
-                <option selected>Open this select menu</option>
-                <#list authorities as item>
-                    <option value="${item.id}">${item.authority}</option>
-                </#list>
-            </select>
+            <input type="text" class="form-control" aria-label="Phone Number" aria-describedby="phoneNumber" name="phoneNumber">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
-
-
 
 </@main.layout>

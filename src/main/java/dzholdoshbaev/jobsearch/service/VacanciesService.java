@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VacanciesService {
-    void createVacancies(Vacancies vacanciesDto , Long userId);
+    void createVacancies(Vacancies vacanciesDto);
 
-    void editVacancy(Vacancies vacanciesDto);
+    void editVacancy(Vacancies vacanciesDto,Long vacancyId);
 
     void deleteVacancy(Long vacancyId);
 
@@ -16,7 +16,9 @@ public interface VacanciesService {
 
     List<Vacancies> getAllVacanciesByCategory(Long categoryId);
 
-    Optional<Vacancies> getVacanciesById(Long vacanciesId);
+    Vacancies getVacanciesById(Long vacanciesId);
 
     List<Vacancies> getAllVacanciesByUser(Long id);
+
+    void updateVacancy(Long vacancyId);
 }

@@ -2,6 +2,7 @@ package dzholdoshbaev.jobsearch.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 @Data
@@ -12,6 +13,7 @@ public class Messages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "responded_applicants_id")
     private RespondedApplicants respondedApplicants;

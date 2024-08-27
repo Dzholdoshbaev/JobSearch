@@ -44,10 +44,8 @@ public class ProfileController {
     }
 
     @PostMapping("/register")
-    public String register( Users users , BindingResult bindingResult , Model model) {
-        usersService.createUser(users);
-
-        model.addAttribute("usersDto", users);
+    public String registerUser(@ModelAttribute Users user) {
+        usersService.createUser(user);
         return "redirect:/";
     }
 
@@ -58,15 +56,15 @@ public class ProfileController {
         return "profile/register";
     }
 
-    @PutMapping("/edit")
-    public String editResume( Users usersDto) {
-        usersService.editResume(usersDto);
-        return "redirect:/profile";
+    @PostMapping("/edit")
+    public String editResume( Users usersDto , Principal principal) {
+        String username = principal.getName();
+        usersService.editResume(usersDto, username);
+        return "redirect:/";
     }
 
     @GetMapping("/edit")
-    public String editResume(Model model) {
-        model.addAttribute("authorities", authoritiesService.getAllAuthorities());
+    public String editResume() {
         return "users/editUser";
     }
 }
