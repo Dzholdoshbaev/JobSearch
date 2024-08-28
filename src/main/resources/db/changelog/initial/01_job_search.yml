@@ -82,13 +82,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: authority_id
-                  type: Long
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_authority_usr_id
-                    references: authorities(id)
-              - column:
                   name: name
                   type: varchar(255)
                   constraints:
@@ -373,5 +366,66 @@ databaseChangeLog:
               - column:
                   name: responsibilities
                   type: varchar(255)
-
-
+  - changeSet:
+      id: Create table roles
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(50)
+  - changeSet:
+      id: Create intermediate table for usr <-> roles
+      author: Aleksei
+      changes:
+        - createTable:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: users_id
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_usr_email_to_roles
+                    references: users(email)
+              - column:
+                  name: role_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_role_id_to_usr
+                    references: roles(id)
+  - changeSet:
+      id: Create intermediate table for roles <-> authorities
+      author: Aleksei
+      changes:
+        - createTable:
+            tableName: roles_authorities
+            columns:
+              - column:
+                  name: role_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_role_id_to_auth
+                    references: roles(id)
+              - column:
+                  name: authority_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_authority_id_to_roles
+                    references: authorities(id)
