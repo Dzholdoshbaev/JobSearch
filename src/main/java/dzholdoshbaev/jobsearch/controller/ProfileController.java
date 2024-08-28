@@ -28,18 +28,18 @@ public class ProfileController {
 
     @GetMapping
     public String profile(Model model, Principal principal) {
-        String username = principal.getName();
-        Users user = usersService.getUserByEmail(username);
-        Long authorityId = user.getAuthorities().getId();
-        System.out.println(authorityId);
-        model.addAttribute("userDto", user);
-        if (authorityId == 1){
-            List<Resumes> resumes = resumesService.getAllResumesByUser(user.getId());
-            model.addAttribute("resumes", resumes);
-        }else {
-            List<Vacancies> vacancies = vacanciesService.getAllVacanciesByUser(user.getId());
-            model.addAttribute("vacancies", vacancies);
-        }
+//        String username = principal.getName();
+//        Users user = usersService.getUserByEmail(username);
+//        Long authorityId = user.getAuthorities().getId();
+//        System.out.println(authorityId);
+//        model.addAttribute("userDto", user);
+//        if (authorityId == 1){
+//            List<Resumes> resumes = resumesService.getAllResumesByUser(user.getId());
+//            model.addAttribute("resumes", resumes);
+//        }else {
+//            List<Vacancies> vacancies = vacanciesService.getAllVacanciesByUser(user.getId());
+//            model.addAttribute("vacancies", vacancies);
+//        }
         return "profile/profile";
     }
 

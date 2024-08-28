@@ -29,7 +29,7 @@ public class UsersServiceImpl implements UsersService {
 
         List<Authorities> list = authoritiesRepository.findAll();
 
-        users.setAuthorities(findAuthorities(list, users.getAuthorities().getId()));
+//        users.setAuthorities(findAuthorities(list, users.getAuthorities().getId()));
 
         usersRepository.save(users);
         log.info("Created user: {}", users.getEmail());

@@ -375,7 +375,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: long
+                  type: Long
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -392,15 +392,15 @@ databaseChangeLog:
             columns:
               - column:
                   name: users_id
-                  type: varchar(50)
+                  type: Long
                   constraints:
                     nullable: false
                     primaryKey: true
                     foreignKeyName: fk_usr_email_to_roles
-                    references: users(email)
+                    references: users(id)
               - column:
                   name: role_id
-                  type: long
+                  type: Long
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -415,7 +415,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: role_id
-                  type: long
+                  type: Long
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -423,7 +423,7 @@ databaseChangeLog:
                     references: roles(id)
               - column:
                   name: authority_id
-                  type: long
+                  type: Long
                   constraints:
                     nullable: false
                     primaryKey: true
