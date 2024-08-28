@@ -1,6 +1,7 @@
 package dzholdoshbaev.jobsearch.controller;
 
 import dzholdoshbaev.jobsearch.model.Resumes;
+import dzholdoshbaev.jobsearch.model.Roles;
 import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.service.AuthoritiesService;
@@ -10,10 +11,10 @@ import dzholdoshbaev.jobsearch.service.VacanciesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -28,20 +29,26 @@ public class ProfileController {
 
     @GetMapping
     public String profile(Model model, Principal principal) {
-//        String username = principal.getName();
-//        Users user = usersService.getUserByEmail(username);
-//        Long authorityId = user.getAuthorities().getId();
-//        System.out.println(authorityId);
-//        model.addAttribute("userDto", user);
-//        if (authorityId == 1){
-//            List<Resumes> resumes = resumesService.getAllResumesByUser(user.getId());
-//            model.addAttribute("resumes", resumes);
-//        }else {
-//            List<Vacancies> vacancies = vacanciesService.getAllVacanciesByUser(user.getId());
-//            model.addAttribute("vacancies", vacancies);
-//        }
+        String username = principal.getName();
+        Users user = usersService.getUserByEmail(username);
+        Collection<Roles> roles = user.getRoles();
+
+        model.addAttribute("userDto", user);
+
+        boolean isApplicant = roles.stream()
+                .anyMatch(r -> r.getRole().equalsIgnoreCase("APPLICANT"));
+
+        if (isApplicant) {
+            List<Resumes> resumes = resumesService.getAllResumesByUser(user.getId());
+            model.addAttribute("resumes", resumes);
+        } else {
+            List<Vacancies> vacancies = vacanciesService.getAllVacanciesByUser(user.getId());
+            model.addAttribute("vacancies", vacancies);
+        }
+
         return "profile/profile";
     }
+
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute Users user) {
