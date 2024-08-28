@@ -21,35 +21,9 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final DataSource dataSource;
-
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
-        String fetchUsers = """
-                select email , password ,enabled
-                from users
-                where email = ?;
-                """;
-
-        String fetchAuthorities = """
-                SELECT u.email, a.authority
-                FROM users u
-                         INNER JOIN authorities a
-                                    ON u.authority_id = a.id
-                WHERE u.email = ?;
-                """;
-
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(fetchUsers)
-                .authoritiesByUsernameQuery(fetchAuthorities)
-                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Bean
@@ -67,7 +41,6 @@ public class SecurityConfig {
                         .logoutUrl("/auth/logout")
                         .logoutSuccessUrl("/auth/login")
                         .permitAll())
-                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.POST,"/resumes/create").hasAuthority("APPLICANT")
                         .requestMatchers(HttpMethod.PUT,"/resumes/edit").hasAuthority("APPLICANT")

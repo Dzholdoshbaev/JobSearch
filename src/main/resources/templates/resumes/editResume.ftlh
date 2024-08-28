@@ -6,6 +6,11 @@
     <h2>Create Resume</h2>
     <form action="/resumes/edit/${resumeId}" method="post">
 
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                   value="${(_csrf.token)!'csrf-token'}"/>
+        </#if>
+
         <h3>Resume Details</h3>
         <div id="resumesContainer">
             <div class="resume-entry mb-3">

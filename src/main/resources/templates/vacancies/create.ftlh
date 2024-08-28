@@ -3,6 +3,12 @@
 <@main.layout ; spring>
 
     <form action="/vacancies/create" method="post">
+
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                   value="${(_csrf.token)!'csrf-token'}"/>
+        </#if>
+
         <div class="input-group mb-3">
             <span class="input-group-text" id="title">Name</span>
             <input type="text" class="form-control" aria-label="Name" aria-describedby="title" name="name" />

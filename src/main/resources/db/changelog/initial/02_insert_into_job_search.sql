@@ -2,6 +2,14 @@ insert into authorities (AUTHORITY)
 values ('APPLICANT'),
        ('EMPLOYER');
 
+insert into roles (role)
+values ('APPLICANT'),
+       ('EMPLOYER');
+
+insert into roles_authorities (role_id,authority_id)
+values (SELECT id FROM roles WHERE role = 'APPLICANT',SELECT id FROM AUTHORITIES WHERE authority = 'APPLICANT'),
+       (SELECT id FROM roles WHERE role = 'EMPLOYER',SELECT id FROM AUTHORITIES WHERE authority = 'EMPLOYER');
+
 INSERT INTO categories (name, parent_id)
 VALUES ('It', NULL),
        ('Medicine', NULL),
@@ -43,7 +51,7 @@ VALUES ('It', NULL),
 
 
 //qwe password
-INSERT INTO users (name, surname, age, email, password, phone_number, enabled, authority_id)
+INSERT INTO users (name, surname, age, email, password, phone_number, enabled)
 VALUES
     ('adilet', 'urmat', 47, 'adilet.urmat@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433444', true),
     ('alibek', 'bek', 35, 'alibek.bek@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433443', true),
@@ -77,6 +85,41 @@ VALUES
     ('anara', 'osmonalieva', 28, 'anara.osmonalieva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433478', true),
     ('sultan', 'sharipov', 41, 'sultan.sharipov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433479', true),
     ('elena', 'kudryavtseva', 29, 'elena.kudryavtseva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433480', true);
+
+insert into users_roles (users_id,role_id)
+values ('adilet.urmat@gmail.com',2),
+       ('alibek.bek@gmail.com',2),
+       ('mirbek.alishev@gmail.com',2),
+       ('tarsyn.zhan@gmail.com',2),
+       ('katya.sidorova@gmail.com',2),
+       ('ruslan.kutubekov@gmail.com',2),
+       ('nurlan.bekov@gmail.com',2),
+       ('akmaral.baisalova@gmail.com',2),
+       ('dastan.daniyar@gmail.com',2),
+       ('gulnara.muratova@gmail.com',2),
+       ('bekzat.kyrgyzbaev@gmail.com',2),
+       ('shamil.shamsiev@gmail.com',2),
+       ('saniya.kairatova@gmail.com',2),
+       ('janyl.bekova@gmail.com',2),
+       ('serik.keldi@gmail.com',2),
+       ('alina.dzhangirova@gmail.com',2),
+       ('valery.fedotov@gmail.com',1),
+       ('yana.solovyeva@gmail.com',1),
+       ('timur.samatov@gmail.com',1),
+       ('mariam.kurbatova@gmail.com',1),
+       ('aristotel.akmatov@gmail.com',1),
+       ('eldar.serikov@gmail.com',1),
+       ('beksultan.bekov@gmail.com',1),
+       ('zhanar.ramazanova@gmail.com',1),
+       ('nursultan.zhanbayeva@gmail.com',1),
+       ('lara.lutsenko@gmail.com',1),
+       ('samat.sharipov@gmail.com',1),
+       ('tatyana.mironova@gmail.com',1),
+       ('mukhit.tursunov@gmail.com',1),
+       ('anara.osmonalieva@gmail.com',1),
+       ('sultan.sharipov@gmail.com',1),
+       ('elena.kudryavtseva@gmail.com',1);
+
 
 INSERT INTO resumes (applicant_id, name, category_id, salary, is_active, created_date)
 VALUES

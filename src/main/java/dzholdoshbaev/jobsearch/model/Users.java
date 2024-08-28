@@ -3,6 +3,7 @@ package dzholdoshbaev.jobsearch.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Builder
@@ -32,12 +33,11 @@ public class Users {
     private String avatar;
     @Column(name = "enabled")
     private Boolean enabled;
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name = "authority_id")
-    private Authorities authorities;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Resumes> resumesList;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Vacancies> vacanciesList;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    private Collection<Roles> roles;
+
 }
