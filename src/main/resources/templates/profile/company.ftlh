@@ -24,6 +24,7 @@
         <#else>
             <p class="card-text">EMPLOYER</p>
         </#if>
+        <a href="/vacancies" class="btn btn-primary">Back to Vacancies</a>
     </div>
 
 
