@@ -5,6 +5,10 @@ import dzholdoshbaev.jobsearch.repository.*;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -53,10 +57,13 @@ public class ResumesServiceImpl implements ResumesService {
     }
 
     @Override
-    public List<Resumes> getAllResumes() {
-        log.info("All resumes printed");
-        return resumesRepository.findAll();
+    public Page<Resumes> getAllResumes(Pageable pageable) {
+        Page<Resumes> resumesPage = resumesRepository.findAll(pageable);
+        List<Resumes> resumesList = resumesPage.getContent();
+        return new PageImpl<>(resumesList, pageable, resumesPage.getTotalElements());
     }
+
+
 
     @Override
     public List<Resumes> getAllResumesByCategory(Long categoryId) {

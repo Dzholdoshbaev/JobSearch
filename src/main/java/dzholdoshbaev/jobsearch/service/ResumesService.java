@@ -5,6 +5,10 @@ import dzholdoshbaev.jobsearch.model.ContactsInfo;
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+
 
 import java.util.List;
 
@@ -13,7 +17,7 @@ public interface ResumesService {
 
     void deleteResume(Long resumeId);
 
-    List<Resumes> getAllResumes();
+    Page<Resumes> getAllResumes(Pageable pageable);
 
     List<Resumes> getAllResumesByCategory(Long categoryId);
 

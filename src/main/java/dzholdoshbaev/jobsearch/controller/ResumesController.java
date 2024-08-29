@@ -6,10 +6,13 @@ import dzholdoshbaev.jobsearch.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
+
 
 
 import java.security.Principal;
@@ -93,8 +96,8 @@ public class ResumesController {
 //    }
 
     @GetMapping
-    public String getAllResumes(Model model) {
-        model.addAttribute("resumes", resumesService.getAllResumes());
+    public String getAllResumes(Model model, @PageableDefault(size = 3, sort = "createdDate") Pageable pageable) {
+        model.addAttribute("resumes", resumesService.getAllResumes(pageable));
         return "resumes/resumes";
     }
 
