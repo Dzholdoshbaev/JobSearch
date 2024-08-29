@@ -3,10 +3,32 @@
 <@main.layout>
 
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <#if vacancies.hasPrevious()>
+                <li class="page-item"><a class="page-link" href="/vacancies?page=${vacancies.number - 1}">Previous</a></li>
+            <#else>
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            </#if>
+
+            <#list 0..(vacancies.totalPages - 1) as page>
+                <li class="page-item <#if vacancies.number == page>active</#if>">
+                    <a class="page-link" href="/vacancies?page=${page}">${page + 1}</a>
+                </li>
+            </#list>
+
+            <#if vacancies.hasNext()>
+                <li class="page-item"><a class="page-link" href="/vacancies?page=${vacancies.number + 1}">Next</a></li>
+            <#else>
+                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            </#if>
+        </ul>
+    </nav>
+
 
 
     <div class="row">
-        <#list vacancies as vacancy>
+        <#list vacancies.content as vacancy>
             <div class="col-12 mb-4">
                 <div class="d-flex align-items-center p-3 border rounded">
                     <div class="flex-shrink-0 me-3">

@@ -10,6 +10,9 @@ import dzholdoshbaev.jobsearch.repository.VacanciesRepository;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -55,9 +58,10 @@ public class VacanciesServiceImpl implements VacanciesService {
     }
 
     @Override
-    public List<Vacancies> getAllVacancies() {
-        log.info("printed all vacancies");
-        return vacanciesRepository.findAll();
+    public Page<Vacancies> getAllVacancies(Pageable pageable) {
+        Page<Vacancies>  vacanciesPage = vacanciesRepository.findAll(pageable);
+        List<Vacancies> vacanciesList = vacanciesPage.getContent();
+        return new PageImpl<>(vacanciesList, pageable, vacanciesPage.getTotalElements());
     }
 
     @Override

@@ -10,10 +10,12 @@ import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 
 import java.security.Principal;
@@ -72,8 +74,8 @@ public class VacanciesController {
     }
 
     @GetMapping
-    public String getAllVacancies(Model model) {
-        model.addAttribute("vacancies", vacanciesService.getAllVacancies());
+    public String getAllVacancies(Model model,@PageableDefault(size = 5, sort = "respondedApplicantsList") Pageable pageable) {
+        model.addAttribute("vacancies", vacanciesService.getAllVacancies(pageable));
         return "vacancies/vacancies";
     }
 
