@@ -107,6 +107,9 @@
                 <div class="col col-12 col-md-4 colpost">
                     <a href="/vacancies/create" class="btn btn-primary">Created vacancy</a>
                 </div>
+                <div class="col col-12 col-md-4 colpost">
+                    <a href="#" class="btn btn-primary">Applicants</a>
+                </div>
             </#if>
 
         </div>
