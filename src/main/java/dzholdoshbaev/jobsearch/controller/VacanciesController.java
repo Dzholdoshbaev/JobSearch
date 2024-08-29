@@ -74,7 +74,7 @@ public class VacanciesController {
     }
 
     @GetMapping
-    public String getAllVacancies(Model model,@PageableDefault(size = 5, sort = "respondedApplicantsList") Pageable pageable) {
+    public String getAllVacancies(Model model,@PageableDefault(size = 5, sort = "createdDate") Pageable pageable) {
         model.addAttribute("vacancies", vacanciesService.getAllVacancies(pageable));
         return "vacancies/vacancies";
     }
