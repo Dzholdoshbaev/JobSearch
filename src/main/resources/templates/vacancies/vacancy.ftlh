@@ -21,6 +21,7 @@
                     <p class="card-text">${vacancy.updateTime!"Not update yet"}</p>
                     <p class="card-text">${vacancy.expFrom!"Not specified"}</p>
                     <p class="card-text">${vacancy.expTo!"Not specified"}</p>
+                    <a href="#" class="btn btn-primary">respond to vacancy</a>
                     <a href="/vacancies" class="btn btn-primary">Back to Vacancies</a>
                 </div>
             </div>
