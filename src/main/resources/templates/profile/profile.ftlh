@@ -122,14 +122,7 @@
                 <div class="card col-6 m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">${resume.name!"Not specified"}</h5>
-                        <p class="card-text">${resume.createdDate!"Not specified"}</p>
-                        <p class="card-text">${resume.categories.name!"Not specified"}</p>
                         <p class="card-text">${resume.updateTime!"Not update yet"}</p>
-                        <#if resume.isActive>
-                            <p class="card-text">Resume is active</p>
-                        <#else>
-                            <p class="card-text">Resume is not active</p>
-                        </#if>
                         <a href="/resumes/edit/${resume.id}" class="btn btn-primary">Edit Resumes</a>
                         <a href="/resumes/update/${resume.id}" class="btn btn-primary">Update</a>
                     </div>
@@ -147,18 +140,7 @@
                 <div class="card col-6 m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">${vacancy.name!"Not specified"}</h5>
-                        <p class="card-text">${vacancy.description!"Not specified"}</p>
-                        <p class="card-text">${vacancy.createdDate!"Not specified"}</p>
-                        <p class="card-text">${vacancy.categories.name!"Not specified"}</p>
-                        <#if vacancy.isActive>
-                            <p class="card-text">vacancy is active</p>
-                        <#else>
-                            <p class="card-text">vacancy is not active</p>
-                        </#if>
-                        <p class="card-text">${vacancy.salary!"Not specified"}</p>
                         <p class="card-text">${vacancy.updateTime!"Not update yet"}</p>
-                        <p class="card-text">${vacancy.expFrom!"Not specified"}</p>
-                        <p class="card-text">${vacancy.expTo!"Not specified"}</p>
                         <a href="/vacancies/edit/${vacancy.id}" class="btn btn-primary">Edit vacancy</a>
                         <a href="vacancies/update/${vacancy.id}" class="btn btn-primary">Update</a>
                     </div>

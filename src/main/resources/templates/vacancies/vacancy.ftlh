@@ -21,12 +21,10 @@
                     <p class="card-text">${vacancy.updateTime!"Not update yet"}</p>
                     <p class="card-text">${vacancy.expFrom!"Not specified"}</p>
                     <p class="card-text">${vacancy.expTo!"Not specified"}</p>
-                    <a href="/profile" class="btn btn-primary">Back to Profile</a>
+                    <a href="/vacancies" class="btn btn-primary">Back to Vacancies</a>
                 </div>
             </div>
     </div>
-
-
 
 
 </@main.layout>

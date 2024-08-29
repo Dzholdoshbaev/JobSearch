@@ -1,13 +1,14 @@
 package dzholdoshbaev.jobsearch.service;
 
 
+import dzholdoshbaev.jobsearch.model.Authorities;
 import dzholdoshbaev.jobsearch.model.Users;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UsersService {
-    void createUser(Users users);
+    void createUser(Users users , Authorities authorities);
 
     Optional<Users> getUserById(Long id);
 

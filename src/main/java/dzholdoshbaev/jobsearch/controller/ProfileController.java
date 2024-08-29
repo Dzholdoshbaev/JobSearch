@@ -1,9 +1,6 @@
 package dzholdoshbaev.jobsearch.controller;
 
-import dzholdoshbaev.jobsearch.model.Resumes;
-import dzholdoshbaev.jobsearch.model.Roles;
-import dzholdoshbaev.jobsearch.model.Users;
-import dzholdoshbaev.jobsearch.model.Vacancies;
+import dzholdoshbaev.jobsearch.model.*;
 import dzholdoshbaev.jobsearch.service.AuthoritiesService;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import dzholdoshbaev.jobsearch.service.UsersService;
@@ -16,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @Controller
@@ -26,6 +25,19 @@ public class ProfileController {
     private final AuthoritiesService authoritiesService;
     private final ResumesService resumesService;
     private final VacanciesService vacanciesService;
+
+
+    @GetMapping("company/{companyId}")
+    public String profileCompany(@PathVariable Long companyId, Model model) {
+
+        Optional<Users> user = usersService.getUserById(companyId);
+        if(user.isEmpty()){
+            throw new NoSuchElementException("no such company found");
+        }
+        model.addAttribute("userDto", user.get());
+        return "profile/company";
+    }
+
 
     @GetMapping
     public String profile(Model model, Principal principal) {
@@ -51,8 +63,8 @@ public class ProfileController {
 
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute Users user) {
-        usersService.createUser(user);
+    public String registerUser(@ModelAttribute Users user , @ModelAttribute Authorities authorities) {
+        usersService.createUser(user,authorities);
         return "redirect:/";
     }
 
