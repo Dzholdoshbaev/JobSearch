@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-                        .defaultSuccessUrl("/profile")
+                        .successHandler(new CustomAuthenticationSuccessHandler())
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )
@@ -51,5 +51,8 @@ public class SecurityConfig {
                         .anyRequest().permitAll());
         return http.build();
     }
+
+
+
 
 }

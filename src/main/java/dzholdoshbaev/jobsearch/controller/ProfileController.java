@@ -59,7 +59,7 @@ public class ProfileController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute Users user) {
         usersService.createUser(user);
-        return "redirect:/";
+        return "redirect:/auth/login";
     }
 
     @GetMapping("/register")
