@@ -10,17 +10,17 @@
                 <div class="card-body">
                     <h5 class="card-title">${vacancy.name!"Not specified"}</h5>
                     <p class="card-text">${vacancy.description!"Not specified"}</p>
-                    <p class="card-text">${vacancy.salary!"Not specified"}</p>
+                    <p class="card-text">Salary ${vacancy.salary!"Not specified"}</p>
                     <#if vacancy.isActive>
                         <p class="card-text">Vacancy is active</p>
                     <#else>
                         <p class="card-text">Vacancy is not active</p>
                     </#if>
-                    <p class="card-text">${vacancy.categories.name!"Not specified"}</p>
-                    <p class="card-text">${vacancy.createdDate!"Not specified"}</p>
-                    <p class="card-text">${vacancy.updateTime!"Not update yet"}</p>
-                    <p class="card-text">${vacancy.expFrom!"Not specified"}</p>
-                    <p class="card-text">${vacancy.expTo!"Not specified"}</p>
+                    <p class="card-text">Categories ${vacancy.categories.name!"Not specified"}</p>
+                    <p class="card-text">Created Date ${vacancy.createdDate!"Not specified"}</p>
+                    <p class="card-text">Update time  ${vacancy.updateTime!"Not update yet"}</p>
+                    <p class="card-text">Exp from ${vacancy.expFrom!"Not specified"}</p>
+                    <p class="card-text">Exp to ${vacancy.expTo!"Not specified"}</p>
                     <a href="#" class="btn btn-primary">respond to vacancy</a>
                     <a href="/vacancies" class="btn btn-primary">Back to Vacancies</a>
                 </div>
