@@ -89,9 +89,9 @@
 
             <div class="col col-12 col-md-4 colpost">
                 <h5 class="card-title">${userDto.name!"Not specified"}  ${userDto.surname!"Not specified"}</h5>
-                <p class="card-text">${userDto.age!"Not specified"}</p>
-                <p class="card-text">${userDto.email!"Not specified"}</p>
-                <p class="card-text">${userDto.phoneNumber!"User Without Phone"}</p>
+                <p class="card-text">Age : ${userDto.age!"Not specified"}</p>
+                <p class="card-text">Email : ${userDto.email!"Not specified"}</p>
+                <p class="card-text">Phone Number : ${userDto.phoneNumber!"User Without Phone"}</p>
                 <#if userDto.authorities.id == 1>
                     <p class="card-text">APPLICANT</p>
                 <#else>
@@ -127,9 +127,9 @@
                 <div class="card col-6 m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">${resume.name!"Not specified"}</h5>
-                        <p class="card-text">${resume.createdDate!"Not specified"}</p>
-                        <p class="card-text">${resume.categories.name!"Not specified"}</p>
-                        <p class="card-text">${resume.updateTime!"Not update yet"}</p>
+                        <p class="card-text">Created Date : ${resume.createdDate!"Not specified"}</p>
+                        <p class="card-text">Categories : ${resume.categories.name!"Not specified"}</p>
+                        <p class="card-text">Update time  : ${resume.updateTime!"Not update yet"}</p>
                         <#if resume.isActive>
                             <p class="card-text">Resume is active</p>
                         <#else>
@@ -152,18 +152,18 @@
                 <div class="card col-6 m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">${vacancy.name!"Not specified"}</h5>
-                        <p class="card-text">${vacancy.description!"Not specified"}</p>
-                        <p class="card-text">${vacancy.createdDate!"Not specified"}</p>
-                        <p class="card-text">${vacancy.categories.name!"Not specified"}</p>
+                        <p class="card-text">Description : ${vacancy.description!"Not specified"}</p>
+                        <p class="card-text">Created Date  : ${vacancy.createdDate!"Not specified"}</p>
+                        <p class="card-text">Categories : ${vacancy.categories.name!"Not specified"}</p>
                         <#if vacancy.isActive>
                             <p class="card-text">vacancy is active</p>
                         <#else>
                             <p class="card-text">vacancy is not active</p>
                         </#if>
-                        <p class="card-text">${vacancy.salary!"Not specified"}</p>
-                        <p class="card-text">${vacancy.updateTime!"Not update yet"}</p>
-                        <p class="card-text">${vacancy.expFrom!"Not specified"}</p>
-                        <p class="card-text">${vacancy.expTo!"Not specified"}</p>
+                        <p class="card-text">Expected Salary : ${vacancy.salary!"Not specified"}</p>
+                        <p class="card-text">Update Time : ${vacancy.updateTime!"Not update yet"}</p>
+                        <p class="card-text">Exp  from : ${vacancy.expFrom!"Not specified"}</p>
+                        <p class="card-text">Exp to : ${vacancy.expTo!"Not specified"}</p>
                         <a href="/vacancies/edit/${vacancy.id}" class="btn btn-primary">Edit vacancy</a>
                         <a href="vacancies/update/${vacancy.id}" class="btn btn-primary">Update</a>
                     </div>
