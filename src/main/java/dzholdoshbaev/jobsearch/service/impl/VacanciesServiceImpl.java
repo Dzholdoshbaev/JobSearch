@@ -2,7 +2,6 @@ package dzholdoshbaev.jobsearch.service.impl;
 
 
 import dzholdoshbaev.jobsearch.model.Categories;
-import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.repository.CategoriesRepository;
 import dzholdoshbaev.jobsearch.repository.UsersRepository;

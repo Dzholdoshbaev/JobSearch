@@ -1,7 +1,6 @@
 package dzholdoshbaev.jobsearch.service;
 
 
-import dzholdoshbaev.jobsearch.model.Authorities;
 import dzholdoshbaev.jobsearch.model.Users;
 
 import java.util.List;

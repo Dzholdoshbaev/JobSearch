@@ -15,21 +15,11 @@
 <body>
 
 <header>
-
-    <#assign known = SPRING_SECURITY_CONTEXT?? >
-    <#if known>
-        <#assign
-        user = SPRING_SECURITY_CONTEXT.authentication.principal
-        name = user.getUsername()
-        >
-    </#if>
-
-
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <#if user?? && user.authorities?seq_contains("APPLICANT")>
+                    <#if userDto.authorities.id == 1>
                         <a class="nav-link active" aria-current="page" href="/vacancies">Vacancies</a>
                     <#else>
                         <a class="nav-link" href="/resumes">Resumes</a>
@@ -52,6 +42,11 @@
                     </#if>
                 </#list>
             </a>
+
+            <#if _csrf??>
+                <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                       value="${(_csrf.token)!'csrf-token'}"/>
+            </#if>
 
             <a href="/auth/logout" class="btn btn-outline-info m-2"
                id="logout">Logout</a>
@@ -87,16 +82,16 @@
                 <p class="card-text">${userDto.age!"Not specified"}</p>
                 <p class="card-text">${userDto.email!"Not specified"}</p>
                 <p class="card-text">${userDto.phoneNumber!"User Without Phone"}</p>
-                <#if user?? && user.authorities?seq_contains("APPLICANT")>
+                <#if userDto.authorities.id == 1>
                     <p class="card-text">APPLICANT</p>
-                    <#else>
-                        <p class="card-text">EMPLOYER</p>
+                <#else>
+                    <p class="card-text">EMPLOYER</p>
                 </#if>
 
                 <a href="profile/edit" class="btn btn-primary">Edit profile</a>
             </div>
 
-            <#if user?? && user.authorities?seq_contains("APPLICANT")>
+            <#if userDto.authorities.id == 1>
                 <div class="col col-12 col-md-4 colpost">
                     <a href="/resumes/create" class="btn btn-primary">Created resume</a>
                 </div>
@@ -107,16 +102,13 @@
                 <div class="col col-12 col-md-4 colpost">
                     <a href="/vacancies/create" class="btn btn-primary">Created vacancy</a>
                 </div>
-                <div class="col col-12 col-md-4 colpost">
-                    <a href="#" class="btn btn-primary">Applicants</a>
-                </div>
             </#if>
 
         </div>
 
     </div>
 
-    <#if user?? && user.authorities?seq_contains("APPLICANT")>
+    <#if userDto.authorities.id == 1>
 
         <h5 class="allResumes">Resumes : </h5>
 
@@ -125,7 +117,14 @@
                 <div class="card col-6 m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">${resume.name!"Not specified"}</h5>
+                        <p class="card-text">${resume.createdDate!"Not specified"}</p>
+                        <p class="card-text">${resume.categories.name!"Not specified"}</p>
                         <p class="card-text">${resume.updateTime!"Not update yet"}</p>
+                        <#if resume.isActive>
+                            <p class="card-text">Resume is active</p>
+                        <#else>
+                            <p class="card-text">Resume is not active</p>
+                        </#if>
                         <a href="/resumes/edit/${resume.id}" class="btn btn-primary">Edit Resumes</a>
                         <a href="/resumes/update/${resume.id}" class="btn btn-primary">Update</a>
                     </div>
@@ -143,7 +142,18 @@
                 <div class="card col-6 m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">${vacancy.name!"Not specified"}</h5>
+                        <p class="card-text">${vacancy.description!"Not specified"}</p>
+                        <p class="card-text">${vacancy.createdDate!"Not specified"}</p>
+                        <p class="card-text">${vacancy.categories.name!"Not specified"}</p>
+                        <#if vacancy.isActive>
+                            <p class="card-text">vacancy is active</p>
+                        <#else>
+                            <p class="card-text">vacancy is not active</p>
+                        </#if>
+                        <p class="card-text">${vacancy.salary!"Not specified"}</p>
                         <p class="card-text">${vacancy.updateTime!"Not update yet"}</p>
+                        <p class="card-text">${vacancy.expFrom!"Not specified"}</p>
+                        <p class="card-text">${vacancy.expTo!"Not specified"}</p>
                         <a href="/vacancies/edit/${vacancy.id}" class="btn btn-primary">Edit vacancy</a>
                         <a href="vacancies/update/${vacancy.id}" class="btn btn-primary">Update</a>
                     </div>
