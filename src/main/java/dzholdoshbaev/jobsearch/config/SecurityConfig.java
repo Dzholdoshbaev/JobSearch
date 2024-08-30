@@ -1,20 +1,17 @@
 package dzholdoshbaev.jobsearch.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +30,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-                        .defaultSuccessUrl("/profile")
+                        .successHandler(new CustomAuthenticationSuccessHandler())
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )
@@ -42,17 +39,29 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/auth/login")
                         .permitAll())
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers(HttpMethod.POST,"/images").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/profile").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/profile/edit").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/profile/company/").hasAuthority("APPLICANT")
+                        .requestMatchers(HttpMethod.GET,"/resumes/create").hasAuthority("APPLICANT")
                         .requestMatchers(HttpMethod.POST,"/resumes/create").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.PUT,"/resumes/edit").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.DELETE,"/resumes/delete/").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.POST,"/applicants/responded").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.GET,"/applicants/resume/").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.GET,"/applicants/vacancy/").hasAuthority("EMPLOYER")
+                        .requestMatchers(HttpMethod.GET,"/resumes/update/{resumeId}").hasAuthority("APPLICANT")
+                        .requestMatchers(HttpMethod.GET,"resumes/edit/{resumeId}").hasAuthority("APPLICANT")
+                        .requestMatchers(HttpMethod.POST,"resumes/edit/{resumeId}").hasAuthority("APPLICANT")
+                        .requestMatchers(HttpMethod.GET,"resumes").hasAuthority("EMPLOYER")
+                        .requestMatchers(HttpMethod.GET,"resumes/{resumeId}").hasAuthority("EMPLOYER")
+                        .requestMatchers(HttpMethod.GET,"/vacancies").hasAuthority("APPLICANT")
+                        .requestMatchers(HttpMethod.GET,"/vacancies/{vacancyId}").hasAuthority("APPLICANT")
+                        .requestMatchers(HttpMethod.GET,"/vacancies/create").hasAuthority("EMPLOYER")
                         .requestMatchers(HttpMethod.POST,"/vacancies/create").hasAuthority("EMPLOYER")
-                        .requestMatchers(HttpMethod.PUT,"/vacancies/edit").hasAuthority("EMPLOYER")
-                        .requestMatchers(HttpMethod.DELETE,"/vacancies/delete/").hasAuthority("EMPLOYER")
+                        .requestMatchers(HttpMethod.GET,"/vacancies/update/{vacancyId}").hasAuthority("EMPLOYER")
+                        .requestMatchers(HttpMethod.GET,"/vacancies/edit/{vacancyId}").hasAuthority("EMPLOYER")
+                        .requestMatchers(HttpMethod.POST,"/vacancies/edit/{vacancyId}").hasAuthority("EMPLOYER")
                         .anyRequest().permitAll());
         return http.build();
     }
+
+
+
 
 }

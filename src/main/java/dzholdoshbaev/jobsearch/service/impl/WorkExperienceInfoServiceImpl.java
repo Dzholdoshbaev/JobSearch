@@ -1,6 +1,5 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
-import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 import dzholdoshbaev.jobsearch.repository.WorkExperienceInfoRepository;
 import dzholdoshbaev.jobsearch.service.WorkExperienceInfoService;

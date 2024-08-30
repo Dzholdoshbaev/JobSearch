@@ -1,7 +1,6 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
 import dzholdoshbaev.jobsearch.model.Authorities;
-import dzholdoshbaev.jobsearch.model.Roles;
 import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.repository.AuthoritiesRepository;
 import dzholdoshbaev.jobsearch.repository.UsersRepository;
@@ -12,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,20 +23,17 @@ public class UsersServiceImpl implements UsersService {
     private final AuthoritiesRepository authoritiesRepository;
 
     @Override
-    public void createUser(Users users , Authorities authorities) {
-        users.setEnabled(true);
-        users.setPassword(passwordEncoder.encode(users.getPassword()));
-        Collection<Roles> roles = users.getRoles();
-        String role = roles.stream()
-                .map(Roles::getRole)
-                .findFirst()
-                .orElse("Роль не найдена");
+    public void createUser(Users user) {
+        user.setEnabled(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
+        Authorities authority = authoritiesRepository.findById(user.getAuthorities().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid authority ID"));
 
+        user.setAuthorities(authority);
 
-
-        usersRepository.save(users);
-        log.info("Created user: {}", users.getEmail());
+        usersRepository.save(user);
+        log.info("Created user: {}", user.getEmail());
     }
 
     private Authorities findAuthorities(List<Authorities> list, Long id) {

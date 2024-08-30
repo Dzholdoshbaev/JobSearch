@@ -2,14 +2,6 @@ insert into authorities (AUTHORITY)
 values ('APPLICANT'),
        ('EMPLOYER');
 
-insert into roles (role)
-values ('APPLICANT'),
-       ('EMPLOYER');
-
-insert into roles_authorities (role_id,authority_id)
-values (SELECT id FROM roles WHERE role = 'APPLICANT',SELECT id FROM AUTHORITIES WHERE authority = 'APPLICANT'),
-       (SELECT id FROM roles WHERE role = 'EMPLOYER',SELECT id FROM AUTHORITIES WHERE authority = 'EMPLOYER');
-
 INSERT INTO categories (name, parent_id)
 VALUES ('It', NULL),
        ('Medicine', NULL),
@@ -51,75 +43,40 @@ VALUES ('It', NULL),
 
 
 //qwe password
-INSERT INTO users (name, surname, age, email, password, phone_number, enabled)
+INSERT INTO users (name, surname, age, email, password, phone_number, enabled, authority_id)
 VALUES
-    ('adilet', 'urmat', 47, 'adilet.urmat@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433444', true),
-    ('alibek', 'bek', 35, 'alibek.bek@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433443', true),
-    ('mirbek', 'alishev', 45, 'mirbek.alishev@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433447', true),
-    ('tarsyn', 'zhan', 29, 'tarsyn.zhan@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433451', true),
-    ('katya', 'sidorova', 32, 'katya.sidorova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433452', true),
-    ('ruslan', 'kutubekov', 40, 'ruslan.kutubekov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433453', true),
-    ('nurlan', 'bekov', 28, 'nurlan.bekov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433454', true),
-    ('akmaral', 'baisalova', 34, 'akmaral.baisalova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433455', true),
-    ('dastan', 'daniyar', 38, 'dastan.daniyar@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433456', true),
-    ('gulnara', 'muratova', 27, 'gulnara.muratova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433457', true),
-    ('bekzat', 'kyrgyzbaev', 31, 'bekzat.kyrgyzbaev@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433458', true),
-    ('shamil', 'shamsiev', 29, 'shamil.shamsiev@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433459', true),
-    ('saniya', 'kairatova', 36, 'saniya.kairatova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433460', true),
-    ('janyl', 'bekova', 33, 'janyl.bekova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433461', true),
-    ('serik', 'keldi', 37, 'serik.keldi@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433462', true),
-    ('alina', 'dzhangirova', 26, 'alina.dzhangirova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433463', true),
-    ('valery', 'fedotov', 41, 'valery.fedotov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433464', true),
-    ('yana', 'solovyeva', 30, 'yana.solovyeva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433465', true),
-    ('timur', 'samatov', 42, 'timur.samatov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433466', true),
-    ('mariam', 'kurbatova', 29, 'mariam.kurbatova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433467', true),
-    ('aristotel', 'akmatov', 37, 'aristotel.akmatov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433468', true),
-    ('eldar', 'serikov', 33, 'eldar.serikov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433469', true),
-    ('beksultan', 'bekov', 26, 'beksultan.bekov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433471', true),
-    ('zhanar', 'ramazanova', 32, 'zhanar.ramazanova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433472', true),
-    ('nursultan', 'zhanbayeva', 34, 'nursultan.zhanbayeva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433473', true),
-    ('lara', 'lutsenko', 27, 'lara.lutsenko@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433474', true),
-    ('samat', 'sharipov', 39, 'samat.sharipov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433475', true),
-    ('tatyana', 'mironova', 31, 'tatyana.mironova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433476', true),
-    ('mukhit', 'tursunov', 36, 'mukhit.tursunov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433477', true),
-    ('anara', 'osmonalieva', 28, 'anara.osmonalieva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433478', true),
-    ('sultan', 'sharipov', 41, 'sultan.sharipov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433479', true),
-    ('elena', 'kudryavtseva', 29, 'elena.kudryavtseva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433480', true);
-
-insert into users_roles (users_id,role_id)
-values (SELECT id FROM users WHERE email = 'adilet.urmat@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'alibek.bek@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'mirbek.alishev@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'tarsyn.zhan@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'katya.sidorova@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'ruslan.kutubekov@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'nurlan.bekov@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'akmaral.baisalova@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'dastan.daniyar@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'gulnara.muratova@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'bekzat.kyrgyzbaev@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'shamil.shamsiev@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'saniya.kairatova@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'janyl.bekova@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'serik.keldi@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'alina.dzhangirova@gmail.com',2),
-       (SELECT id FROM users WHERE email = 'valery.fedotov@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'yana.solovyeva@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'timur.samatov@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'mariam.kurbatova@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'aristotel.akmatov@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'eldar.serikov@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'beksultan.bekov@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'zhanar.ramazanova@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'nursultan.zhanbayeva@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'lara.lutsenko@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'samat.sharipov@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'tatyana.mironova@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'mukhit.tursunov@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'anara.osmonalieva@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'sultan.sharipov@gmail.com',1),
-       (SELECT id FROM users WHERE email = 'elena.kudryavtseva@gmail.com',1);
-
+    ('adilet', 'urmat', 47, 'adilet.urmat@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433444', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('alibek', 'bek', 35, 'alibek.bek@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433443', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('mirbek', 'alishev', 45, 'mirbek.alishev@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433447', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('tarsyn', 'zhan', 29, 'tarsyn.zhan@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433451', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('katya', 'sidorova', 32, 'katya.sidorova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433452', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('ruslan', 'kutubekov', 40, 'ruslan.kutubekov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433453', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('nurlan', 'bekov', 28, 'nurlan.bekov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433454', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('akmaral', 'baisalova', 34, 'akmaral.baisalova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433455', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('dastan', 'daniyar', 38, 'dastan.daniyar@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433456', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('gulnara', 'muratova', 27, 'gulnara.muratova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433457', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('bekzat', 'kyrgyzbaev', 31, 'bekzat.kyrgyzbaev@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433458', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('shamil', 'shamsiev', 29, 'shamil.shamsiev@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433459', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('saniya', 'kairatova', 36, 'saniya.kairatova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433460', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('janyl', 'bekova', 33, 'janyl.bekova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433461', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('serik', 'keldi', 37, 'serik.keldi@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433462', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('alina', 'dzhangirova', 26, 'alina.dzhangirova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433463', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'EMPLOYER')),
+    ('valery', 'fedotov', 41, 'valery.fedotov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433464', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('yana', 'solovyeva', 30, 'yana.solovyeva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433465', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('timur', 'samatov', 42, 'timur.samatov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433466', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('mariam', 'kurbatova', 29, 'mariam.kurbatova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433467', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('aristotel', 'akmatov', 37, 'aristotel.akmatov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433468', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('eldar', 'serikov', 33, 'eldar.serikov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433469', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('beksultan', 'bekov', 26, 'beksultan.bekov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433471', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('zhanar', 'ramazanova', 32, 'zhanar.ramazanova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433472', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('nursultan', 'zhanbayeva', 34, 'nursultan.zhanbayeva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433473', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('lara', 'lutsenko', 27, 'lara.lutsenko@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433474', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('samat', 'sharipov', 39, 'samat.sharipov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433475', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('tatyana', 'mironova', 31, 'tatyana.mironova@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433476', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('mukhit', 'tursunov', 36, 'mukhit.tursunov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433477', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('anara', 'osmonalieva', 28, 'anara.osmonalieva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433478', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('sultan', 'sharipov', 41, 'sultan.sharipov@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433479', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT')),
+    ('elena', 'kudryavtseva', 29, 'elena.kudryavtseva@gmail.com', '$2a$12$nbJcXR6aa/XQZijdKOFWweOgFrZhlsFLk.lWSbpQAhNTlqnJF1y3W', '0555433480', true, (SELECT id FROM AUTHORITIES WHERE AUTHORITY = 'APPLICANT'));
 
 INSERT INTO resumes (applicant_id, name, category_id, salary, is_active, created_date)
 VALUES

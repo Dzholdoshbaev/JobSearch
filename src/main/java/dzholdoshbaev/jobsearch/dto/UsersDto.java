@@ -1,6 +1,5 @@
 package dzholdoshbaev.jobsearch.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
