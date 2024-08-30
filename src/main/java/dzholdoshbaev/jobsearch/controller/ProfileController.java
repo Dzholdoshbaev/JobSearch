@@ -43,28 +43,23 @@ public class ProfileController {
     public String profile(Model model, Principal principal) {
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
-        Collection<Roles> roles = user.getRoles();
-
+        Long authorityId = user.getAuthorities().getId();
+        System.out.println(authorityId);
         model.addAttribute("userDto", user);
-
-        boolean isApplicant = roles.stream()
-                .anyMatch(r -> r.getRole().equalsIgnoreCase("APPLICANT"));
-
-        if (isApplicant) {
+        if (authorityId == 1){
             List<Resumes> resumes = resumesService.getAllResumesByUser(user.getId());
             model.addAttribute("resumes", resumes);
-        } else {
+        }else {
             List<Vacancies> vacancies = vacanciesService.getAllVacanciesByUser(user.getId());
             model.addAttribute("vacancies", vacancies);
         }
-
         return "profile/profile";
     }
 
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute Users user , @ModelAttribute Authorities authorities) {
-        usersService.createUser(user,authorities);
+    public String registerUser(@ModelAttribute Users user) {
+        usersService.createUser(user);
         return "redirect:/";
     }
 

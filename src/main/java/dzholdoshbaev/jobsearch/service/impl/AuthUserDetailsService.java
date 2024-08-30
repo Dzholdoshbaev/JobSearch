@@ -2,7 +2,6 @@ package dzholdoshbaev.jobsearch.service.impl;
 
 
 import dzholdoshbaev.jobsearch.model.Authorities;
-import dzholdoshbaev.jobsearch.model.Roles;
 import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +19,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class AuthUserDetailsService implements UserDetailsService {
+
     private final UsersRepository userRepository;
 
     @Override
@@ -33,34 +33,21 @@ public class AuthUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                getAuthorities(user.getRoles())
+                getAuthorities(user)
         );
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Roles> roles) {
-        return getGrantedAuthorities(getPrivileges(roles));
+    private Collection<? extends GrantedAuthority> getAuthorities(Users user) {
+        List<Authorities> authoritiesList = user.getAuthorities() != null ? List.of(user.getAuthorities()) : List.of();
+        return getGrantedAuthorities(authoritiesList);
     }
 
-    private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        for (String privilege : privileges) {
-            authorities.add(new SimpleGrantedAuthority(privilege));
+    private Collection<? extends GrantedAuthority> getGrantedAuthorities(List<Authorities> authorities) {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (Authorities authority : authorities) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
         }
-        return authorities;
-    }
-
-    private List<String> getPrivileges(Collection<Roles> roles) {
-        List<String> privileges = new ArrayList<>();
-        List<Authorities> collection = new ArrayList<>();
-
-        for (Roles role : roles) {
-            privileges.add(role.getRole());
-            collection.addAll(role.getAuthorities());
-        }
-        for (Authorities item : collection) {
-            privileges.add(item.getAuthority());
-        }
-        return privileges;
+        return grantedAuthorities;
     }
 
 }

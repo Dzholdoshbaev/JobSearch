@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UsersService {
-    void createUser(Users users , Authorities authorities);
+    void createUser(Users users );
 
     Optional<Users> getUserById(Long id);
 
