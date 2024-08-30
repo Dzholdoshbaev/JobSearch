@@ -42,12 +42,22 @@
                 </a>
 
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
-                           value="${(_csrf.token)!'csrf-token'}"/>
-                </#if>
 
-                <a href="/auth/logout" class="btn btn-outline-info m-2"
-                   id="logout">Logout</a>
+                    <form action="/auth/logout" method="post">
+
+                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+
+                               value="${(_csrf.token)!'--no-token--'}"/>
+
+                        <button type="submit" class="btn btn-outline-info m-2" id="logout">Logout</button>
+
+                    </form>
+
+                <#else>
+
+                    <a href="/auth/logout" class="btn btn-outline-info m-2" id="logout">Logout</a>
+
+                </#if>
 
             <#else>
                 <a href="/auth/login"
