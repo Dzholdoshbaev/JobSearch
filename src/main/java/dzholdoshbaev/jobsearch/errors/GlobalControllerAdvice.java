@@ -1,6 +1,5 @@
 package dzholdoshbaev.jobsearch.errors;
 
-import dzholdoshbaev.jobsearch.service.ErrorService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,8 +16,6 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 @RequiredArgsConstructor
 public class GlobalControllerAdvice {
-    private final ErrorService errorService;
-
 
     @ExceptionHandler(NoSuchElementException.class)
     public String notFound(HttpServletRequest request, Model model) {
