@@ -22,10 +22,10 @@ public class EmailService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom(EMAIL_FROM, "Movie Review Support");
+        helper.setFrom(EMAIL_FROM, "Job Search Support team");
         helper.setTo(to);
 
-        String subject = "Movie Review Support - reset password";
+        String subject = "Job Search Support - reset password";
         String body = "<p>Hello,</p>"
                 + "<p>You have requested to reset your password.</p>"
                 + "<p>Click the link below to change your password:</p>"
