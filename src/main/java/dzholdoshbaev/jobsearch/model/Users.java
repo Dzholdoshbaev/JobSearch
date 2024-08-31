@@ -26,6 +26,8 @@ public class Users {
     private String email;
     @Column(name = "password")
     private String password;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "avatar")
