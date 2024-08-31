@@ -25,6 +25,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     void updateUserPhoto(@Param("email") String email, @Param("avatar") String avatar);
 
 
+    Optional<Users> findByResetPasswordToken(String resetPasswordToken);
 
     @Transactional
     @Modifying
