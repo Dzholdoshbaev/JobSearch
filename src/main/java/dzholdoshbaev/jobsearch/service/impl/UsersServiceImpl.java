@@ -1,18 +1,22 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
+import dzholdoshbaev.jobsearch.common.Utilities;
 import dzholdoshbaev.jobsearch.model.Authorities;
 import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.repository.AuthoritiesRepository;
 import dzholdoshbaev.jobsearch.repository.UsersRepository;
 import dzholdoshbaev.jobsearch.service.UsersService;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,6 +25,7 @@ public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final AuthoritiesRepository authoritiesRepository;
+    private final EmailService emailService;
 
     @Override
     public void createUser(Users user) {
@@ -35,16 +40,6 @@ public class UsersServiceImpl implements UsersService {
         usersRepository.save(user);
         log.info("Created user: {}", user.getEmail());
     }
-
-    private Authorities findAuthorities(List<Authorities> list, Long id) {
-        for (Authorities authorities : list) {
-            if (authorities.getId().equals(id)) {
-                return authorities;
-            }
-        }
-        return null;
-    }
-
 
     @Override
     public Optional<Users> getUserById(Long id){
@@ -102,5 +97,75 @@ public class UsersServiceImpl implements UsersService {
                 usersDto.getPhoneNumber());
 
         log.info("Edited user");
+    }
+
+    @Override
+    public Map<String, Object> forgotPassword(HttpServletRequest request) {
+        Map<String, Object> model = new HashMap<>();
+        try {
+            makeResetPasswordLink(request);
+            model.put("message", "we have sent reset password link to your email. Please check.");
+        } catch (UsernameNotFoundException | UnsupportedEncodingException e) {
+            model.put("error", e.getMessage());
+        } catch (MessagingException e) {
+            model.put("error", "Error while sending reset password link to your email.");
+        }
+        return model;
+    }
+
+    @Override
+    public Map<String, Object> resetPasswordGet(String token) {
+        Map<String, Object> model = new HashMap<>();
+        try {
+            getByToken(token);
+            model.put("token", token);
+        } catch (UsernameNotFoundException e) {
+            model.put("error", "Invalid token");
+        }
+        return model;
+    }
+
+    @Override
+    public Map<String, Object> resetPasswordPost(HttpServletRequest request) {
+        Map<String, Object> model = new HashMap<>();
+        String token = request.getParameter("token");
+        String password = request.getParameter("password");
+
+        try {
+            Users user = getByToken(token);
+            updatePassword(user, password);
+            model.put("message", "You have successfully changed your password.");
+        } catch (UsernameNotFoundException e) {
+            model.put("message", "Invalid token");
+        }
+        return model;
+    }
+
+    private void makeResetPasswordLink(HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        String email = request.getParameter("email");
+        String token = UUID.randomUUID().toString();
+        updateToken(token, email);
+
+        String resetPasswordLink = Utilities.getSiteUrl(request) + "/auth/reset_password?token=" + token;
+        emailService.sendMail(email, resetPasswordLink);
+    }
+
+    private Users getByToken(String token) {
+        return usersRepository.findByResetPasswordToken(token)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    private void updatePassword(Users user, String password) {
+        String encodedPassword = passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
+        user.setResetPasswordToken(null);
+        usersRepository.save(user);
+    }
+
+    private void updateToken(String token, String email) {
+        Users user = usersRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Could not find any user with the email: " + email));
+        user.setResetPasswordToken(token);
+        usersRepository.save(user);
     }
 }
