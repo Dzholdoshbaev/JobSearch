@@ -62,7 +62,7 @@
             <#else>
                 <a href="/auth/login"
                    class="btn btn-outline-info m-2">Login</a>
-                <a href="profile/register"
+                <a href="/profile/register"
                    class="btn btn-outline-info m-2">Register</a>
             </#if>
 

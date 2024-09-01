@@ -78,6 +78,10 @@
             <div class="col col-12 col-md-6 colpost">
                 <img src="${userDto.avatar!"/static/images/nophoto.jpg"}" alt="ProfilePhoto"/>
                 <div class="file btn btn-lg btn-primary">
+                    <#if _csrf??>
+                        <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                               value="${(_csrf.token)!'csrf-token'}"/>
+                    </#if>
                     Change Photo
                     <input type="file" name="file"/>
                 </div>
