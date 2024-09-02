@@ -31,14 +31,8 @@
                 user = SPRING_SECURITY_CONTEXT.authentication.principal
                 name = user.getUsername()
                 >
-                <a href="/profile/${name}" class="text-light m-2 m-sm-0">
-                    Hello, ${name}:
-                    <#list user.authorities as auth>
-                        <span class="text-danger">${auth}</span>
-                        <#if auth?has_next>
-                            /
-                        </#if>
-                    </#list>
+                <a href="/profile" class="text-dark m-2 m-sm-0">
+                    <span class="btn btn-outline-info m-2">Profile</span>
                 </a>
 
                 <#if _csrf??>

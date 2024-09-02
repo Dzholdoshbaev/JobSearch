@@ -1,18 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-          name="viewport">
-    <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Job Search</title>
-    <link href="#" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .profile-container {
+            margin-top: 30px;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            margin-bottom: 15px;
+        }
+        .form-control-file {
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+        .btn-outline-info {
+            margin-top: 10px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+        }
+        .card-text {
+            font-size: 1rem;
+        }
+    </style>
 </head>
-
-<body>
 
 <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -33,14 +52,8 @@
             user = SPRING_SECURITY_CONTEXT.authentication.principal
             name = user.getUsername()
             >
-            <a href="/profile/${name}" class="text-light m-2 m-sm-0">
-                Hello, ${name}:
-                <#list user.authorities as auth>
-                    <span class="text-danger">${auth}</span>
-                    <#if auth?has_next>
-                        /
-                    </#if>
-                </#list>
+            <a href="/profile" class="text-dark m-2 m-sm-0">
+                <span class="btn btn-outline-info m-2">Profile</span>
             </a>
 
             <#if _csrf??>
@@ -71,56 +84,56 @@
     </nav>
 </header>
 
-<div class="container">
-
-    <div class="row backpost">
-        <form action="/images" method="post" enctype="multipart/form-data">
-            <div class="col col-12 col-md-6 colpost">
-                <img src="${userDto.avatar!"/static/images/nophoto.jpg"}" alt="ProfilePhoto"/>
-                <div class="file btn btn-lg btn-primary">
-                    <#if _csrf??>
-                        <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
-                               value="${(_csrf.token)!'csrf-token'}"/>
-                    </#if>
-                    Change Photo
-                    <input type="file" name="file"/>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Change Photo</button>
-        </form>
-
-        <div class="col col-12 col-md-6 colpost">
-
-            <div class="col col-12 col-md-4 colpost">
-                <h5 class="card-title">${userDto.name!"Not specified"}  ${userDto.surname!"Not specified"}</h5>
-                <p class="card-text">Age : ${userDto.age!"Not specified"}</p>
-                <p class="card-text">Email : ${userDto.email!"Not specified"}</p>
-                <p class="card-text">Phone Number : ${userDto.phoneNumber!"User Without Phone"}</p>
-                <#if userDto.authorities.id == 1>
-                    <p class="card-text">APPLICANT</p>
+<body>
+<div class="container profile-container">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <#if userDto??>
+                <#if userDto.avatar?? && userDto.avatar?has_content>
+                    <img src="./images/${userDto.avatar}" alt="ProfilePhoto" class="profile-img"/>
                 <#else>
-                    <p class="card-text">EMPLOYER</p>
+                    <img src="/static/images/nophoto.jpg" alt="ProfilePhoto" class="profile-img"/>
                 </#if>
+            <#else>
+                <img src="/static/images/nophoto.jpg" alt="ProfilePhoto" class="profile-img"/>
+            </#if>
 
-                <a href="profile/edit" class="btn btn-primary">Edit profile</a>
-            </div>
-
+            <form action="/images" method="post" enctype="multipart/form-data" class="mt-3">
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                           value="${(_csrf.token)!'csrf-token'}"/>
+                </#if>
+                <input type="file" name="file"/>
+                <button type="submit" class="btn btn-outline-info">Change Photo</button>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <h3 class="card-title">${userDto.name!"Not specified"} ${userDto.surname!"Not specified"}</h3>
+            <p class="card-text"><strong>Age:</strong> ${userDto.age!"Not specified"}</p>
+            <p class="card-text"><strong>Email:</strong> ${userDto.email!"Not specified"}</p>
+            <p class="card-text"><strong>Phone Number:</strong> ${userDto.phoneNumber!"User Without Phone"}</p>
+            <#if userDto.authorities.id == 1>
+                <p class="card-text">APPLICANT</p>
+            <#else>
+                <p class="card-text">EMPLOYER</p>
+            </#if>
+            <a href="profile/edit" class="btn btn-outline-info mt-3">Edit profile</a>
             <#if userDto.authorities.id == 1>
                 <div class="col col-12 col-md-4 colpost">
-                    <a href="/resumes/create" class="btn btn-primary">Created resume</a>
+                    <a href="/resumes/create" class="btn btn-outline-info mt-3">Created resume</a>
                 </div>
                 <div class="col col-12 col-md-4 colpost">
-                    <a href="/applicants/resume" class="btn btn-primary">Responds</a>
+                    <a href="/applicants/resume" class="btn btn-outline-info mt-3">Responds</a>
                 </div>
             <#else>
                 <div class="col col-12 col-md-4 colpost">
-                    <a href="/vacancies/create" class="btn btn-primary">Created vacancy</a>
+                    <a href="/vacancies/create" class="btn btn-outline-info mt-3">Created vacancy</a>
                 </div>
             </#if>
-
         </div>
-
     </div>
+</div>
+
 
     <#if userDto.authorities.id == 1>
 
@@ -177,7 +190,8 @@
 
     </#if>
 
-</div>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

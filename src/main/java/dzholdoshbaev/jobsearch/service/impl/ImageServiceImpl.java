@@ -44,7 +44,7 @@ public class ImageServiceImpl implements ImageService {
         }
         try (OutputStream os = Files.newOutputStream(filePath)) {
             os.write(file.getBytes());
-            usersRepository.updateUserPhoto(username,UPLOAD_DIR + resultFileName);
+            usersRepository.updateUserPhoto(username,resultFileName);
         }
     }
 
@@ -52,15 +52,21 @@ public class ImageServiceImpl implements ImageService {
     public ResponseEntity<?> downloadImage(String filename, MediaType mediaType) {
         try {
             Path filePath = Paths.get(UPLOAD_DIR, filename);
+
+            if (!Files.exists(filePath)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Image not found");
+            }
+
             byte[] image = Files.readAllBytes(filePath);
             Resource resource = new ByteArrayResource(image);
+
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
                     .contentLength(resource.contentLength())
                     .contentType(mediaType)
                     .body(resource);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Image not found");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the image");
         }
     }
 
