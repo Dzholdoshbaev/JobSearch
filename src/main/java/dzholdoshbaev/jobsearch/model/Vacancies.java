@@ -33,6 +33,8 @@ public class Vacancies {
     private Long expTo;
     @Column(name = "is_active")
     private Boolean isActive;
+    @Column(name = "respond_amount")
+    private Long respondAmount;
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "author_id")

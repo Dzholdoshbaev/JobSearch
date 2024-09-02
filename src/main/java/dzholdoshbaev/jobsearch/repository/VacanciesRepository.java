@@ -39,10 +39,21 @@ public interface VacanciesRepository extends JpaRepository<Vacancies, Long> {
     @Transactional
     @Modifying
     @Query("""
-        UPDATE Vacancies v
-        SET v.updateTime = :updateTime
-        WHERE v.id = :id
-        """)
+            UPDATE Vacancies v
+            SET v.updateTime = :updateTime
+            WHERE v.id = :id
+            """)
     void updateVacanciesUpdateTime(@Param("id") Long VacancyId, @Param("updateTime") LocalDateTime updateTime);
+
+
+    @Modifying
+    @Transactional
+    @Query("""
+            UPDATE Vacancies v
+            SET v.respondAmount = :respondAmount
+            WHERE v.id = :id
+            """)
+    void updateVacanciesRespondAmount(@Param("id") Long VacancyId, @Param("respondAmount") Long respondAmount);
+
 
 }

@@ -10,6 +10,9 @@ import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -74,10 +77,20 @@ public class VacanciesController {
     }
 
     @GetMapping
-    public String getAllVacancies(Model model,@PageableDefault(size = 5, sort = "createdDate") Pageable pageable) {
-        model.addAttribute("vacancies", vacanciesService.getAllVacancies(pageable));
+    public String getAllVacancies(
+            @RequestParam(value = "sort", defaultValue = "createdDate") String sort,
+            Model model,
+            @PageableDefault(size = 5) Pageable pageable) {
+
+        Sort sortBy = Sort.by(Sort.Order.asc(sort));
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sortBy);
+
+        Page<Vacancies> vacanciesPage = vacanciesService.getAllVacancies(sortedPageable);
+        model.addAttribute("vacancies", vacanciesPage);
+
         return "vacancies/vacancies";
     }
+
 
     @GetMapping("/{vacancyId}")
     public String getVacancy(@PathVariable Long vacancyId ,Model model) {

@@ -23,4 +23,5 @@ public interface VacanciesService {
     List<Vacancies> getAllVacanciesByUser(Long id);
 
     void updateVacancy(Long vacancyId);
+
 }
