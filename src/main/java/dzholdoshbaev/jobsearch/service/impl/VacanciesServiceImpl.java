@@ -56,8 +56,7 @@ public class VacanciesServiceImpl implements VacanciesService {
 
     @Override
     public Page<Vacancies> getAllVacancies(Pageable pageable) {
-
-        if (pageable.getSort().toString().equalsIgnoreCase("respondAmount")){
+        if (pageable.getSort().toString().contains("respondAmount")) {
             Map<Long, Long> vacancyResponseCountMap = respondedApplicantsRepository.findAll().stream()
                     .collect(Collectors.groupingBy(
                             applicant -> applicant.getVacancies().getId(),
@@ -68,16 +67,13 @@ public class VacanciesServiceImpl implements VacanciesService {
 
             Sort sortBy = Sort.by(Sort.Order.desc("respondAmount"));
             Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sortBy);
-            Page<Vacancies> sortedByRespondAmount = vacanciesRepository.findAll(sortedPageable);
 
-            return new PageImpl<>(sortedByRespondAmount.getContent(), pageable, sortedByRespondAmount.getTotalElements());
-
-        }else {
-
-        return vacanciesRepository.findAll(pageable);
-
+            return vacanciesRepository.findAll(sortedPageable);
+        } else {
+            return vacanciesRepository.findAll(pageable);
         }
     }
+
 
 
     @Override
