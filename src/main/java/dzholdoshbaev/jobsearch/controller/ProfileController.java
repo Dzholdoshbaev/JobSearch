@@ -1,13 +1,16 @@
 package dzholdoshbaev.jobsearch.controller;
 
+import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.model.*;
 import dzholdoshbaev.jobsearch.service.AuthoritiesService;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -57,15 +60,25 @@ public class ProfileController {
 
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute Users user) {
-        usersService.createUser(user);
+    public String registerUser(
+            @ModelAttribute @Valid UsersDto usersDto,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("authoritiesUser", authoritiesService.getAllAuthorities());
+            return "profile/register";
+        }
+
+        usersService.createUser(usersDto);
         return "redirect:/auth/login";
     }
+
 
     @GetMapping("/register")
     public String create(Model model) {
         model.addAttribute("authoritiesUser", authoritiesService.getAllAuthorities());
-        model.addAttribute("usersDto", new Users());
+        model.addAttribute("usersDto", new UsersDto());
         return "profile/register";
     }
 

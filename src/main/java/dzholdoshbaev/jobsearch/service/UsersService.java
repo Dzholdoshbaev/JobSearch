@@ -1,6 +1,7 @@
 package dzholdoshbaev.jobsearch.service;
 
 
+import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.model.Users;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface UsersService {
-    void createUser(Users users );
+    void createUser(UsersDto usersDto );
 
     Map<String, Object> resetPasswordGet(String token);
 

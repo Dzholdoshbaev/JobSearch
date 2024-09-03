@@ -15,40 +15,44 @@
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="title">Name</span>
-            <input type="text" class="form-control" aria-label="Name" aria-describedby="title" name="name">
+            <@spring.formInput "usersDto.name" 'class="form-control" aria-label="Name" aria-describedby="name" name="name"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Surname</span>
-            <input type="text" class="form-control" aria-label="Surname" aria-describedby="year" name="surname">
+            <@spring.formInput "usersDto.surname" 'class="form-control" aria-label="Surname" aria-describedby="surname" name="surname"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Age</span>
-            <input type="number" class="form-control" aria-label="Age" aria-describedby="age" name="age">
+            <@spring.formInput "usersDto.age" 'class="form-control" aria-label="Age" aria-describedby="age" name="age"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Email</span>
             <@spring.formInput "usersDto.email" 'class="form-control" aria-label="Email" aria-describedby="email" name="email"' />
-<#--            <input type="text" class="form-control" aria-label="Email" aria-describedby="email" name="email">-->
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Password</span>
             <@spring.formInput "usersDto.password" 'class="form-control" aria-label="Password" aria-describedby="password" name="password"' />
-<#--            <input type="text" class="form-control" aria-label="Password" aria-describedby="password" name="password">-->
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Phone Number</span>
-            <input type="text" class="form-control" aria-label="Phone Number" aria-describedby="phone_number" name="phoneNumber">
+            <@spring.formInput "usersDto.phoneNumber" 'class="form-control" aria-label="PhoneNumber" aria-describedby="phoneNumber" name="phoneNumber"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="authorities">Account type</span>
-            <select class="form-select" aria-label="authorities" aria-describedby="authorities" name="authorities">
-                <option selected>Open this select menu</option>
+            <span class="input-group-text" id="authorityId">Account Type</span>
+            <select class="form-select" aria-label="authorityId" aria-describedby="authorityId" name="authorityId">
+                <option value="" disabled selected>Select an option</option>
                 <#list authoritiesUser as item>
                     <option value="${item.id}">${item.authority}</option>
                 </#list>
             </select>
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
-        <@spring.showErrors "<br> " "error text-danger" />
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 

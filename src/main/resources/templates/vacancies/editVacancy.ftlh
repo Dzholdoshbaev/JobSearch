@@ -1,6 +1,6 @@
 <#import "../layout.ftlh" as main>
 
-<@main.layout ; spring>
+<@main.layout>
 
     <form action="/vacancies/edit/${vacancyId}" method="post">
 

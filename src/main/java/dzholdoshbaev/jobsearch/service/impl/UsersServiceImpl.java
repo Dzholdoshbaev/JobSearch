@@ -1,6 +1,7 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
 import dzholdoshbaev.jobsearch.common.Utilities;
+import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.model.Authorities;
 import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.repository.AuthoritiesRepository;
@@ -28,14 +29,21 @@ public class UsersServiceImpl implements UsersService {
     private final EmailService emailService;
 
     @Override
-    public void createUser(Users user) {
-        user.setEnabled(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void createUser(UsersDto usersDto) {
 
-        Authorities authority = authoritiesRepository.findById(user.getAuthorities().getId())
+        Authorities authority = authoritiesRepository.findById(usersDto.getAuthorityId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid authority ID"));
 
-        user.setAuthorities(authority);
+        Users user = Users.builder()
+                .name(usersDto.getName())
+                .surname(usersDto.getSurname())
+                .age(usersDto.getAge())
+                .email(usersDto.getEmail())
+                .password(passwordEncoder.encode(usersDto.getPassword()))
+                .phoneNumber(usersDto.getPhoneNumber())
+                .authorities(authority)
+                .enabled(true)
+                .build();
 
         usersRepository.save(user);
         log.info("Created user: {}", user.getEmail());

@@ -48,4 +48,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
                             @Param("phoneNumber") String phoneNumber);
 
 
+
+    Boolean existsByEmail(String email);
+
 }
