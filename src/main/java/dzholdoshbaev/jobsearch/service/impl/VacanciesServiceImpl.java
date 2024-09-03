@@ -4,27 +4,25 @@ package dzholdoshbaev.jobsearch.service.impl;
 import dzholdoshbaev.jobsearch.model.Categories;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import dzholdoshbaev.jobsearch.repository.CategoriesRepository;
-import dzholdoshbaev.jobsearch.repository.UsersRepository;
+import dzholdoshbaev.jobsearch.repository.RespondedApplicantsRepository;
 import dzholdoshbaev.jobsearch.repository.VacanciesRepository;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class VacanciesServiceImpl implements VacanciesService {
     private final VacanciesRepository vacanciesRepository;
-    private final UsersRepository usersRepository;
     private final CategoriesRepository categoriesRepository;
+    private final RespondedApplicantsRepository respondedApplicantsRepository;
 
     public void createVacancies(Vacancies vacanciesDto) {
         Categories category = categoriesRepository.findById(vacanciesDto.getCategories().getId())
@@ -46,6 +44,7 @@ public class VacanciesServiceImpl implements VacanciesService {
                 vacancies.getExpFrom(),
                 vacancies.getExpTo(),
                 vacancies.getIsActive(),
+                vacancies.getCategories(),
                 vacancyId);
         log.info("Edited vacancies: {}", vacancies.getName());
     }
@@ -58,10 +57,25 @@ public class VacanciesServiceImpl implements VacanciesService {
 
     @Override
     public Page<Vacancies> getAllVacancies(Pageable pageable) {
-        Page<Vacancies>  vacanciesPage = vacanciesRepository.findAll(pageable);
-        List<Vacancies> vacanciesList = vacanciesPage.getContent();
-        return new PageImpl<>(vacanciesList, pageable, vacanciesPage.getTotalElements());
+        if (pageable.getSort().toString().contains("respondAmount")) {
+            Map<Long, Long> vacancyResponseCountMap = respondedApplicantsRepository.findAll().stream()
+                    .collect(Collectors.groupingBy(
+                            applicant -> applicant.getVacancies().getId(),
+                            Collectors.counting()
+                    ));
+
+            vacancyResponseCountMap.forEach(vacanciesRepository::updateVacanciesRespondAmount);
+
+            Sort sortBy = Sort.by(Sort.Order.desc("respondAmount"));
+            Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sortBy);
+
+            return vacanciesRepository.findAll(sortedPageable);
+        } else {
+            return vacanciesRepository.findAll(pageable);
+        }
     }
+
+
 
     @Override
     public List<Vacancies> getAllVacanciesByCategory(Long categoryId) {

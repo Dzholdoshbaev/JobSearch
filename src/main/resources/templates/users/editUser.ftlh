@@ -1,6 +1,6 @@
 <#import "../layout.ftlh" as main>
 
-<@main.layout>
+<@main.layout ; spring>
 
 
 
@@ -14,27 +14,33 @@
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="title">Name</span>
-            <input type="text" class="form-control" aria-label="Name" aria-describedby="title" name="name">
+            <@spring.formInput "userDtoEdit.name" 'class="form-control" aria-label="Name" aria-describedby="name" name="name"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Surname</span>
-            <input type="text" class="form-control" aria-label="Surname" aria-describedby="year" name="surname">
+            <@spring.formInput "userDtoEdit.surname" 'class="form-control" aria-label="Surname" aria-describedby="surname" name="surname"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Age</span>
-            <input type="number" class="form-control" aria-label="Age" aria-describedby="age" name="age">
+            <@spring.formInput "userDtoEdit.age" 'class="form-control" aria-label="Age" aria-describedby="age" name="age"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Email</span>
-            <input type="text" class="form-control" aria-label="Email" aria-describedby="email" name="email">
+            <@spring.formInput "userDtoEdit.email" 'class="form-control" aria-label="Email" aria-describedby="email" name="email"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Password</span>
-            <input type="text" class="form-control" aria-label="Password" aria-describedby="password" name="password">
+            <@spring.formInput "userDtoEdit.password" 'class="form-control" aria-label="Password" aria-describedby="password" name="password"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="year">Phone Number</span>
-            <input type="text" class="form-control" aria-label="Phone Number" aria-describedby="phoneNumber" name="phoneNumber">
+            <@spring.formInput "userDtoEdit.phoneNumber" 'class="form-control" aria-label="PhoneNumber" aria-describedby="phoneNumber" name="phoneNumber"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

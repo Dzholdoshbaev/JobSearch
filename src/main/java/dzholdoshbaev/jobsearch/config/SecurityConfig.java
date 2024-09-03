@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.config;
 
+import dzholdoshbaev.jobsearch.constant.Authority;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
@@ -42,21 +43,21 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/images").authenticated()
                         .requestMatchers(HttpMethod.GET,"/profile").authenticated()
                         .requestMatchers(HttpMethod.GET,"/profile/edit").authenticated()
-                        .requestMatchers(HttpMethod.GET,"/profile/company/").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.GET,"/resumes/create").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.POST,"/resumes/create").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.GET,"/resumes/update/{resumeId}").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.GET,"resumes/edit/{resumeId}").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.POST,"resumes/edit/{resumeId}").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.GET,"resumes").hasAuthority("EMPLOYER")
-                        .requestMatchers(HttpMethod.GET,"resumes/{resumeId}").hasAuthority("EMPLOYER")
-                        .requestMatchers(HttpMethod.GET,"/vacancies").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.GET,"/vacancies/{vacancyId}").hasAuthority("APPLICANT")
-                        .requestMatchers(HttpMethod.GET,"/vacancies/create").hasAuthority("EMPLOYER")
-                        .requestMatchers(HttpMethod.POST,"/vacancies/create").hasAuthority("EMPLOYER")
-                        .requestMatchers(HttpMethod.GET,"/vacancies/update/{vacancyId}").hasAuthority("EMPLOYER")
-                        .requestMatchers(HttpMethod.GET,"/vacancies/edit/{vacancyId}").hasAuthority("EMPLOYER")
-                        .requestMatchers(HttpMethod.POST,"/vacancies/edit/{vacancyId}").hasAuthority("EMPLOYER")
+                        .requestMatchers(HttpMethod.GET,"/profile/company/").hasAuthority(Authority.APPLICANT.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"/resumes/create").hasAuthority(Authority.APPLICANT.getAuthority())
+                        .requestMatchers(HttpMethod.POST,"/resumes/create").hasAuthority(Authority.APPLICANT.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"/resumes/update/").hasAuthority(Authority.APPLICANT.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"resumes/edit/").hasAuthority(Authority.APPLICANT.getAuthority())
+                        .requestMatchers(HttpMethod.POST,"resumes/edit/").hasAuthority(Authority.APPLICANT.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"/vacancies").hasAuthority(Authority.APPLICANT.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"/vacancies/").hasAuthority(Authority.APPLICANT.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"resumes").hasAuthority(Authority.EMPLOYER.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"resumes/").hasAuthority(Authority.EMPLOYER.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"/vacancies/create").hasAuthority(Authority.EMPLOYER.getAuthority())
+                        .requestMatchers(HttpMethod.POST,"/vacancies/create").hasAuthority(Authority.EMPLOYER.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"/vacancies/update/").hasAuthority(Authority.EMPLOYER.getAuthority())
+                        .requestMatchers(HttpMethod.GET,"/vacancies/edit/").hasAuthority(Authority.EMPLOYER.getAuthority())
+                        .requestMatchers(HttpMethod.POST,"/vacancies/edit/").hasAuthority(Authority.EMPLOYER.getAuthority())
                         .anyRequest().permitAll());
         return http.build();
     }

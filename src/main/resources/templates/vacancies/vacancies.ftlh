@@ -3,50 +3,58 @@
 <@main.layout>
 
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <#if vacancies.hasPrevious()>
-                <li class="page-item"><a class="page-link" href="/vacancies?page=${vacancies.number - 1}">Previous</a></li>
-            <#else>
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-            </#if>
+<#assign sort = sort! "createdDate">
 
-            <#list 0..(vacancies.totalPages - 1) as page>
-                <li class="page-item <#if vacancies.number == page>active</#if>">
-                    <a class="page-link" href="/vacancies?page=${page}">${page + 1}</a>
-                </li>
-            </#list>
+<form method="get" action="/vacancies">
+    <div class="form-group">
+        <label for="sort">Sort by:</label>
+        <select id="sort" name="sort" class="form-control" onchange="this.form.submit()">
+            <option value="createdDate" <#if sort == "createdDate">selected</#if>>Publication Date</option>
+            <option value="respondAmount" <#if sort == "respondAmount">selected</#if>>Amount of Responses</option>
+        </select>
+    </div>
+</form>
 
-            <#if vacancies.hasNext()>
-                <li class="page-item"><a class="page-link" href="/vacancies?page=${vacancies.number + 1}">Next</a></li>
-            <#else>
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-            </#if>
-        </ul>
-        <a href="/profile" class="btn btn-primary">Back to Profile</a>
-    </nav>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <#if vacancies.hasPrevious()>
+            <li class="page-item"><a class="page-link" href="?page=${vacancies.number - 1}&sort=${sort}">Previous</a></li>
+        <#else>
+            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+        </#if>
 
+        <#list 0..(vacancies.totalPages - 1) as page>
+            <li class="page-item <#if vacancies.number == page>active</#if>">
+                <a class="page-link" href="?page=${page}&sort=${sort}">${page + 1}</a>
+            </li>
+        </#list>
 
+        <#if vacancies.hasNext()>
+            <li class="page-item"><a class="page-link" href="?page=${vacancies.number + 1}&sort=${sort}">Next</a></li>
+        <#else>
+            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        </#if>
+    </ul>
+    <a href="/profile" class="btn btn-primary">Back to Profile</a>
+</nav>
 
-    <div class="row">
-        <#list vacancies.content as vacancy>
-            <div class="col-12 mb-4">
-                <div class="d-flex align-items-center p-3 border rounded">
-                    <div class="flex-shrink-0 me-3">
-                        <a href="/vacancies/${vacancy.id}" class="btn btn-primary">${vacancy.name!"Not specified"}</a>
-                    </div>
-                    <div class="flex-grow-1">
-                        <p class="mb-1">Salary: ${vacancy.salary!"Not specified"}</p>
-                        <p class="mb-1">Published on: ${vacancy.createdDate!"Not specified"}</p>
-                    </div>
-                    <div class="flex-shrink-0 ms-3">
-                        <a href="/profile/company/${vacancy.users.id}" class="btn btn-primary">Check Company</a>
-                    </div>
+<div class="row">
+    <#list vacancies.content as vacancy>
+        <div class="col-12 mb-4">
+            <div class="d-flex align-items-center p-3 border rounded">
+                <div class="flex-shrink-0 me-3">
+                    <a href="/vacancies/${vacancy.id}" class="btn btn-primary">${vacancy.name!"Not specified"}</a>
+                </div>
+                <div class="flex-grow-1">
+                    <p class="mb-1">Salary: ${vacancy.salary!"Not specified"}</p>
+                    <p class="mb-1">Published on: ${vacancy.createdDate!"Not specified"}</p>
+                </div>
+                <div class="flex-shrink-0 ms-3">
+                    <a href="/profile/company/${vacancy.users.id}" class="btn btn-primary">Check Company</a>
                 </div>
             </div>
-        </#list>
-    </div>
-
-
+        </div>
+    </#list>
+</div>
 
 </@main.layout>

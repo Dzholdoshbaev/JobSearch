@@ -82,18 +82,6 @@ public class ResumesController {
         return "resumes/editResume";
     }
 
-//    @PutMapping("/edit")
-//    public ResponseEntity<String> editResume( ResumesDto resumesDto) {
-//        resumesService.editResume(resumesDto);
-//        return ResponseEntity.ok("Резюме успешно отредактировано");
-//    }
-//
-//    @DeleteMapping("/delete/{resumeId}")
-//    public ResponseEntity<String> deleteResume(@PathVariable Long resumeId) {
-//        resumesService.deleteResume(resumeId);
-//        return ResponseEntity.ok("Резюме успешно удалено");
-//    }
-
     @GetMapping
     public String getAllResumes(Model model, @PageableDefault(size = 3, sort = "createdDate") Pageable pageable) {
         model.addAttribute("resumes", resumesService.getAllResumes(pageable));
@@ -119,20 +107,5 @@ public class ResumesController {
         model.addAttribute("resume", resume);
         return "resumes/resume";
     }
-
-//    @GetMapping("/category/{categoryId}")
-//    public ResponseEntity<List<ResumesDto>> getAllResumesByCategory(@PathVariable int categoryId) {
-//        return ResponseEntity.ok(resumesService.getAllResumesByCategory(categoryId));
-//    }
-//
-//    @GetMapping("/applicant/{applicantId}")
-//    public ResponseEntity<List<ResumesDto>> getAllResumesByUser(@PathVariable int applicantId) {
-//        return ResponseEntity.ok(resumesService.getAllResumesByUser(applicantId));
-//    }
-//
-//    @GetMapping("/{resumesId}")
-//    public ResponseEntity<ResumesDto> getResumesById(@PathVariable int resumesId) {
-//        return ResponseEntity.ok(resumesService.getResumeById(resumesId));
-//    }
 
 }

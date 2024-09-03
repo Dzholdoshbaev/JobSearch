@@ -11,11 +11,13 @@
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="title">Name</span>
-            <input type="text" class="form-control" aria-label="Name" aria-describedby="title" name="name" />
+            <@spring.formInput "vacancies.name" 'class="form-control" aria-label="Name" aria-describedby="name" name="name"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="description">Description</span>
-            <input type="text" class="form-control" aria-label="Description" aria-describedby="description" name="description" />
+            <@spring.formInput "vacancies.description" 'class="form-control" aria-label="Description" aria-describedby="Description" name="name"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="categories">Category ID</span>
@@ -25,18 +27,22 @@
                     <option value="${item.id}">${item.name}</option>
                 </#list>
             </select>
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="salary">Salary</span>
-            <input type="number" class="form-control" aria-label="Salary" aria-describedby="salary" name="salary" />
+            <@spring.formInput "vacancies.salary" 'class="form-control" aria-label="Salary" aria-describedby="Salary" name="salary"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="expFrom">Experience From</span>
-            <input type="number" class="form-control" aria-label="Experience From" aria-describedby="expFrom" name="expFrom" />
+            <@spring.formInput "vacancies.expFrom" 'class="form-control" aria-label="expFrom" aria-describedby="expFrom" name="expFrom"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="expTo">Experience To</span>
-            <input type="number" class="form-control" aria-label="Experience To" aria-describedby="expTo" name="expTo" />
+            <@spring.formInput "vacancies.expTo" 'class="form-control" aria-label="expTo" aria-describedby="expTo" name="expTo"' />
+            <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
         <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" id="isActive" name="isActive">
