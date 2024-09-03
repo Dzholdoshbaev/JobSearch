@@ -1,5 +1,6 @@
 package dzholdoshbaev.jobsearch.repository;
 
+import dzholdoshbaev.jobsearch.model.Categories;
 import dzholdoshbaev.jobsearch.model.Vacancies;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,7 +26,8 @@ public interface VacanciesRepository extends JpaRepository<Vacancies, Long> {
             v.salary = :salary,
             v.expFrom = :expFrom,
             v.expTo = :expTo,
-            v.isActive = :isActive
+            v.isActive = :isActive,
+            v.categories = :categories
             WHERE v.id = :id
             """)
     void updateVacanciesById(@Param("name") String name,
@@ -34,6 +36,7 @@ public interface VacanciesRepository extends JpaRepository<Vacancies, Long> {
                              @Param("expFrom") Long expFrom,
                              @Param("expTo") Long expTo,
                              @Param("isActive") Boolean isActive,
+                             @Param("categories") Categories categories,
                              @Param("id") Long id);
 
     @Transactional

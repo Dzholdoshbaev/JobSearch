@@ -44,6 +44,7 @@ public class VacanciesServiceImpl implements VacanciesService {
                 vacancies.getExpFrom(),
                 vacancies.getExpTo(),
                 vacancies.getIsActive(),
+                vacancies.getCategories(),
                 vacancyId);
         log.info("Edited vacancies: {}", vacancies.getName());
     }

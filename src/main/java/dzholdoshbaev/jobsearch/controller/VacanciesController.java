@@ -69,7 +69,17 @@ public class VacanciesController {
 
 
     @PostMapping("/edit/{vacancyId}")
-    public String editVacancy(@PathVariable Long vacancyId , Vacancies vacancies) {
+    public String editVacancy(@ModelAttribute @Valid Vacancies vacancies,
+                              BindingResult bindingResult ,
+                              @PathVariable Long vacancyId ,
+                              Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoriesDto", categoriesService.getCategories());
+            model.addAttribute("vacancyId",vacancyId);
+            return "vacancies/editVacancy";
+        }
+
         vacanciesService.editVacancy(vacancies,vacancyId);
         return "redirect:/profile" ;
     }
@@ -78,6 +88,7 @@ public class VacanciesController {
     public String editVacancy(@PathVariable Long vacancyId ,Model model) {
         model.addAttribute("categoriesDto",categoriesService.getCategories());
         model.addAttribute("vacancyId",vacancyId);
+        model.addAttribute("vacancies", new Vacancies());
         return "vacancies/editVacancy";
     }
 
