@@ -1,6 +1,6 @@
 <#import "../layout.ftlh" as main>
 
-<@main.layout>
+<@main.layout ; spring>
 
 
     <h2>Create Resume</h2>

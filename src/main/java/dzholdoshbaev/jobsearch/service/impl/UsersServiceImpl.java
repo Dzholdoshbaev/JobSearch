@@ -1,6 +1,7 @@
 package dzholdoshbaev.jobsearch.service.impl;
 
 import dzholdoshbaev.jobsearch.common.Utilities;
+import dzholdoshbaev.jobsearch.dto.UserDtoEdit;
 import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.model.Authorities;
 import dzholdoshbaev.jobsearch.model.Users;
@@ -50,7 +51,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Optional<Users> getUserById(Long id){
+    public Optional<Users> getUserById(Long id) {
         return usersRepository.findById(id);
     }
 
@@ -62,20 +63,20 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Users getUserByName(String name){
+    public Users getUserByName(String name) {
         log.info("Printed user by name");
         return new Users();
     }
 
     @Override
-    public Users getUserByPhoneNumber(String phoneNumber){
+    public Users getUserByPhoneNumber(String phoneNumber) {
         log.info("Printed user by phone number");
         return new Users();
 
     }
 
     @Override
-    public Users getUserByEmail(String email){
+    public Users getUserByEmail(String email) {
         log.info("Printed user by email");
         List<Users> users = usersRepository.findAll();
         Users user = users.get(0);
@@ -88,13 +89,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Boolean checkUserByEmail(String email){
+    public Boolean checkUserByEmail(String email) {
         log.info("Checked user by email");
         return true;
     }
 
     @Override
-    public void editResume(Users usersDto , String userEmail) {
+    public void editResume(UserDtoEdit usersDto, String userEmail) {
 
         usersRepository.updateUsersByEmail(userEmail,
                 usersDto.getEmail(),

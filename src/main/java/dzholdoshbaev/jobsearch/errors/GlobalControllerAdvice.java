@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +20,15 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(NoSuchElementException.class)
     public String notFound(HttpServletRequest request, Model model) {
+        model.addAttribute("status", HttpStatus.NOT_FOUND.value());
+        model.addAttribute("reason", HttpStatus.NOT_FOUND.getReasonPhrase());
+        model.addAttribute("details", request);
+        return "errors/error";
+    }
+
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public String notFoundUserName(HttpServletRequest request, Model model) {
         model.addAttribute("status", HttpStatus.NOT_FOUND.value());
         model.addAttribute("reason", HttpStatus.NOT_FOUND.getReasonPhrase());
         model.addAttribute("details", request);

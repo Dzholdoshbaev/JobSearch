@@ -1,13 +1,18 @@
 package dzholdoshbaev.jobsearch.controller;
 
+import dzholdoshbaev.jobsearch.dto.UserDtoEdit;
 import dzholdoshbaev.jobsearch.dto.UsersDto;
 import dzholdoshbaev.jobsearch.model.*;
 import dzholdoshbaev.jobsearch.service.AuthoritiesService;
 import dzholdoshbaev.jobsearch.service.ResumesService;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -83,14 +88,28 @@ public class ProfileController {
     }
 
     @PostMapping("/edit")
-    public String editResume( Users usersDto , Principal principal) {
+    public String editResume(@ModelAttribute @Valid UserDtoEdit usersDto,
+                             BindingResult bindingResult,
+                             Principal principal,
+                             HttpServletRequest request,
+                             HttpServletResponse response) {
+
+        if (bindingResult.hasErrors()) {
+            return "users/editUser";
+        }
+
         String username = principal.getName();
         usersService.editResume(usersDto, username);
-        return "redirect:/";
+
+        SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+        logoutHandler.logout(request, response, (Authentication) principal);
+
+        return "redirect:/auth/login";
     }
 
     @GetMapping("/edit")
-    public String editResume() {
+    public String editResume(Model model) {
+        model.addAttribute("userDtoEdit", new UserDtoEdit());
         return "users/editUser";
     }
 }
