@@ -1,6 +1,10 @@
 package dzholdoshbaev.jobsearch.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,18 +22,26 @@ public class Vacancies {
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
+    @NotBlank(message = "should be not blank")
     private String name;
     @Column(name = "description")
+    @NotBlank(message = "should be not blank")
     private String description;
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull(message = "should be not blank")
     private Categories categories;
     @Column(name = "salary")
+    @NotNull(message = "should be not blank")
     private Double salary;
+    @NotNull(message = "should be not blank")
     @Column(name = "exp_from")
+    @Max(value = 80,message = "exp from cannot be longer than 80")
     private Long expFrom;
+    @NotNull
     @Column(name = "exp_to")
+    @Max(value = 80,message = "exp to cannot be longer than 80" )
     private Long expTo;
     @Column(name = "is_active")
     private Boolean isActive;

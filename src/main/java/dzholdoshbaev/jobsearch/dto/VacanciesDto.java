@@ -18,9 +18,13 @@ public class VacanciesDto {
     private String name;
     @NotBlank
     private String description;
+    @NotNull
     private int categoryId;
+    @NotNull
     private double salary;
+    @NotNull
     private int expFrom;
+    @NotNull
     private int expTo;
     private boolean isActive;
     @NotNull

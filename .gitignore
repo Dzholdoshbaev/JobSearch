@@ -8,6 +8,9 @@ HELP.md
 /.logs
 ./.logs
 .logs
+/.data
+./.data
+.data
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

@@ -9,6 +9,7 @@ import dzholdoshbaev.jobsearch.service.CategoriesService;
 import dzholdoshbaev.jobsearch.service.UsersService;
 import dzholdoshbaev.jobsearch.service.VacanciesService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
@@ -35,7 +37,15 @@ public class VacanciesController {
     private final CategoriesService categoriesService;
 
     @PostMapping("/create")
-    public String createVacancy(@ModelAttribute Vacancies vacancies, Principal principal) {
+    public String createVacancy(@ModelAttribute @Valid Vacancies vacancies,
+                                BindingResult bindingResult , Principal principal ,
+                                Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoriesDto", categoriesService.getCategories());
+            return "vacancies/create";
+        }
+
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
         vacancies.setUsers(user);
@@ -43,12 +53,13 @@ public class VacanciesController {
         return "redirect:/profile";
     }
 
-
     @GetMapping("/create")
     public String createVacancy(Model model) {
-        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("categoriesDto", categoriesService.getCategories());
+        model.addAttribute("vacancies", new Vacancies());
         return "vacancies/create";
     }
+
 
     @GetMapping("/update/{vacancyId}")
     public String updateVacancy(@PathVariable Long vacancyId){
