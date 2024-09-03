@@ -67,12 +67,12 @@ public class GlobalControllerAdvice {
         return "errors/error";
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public String handleException(HttpServletRequest request, Model model, Exception e) {
-//        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-//        model.addAttribute("reason", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
-//        model.addAttribute("details", request);
-//        model.addAttribute("exception", e.getMessage());
-//        return "errors/error";
-//    }
+    @ExceptionHandler(Exception.class)
+    public String handleException(HttpServletRequest request, Model model, Exception e) {
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("reason", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        model.addAttribute("details", request);
+        model.addAttribute("exception", e.getMessage());
+        return "errors/error";
+    }
 }
