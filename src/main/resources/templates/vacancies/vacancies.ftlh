@@ -35,7 +35,6 @@
             <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
         </#if>
     </ul>
-    <a href="/profile" class="btn btn-primary">Back to Profile</a>
 </nav>
 
 <div class="row">

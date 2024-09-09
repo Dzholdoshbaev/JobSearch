@@ -16,7 +16,7 @@
                     </#if>
                     <p class="card-text">Salary Expected ${resume.salary!"Not specified"}</p>
                     <p class="card-text">Update Time ${resume.updateTime!"Not update yet"}</p>
-                    <a href="/profile" class="btn btn-primary">Back to Profile</a>
+                    <a href="/resumes" class="btn btn-primary">Back to Resumes</a>
                 </div>
             </div>
     </div>
