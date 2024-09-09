@@ -46,6 +46,10 @@ public class AuthController {
 
     @PostMapping("reset_password")
     public String resetPassword(HttpServletRequest request, Model model) {
+
+
+
+
         model.addAllAttributes(usersService.resetPasswordPost(request));
         return "auth/message";
     }
