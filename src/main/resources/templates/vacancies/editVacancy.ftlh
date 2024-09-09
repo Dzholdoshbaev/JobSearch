@@ -51,7 +51,7 @@
             </label>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-outline-info m-2">Submit</button>
 
     </form>
 

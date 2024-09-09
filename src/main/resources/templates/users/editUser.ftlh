@@ -42,7 +42,7 @@
             <@spring.formInput "userDtoEdit.phoneNumber" 'class="form-control" aria-label="PhoneNumber" aria-describedby="phoneNumber" name="phoneNumber"' />
             <div class="text-danger" ><@spring.showErrors  "<br>" "error"/></div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-outline-info m-2">Submit</button>
     </form>
 
 </@main.layout>

@@ -36,7 +36,7 @@
                     <#else>
                         <p class="card-text">Resume is not active</p>
                     </#if>
-                    <a href="/resumes/${resume.id}" class="btn btn-primary">More Info</a>
+                    <a href="/resumes/${resume.id}" class="btn btn-outline-info m-2">More Info</a>
                 </div>
             </div>
         </#list>
