@@ -2,10 +2,7 @@ package dzholdoshbaev.jobsearch.service;
 
 
 import dzholdoshbaev.jobsearch.dto.ResumeRegisterDto;
-import dzholdoshbaev.jobsearch.model.ContactsInfo;
-import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
-import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
