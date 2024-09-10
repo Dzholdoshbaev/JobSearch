@@ -119,7 +119,7 @@
 
 
 
-        <button type="submit" class="btn btn-primary mt-3">Create Resume</button>
+        <button type="submit" class="btn btn-primary mt-3">Edit Resume</button>
     </form>
 
 </@main.layout>
