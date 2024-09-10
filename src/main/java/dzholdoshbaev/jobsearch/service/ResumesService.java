@@ -26,7 +26,9 @@ public interface ResumesService {
 
     Resumes getResumeById(Long resumesId);
 
-    void editResume(Long resumeId, Resumes resumes, EducationInfo educationInfo, WorkExperienceInfo workExperienceInfo, ContactsInfo contactsInfo);
+    void editResume(Long resumeId, ResumeRegisterDto resumeRegisterDto);
 
     void updateResumeTime(Long resumeId);
+
+    ResumeRegisterDto getResumeDtoById(Long resumeId);
 }

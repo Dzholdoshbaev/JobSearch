@@ -72,12 +72,17 @@ public class ResumesController {
 
 
     @PostMapping("/edit/{resumeId}")
-    public String editVacancy(@PathVariable Long resumeId,
-                              @ModelAttribute Resumes resumes,
-                              @ModelAttribute EducationInfo educationInfo,
-                              @ModelAttribute WorkExperienceInfo workExperienceInfo,
-                              @ModelAttribute ContactsInfo contactsInfo) {
-        resumesService.editResume(resumeId,resumes,educationInfo,workExperienceInfo,contactsInfo);
+    public String editVacancy(@PathVariable Long resumeId,@ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto,
+                              BindingResult bindingResult,
+                              Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoriesDto",categoriesService.getCategories());
+            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+            model.addAttribute("resumeId",resumeId);
+            return "resumes/editResume";
+        }
+        resumesService.editResume(resumeId,resumeRegisterDto);
         return "redirect:/profile" ;
     }
 
@@ -85,6 +90,7 @@ public class ResumesController {
     public String editVacancy(@PathVariable Long resumeId ,Model model) {
         model.addAttribute("categoriesDto",categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+        model.addAttribute("resumeRegisterDto" , resumesService.getResumeDtoById(resumeId));
         model.addAttribute("resumeId",resumeId);
         return "resumes/editResume";
     }
