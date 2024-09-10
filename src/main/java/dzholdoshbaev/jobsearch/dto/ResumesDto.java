@@ -1,6 +1,7 @@
 package dzholdoshbaev.jobsearch.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +14,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ResumesDto {
     private int id;
-    @NotBlank
     private int applicantId;
-    @NotBlank
+    @NotBlank(message = "You have to write your profession")
     private String name;
+    @NotNull(message = "You have to choice category")
     private int categoryId;
+    @NotNull(message = "You have to write salary")
     private double salary;
     private boolean isActive;
     private LocalDateTime createdDate;

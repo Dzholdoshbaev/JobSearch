@@ -1,6 +1,8 @@
 package dzholdoshbaev.jobsearch.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
@@ -16,6 +18,7 @@ public class ContactsInfo {
     @Column(name = "id")
     private Long id;
     @Column(name = "info")
+    @NotBlank(message = "You have to write your information")
     private String info;
     @ToString.Exclude
     @ManyToOne
@@ -24,6 +27,7 @@ public class ContactsInfo {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @NotNull(message = "You have to choice contacts type")
     private ContactTypes contactTypes;
 
 }

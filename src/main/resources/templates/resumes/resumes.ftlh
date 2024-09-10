@@ -22,7 +22,6 @@
                 <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
             </#if>
         </ul>
-        <a href="/profile" class="btn btn-primary">Back to Profile</a>
     </nav>
 
     <div class="row d-flex justify-content-between">
@@ -37,7 +36,7 @@
                     <#else>
                         <p class="card-text">Resume is not active</p>
                     </#if>
-                    <a href="/resumes/${resume.id}" class="btn btn-primary">More Info</a>
+                    <a href="/resumes/${resume.id}" class="btn btn-outline-info m-2">More Info</a>
                 </div>
             </div>
         </#list>

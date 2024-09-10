@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -139,6 +140,12 @@ public class UsersServiceImpl implements UsersService {
         Map<String, Object> model = new HashMap<>();
         String token = request.getParameter("token");
         String password = request.getParameter("password");
+
+
+        if (password == null || !Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,20}$", password)) {
+            model.put("message", "Password should contain at least one uppercase letter, one number, and its length must be between 4 and 20 characters. Please try again.");
+            return model;
+        }
 
         try {
             Users user = getByToken(token);

@@ -1,17 +1,19 @@
 package dzholdoshbaev.jobsearch.controller;
 
 
+import dzholdoshbaev.jobsearch.dto.ResumeRegisterDto;
 import dzholdoshbaev.jobsearch.model.*;
 import dzholdoshbaev.jobsearch.service.*;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
-
 
 
 import java.security.Principal;
@@ -33,20 +35,23 @@ public class ResumesController {
 
     @PostMapping("/create")
     public String createResume(
-            @ModelAttribute Resumes resumes,
-            @ModelAttribute EducationInfo educationInfo,
-            @ModelAttribute WorkExperienceInfo workExperienceInfo,
-            @ModelAttribute ContactsInfo contactsInfo,
-            Principal principal) {
+            @ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto, BindingResult bindingResult,
+            Principal principal , Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoriesDto", categoriesService.getCategories());
+            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+            return "resumes/createResume";
+        }
 
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
-        resumes.setUsers(user);
+        resumeRegisterDto.getResumes().setUsers(user);
 
-        resumesService.createResumes(resumes, educationInfo, workExperienceInfo, contactsInfo);
+        resumesService.createResumes(resumeRegisterDto);
 
         return "redirect:/profile";
     }
+
 
 
 
@@ -54,6 +59,7 @@ public class ResumesController {
     public String createResume(Model model, Principal principal) {
         model.addAttribute("categoriesDto", categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+        model.addAttribute("resumeRegisterDto" , new ResumeRegisterDto());
         return "resumes/createResume";
     }
 
@@ -65,12 +71,17 @@ public class ResumesController {
 
 
     @PostMapping("/edit/{resumeId}")
-    public String editVacancy(@PathVariable Long resumeId,
-                              @ModelAttribute Resumes resumes,
-                              @ModelAttribute EducationInfo educationInfo,
-                              @ModelAttribute WorkExperienceInfo workExperienceInfo,
-                              @ModelAttribute ContactsInfo contactsInfo) {
-        resumesService.editResume(resumeId,resumes,educationInfo,workExperienceInfo,contactsInfo);
+    public String editVacancy(@PathVariable Long resumeId,@ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto,
+                              BindingResult bindingResult,
+                              Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoriesDto",categoriesService.getCategories());
+            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+            model.addAttribute("resumeId",resumeId);
+            return "resumes/editResume";
+        }
+        resumesService.editResume(resumeId,resumeRegisterDto);
         return "redirect:/profile" ;
     }
 
@@ -78,6 +89,7 @@ public class ResumesController {
     public String editVacancy(@PathVariable Long resumeId ,Model model) {
         model.addAttribute("categoriesDto",categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+        model.addAttribute("resumeRegisterDto" , resumesService.getResumeDtoById(resumeId));
         model.addAttribute("resumeId",resumeId);
         return "resumes/editResume";
     }

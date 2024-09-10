@@ -153,8 +153,8 @@
                         <#else>
                             <p class="card-text">Resume is not active</p>
                         </#if>
-                        <a href="/resumes/edit/${resume.id}" class="btn btn-primary">Edit Resumes</a>
-                        <a href="/resumes/update/${resume.id}" class="btn btn-primary">Update</a>
+                        <a href="/resumes/edit/${resume.id}" class="btn btn-outline-info m-2">Edit Resumes</a>
+                        <a href="/resumes/update/${resume.id}" class="btn btn-outline-info m-2">Update</a>
                     </div>
                 </div>
             </#list>
@@ -182,8 +182,8 @@
                         <p class="card-text">Update Time : ${vacancy.updateTime!"Not update yet"}</p>
                         <p class="card-text">Exp  from : ${vacancy.expFrom!"Not specified"}</p>
                         <p class="card-text">Exp to : ${vacancy.expTo!"Not specified"}</p>
-                        <a href="/vacancies/edit/${vacancy.id}" class="btn btn-primary">Edit vacancy</a>
-                        <a href="vacancies/update/${vacancy.id}" class="btn btn-primary">Update</a>
+                        <a href="/vacancies/edit/${vacancy.id}" class="btn btn-outline-info m-2">Edit vacancy</a>
+                        <a href="vacancies/update/${vacancy.id}" class="btn btn-outline-info m-2">Update</a>
                     </div>
                 </div>
             </#list>

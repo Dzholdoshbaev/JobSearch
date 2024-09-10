@@ -3,6 +3,8 @@
 
     <div class="text-center">
         <h2>Reset Your Password</h2>
+        <p>Password should contain at least one uppercase letter, one number, and its length must be between 4 and 20 characters.</p>
+        <p>Make sure you write correct !</p>
         <#if error??>
             <b class="text-danger">${error}</b>
         </#if>

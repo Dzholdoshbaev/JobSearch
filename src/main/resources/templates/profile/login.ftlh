@@ -73,7 +73,7 @@
 
                             <button type="submit" data-mdb-button-init data-mdb-ripple-init
 
-                                    class="btn btn-primary btn-block mb-4">Sign in
+                                    class="btn btn-outline-info m-2">Sign in
 
                             </button>
 

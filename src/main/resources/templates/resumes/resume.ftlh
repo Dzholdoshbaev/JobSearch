@@ -2,91 +2,121 @@
 
 <@main.layout>
 
-
-    <div class="row d-flex justify-content-between">
-            <div class="card col-6 m-2" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">${resume.name!"Not specified"}</h5>
-                    <p class="card-text">Created Date ${resume.createdDate!"Not specified"}</p>
-                    <p class="card-text">Categories ${resume.categories.name!"Not specified"}</p>
-                    <#if resume.isActive>
-                        <p class="card-text">Resume is active</p>
-                    <#else>
-                        <p class="card-text">Resume is not active</p>
-                    </#if>
-                    <p class="card-text">Salary Expected ${resume.salary!"Not specified"}</p>
-                    <p class="card-text">Update Time ${resume.updateTime!"Not update yet"}</p>
-                    <a href="/profile" class="btn btn-primary">Back to Profile</a>
+    <div class="container mt-5">
+        <h2 class="mb-4 d-flex align-items-center">
+            <a href="/resumes" class="btn btn-outline-info m-2">Back to Resumes</a>
+            Resume Details
+        </h2>
+        <!-- Resume Information -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${resume.name!"Not specified"}</h5>
+                        <p class="card-text"><strong>Created Date:</strong> ${resume.createdDate!"Not specified"}</p>
+                        <p class="card-text"><strong>Categories:</strong> ${resume.categories.name!"Not specified"}</p>
+                        <p class="card-text">
+                            <strong>Status:</strong>
+                            <#if resume.isActive>
+                                Resume is active
+                            <#else>
+                                Resume is not active
+                            </#if>
+                        </p>
+                        <p class="card-text"><strong>Salary Expected:</strong> ${resume.salary!"Not specified"}</p>
+                        <p class="card-text"><strong>Update Time:</strong> ${resume.updateTime!"Not update yet"}</p>
+                    </div>
                 </div>
             </div>
-    </div>
+        </div>
 
-    <div class="row d-flex justify-content-between">
-        <div class="card col-6 m-2" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Institution ${educationInfo.institution!"Not specified"}</h5>
-                <p class="card-text">Institution Program ${educationInfo.program!"Not specified"}</p>
-                <p class="card-text">Start Date ${educationInfo.startDate!"Not specified"}</p>
-                <p class="card-text">Graduated ${educationInfo.endDate!"Not specified"}</p>
-                <p class="card-text">Degree ${educationInfo.degree!"Not specified"}</p>
+        <!-- Education Information -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Education Information</h5>
+                        <p class="card-text"><strong>Institution:</strong> ${educationInfo.institution!"Not specified"}</p>
+                        <p class="card-text"><strong>Program:</strong> ${educationInfo.program!"Not specified"}</p>
+                        <p class="card-text"><strong>Start Date:</strong> ${educationInfo.startDate!"Not specified"}</p>
+                        <p class="card-text"><strong>Graduated:</strong> ${educationInfo.endDate!"Not specified"}</p>
+                        <p class="card-text"><strong>Degree:</strong> ${educationInfo.degree!"Not specified"}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Work Experience Information -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Work Experience</h5>
+                        <p class="card-text"><strong>Position:</strong> ${workExperienceInfo.position!"Not specified"}</p>
+                        <p class="card-text"><strong>Company Name:</strong> ${workExperienceInfo.companyName!"Not specified"}</p>
+                        <p class="card-text"><strong>Responsibilities:</strong> ${workExperienceInfo.responsibilities!"Not specified"}</p>
+                        <p class="card-text"><strong>Experience:</strong> ${workExperienceInfo.years!"Not specified"}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row d-flex justify-content-between">
-        <div class="card col-6 m-2" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Position ${workExperienceInfo.position!"Not specified"}</h5>
-                <p class="card-text">Company Name ${workExperienceInfo.companyName!"Not specified"}</p>
-                <p class="card-text">Responsibilities ${workExperienceInfo.responsibilities!"Not specified"}</p>
-                <p class="card-text">Experience ${workExperienceInfo.years!"Not specified"}</p>
-            </div>
+    <div class="container my-4">
+        <div class="row">
+            <#list contactsInfoList as contacts>
+                <#if contacts.contactTypes.id == 1>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Email</h5>
+                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                            </div>
+                        </div>
+                    </div>
+                </#if>
+                <#if contacts.contactTypes.id == 2>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">Phone</h5>
+                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                            </div>
+                        </div>
+                    </div>
+                </#if>
+                <#if contacts.contactTypes.id == 3>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-info">Telegram</h5>
+                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                            </div>
+                        </div>
+                    </div>
+                </#if>
+                <#if contacts.contactTypes.id == 4>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning">Facebook</h5>
+                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                            </div>
+                        </div>
+                    </div>
+                </#if>
+                <#if contacts.contactTypes.id == 5>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-dark">LinkedIn</h5>
+                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                            </div>
+                        </div>
+                    </div>
+                </#if>
+            </#list>
         </div>
-    </div>
-
-    <div class="row d-flex justify-content-between">
-        <#list contactsInfoList as contacts>
-            <#if contacts.contactTypes.id == 1>
-                <div class="card col-6 m-2" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Email</h5>
-                        <p class="card-text">${contacts.info!"Not specified"}</p>
-                    </div>
-                </div>
-            </#if>
-            <#if contacts.contactTypes.id == 2>
-                <div class="card col-6 m-2" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Phone</h5>
-                        <p class="card-text">${contacts.info!"Not specified"}</p>
-                    </div>
-                </div>
-            </#if>
-            <#if contacts.contactTypes.id == 3>
-                <div class="card col-6 m-2" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Telegram</h5>
-                        <p class="card-text">${contacts.info!"Not specified"}</p>
-                    </div>
-                </div>
-            </#if>
-            <#if contacts.contactTypes.id == 4>
-                <div class="card col-6 m-2" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Facebook</h5>
-                        <p class="card-text">${contacts.info!"Not specified"}</p>
-                    </div>
-                </div>
-            </#if>
-            <#if contacts.contactTypes.id == 5>
-                <div class="card col-6 m-2" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">LinkedIn</h5>
-                        <p class="card-text">${contacts.info!"Not specified"}</p>
-                    </div>
-                </div>
-            </#if>
-        </#list>
     </div>
 
 
