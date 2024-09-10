@@ -1,6 +1,8 @@
 package dzholdoshbaev.jobsearch.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,12 +24,15 @@ public class Resumes {
     @JoinColumn(name = "applicant_id")
     private Users users;
     @Column(name = "name")
+    @NotBlank(message = "You have to write your profession")
     private String name;
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull(message = "You have to choice category")
     private Categories categories;
     @Column(name = "salary")
+    @NotNull(message = "You have to write salary")
     private Double salary;
     @Column(name = "is_active")
     private Boolean  isActive;

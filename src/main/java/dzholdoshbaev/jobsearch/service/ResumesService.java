@@ -1,6 +1,7 @@
 package dzholdoshbaev.jobsearch.service;
 
 
+import dzholdoshbaev.jobsearch.dto.ResumeRegisterDto;
 import dzholdoshbaev.jobsearch.model.ContactsInfo;
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 import dzholdoshbaev.jobsearch.model.Resumes;
@@ -13,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ResumesService {
-    void createResumes(Resumes resumesDto, EducationInfo educationInfoDto, WorkExperienceInfo workExperienceInfoDto, ContactsInfo contactsInfo);
+    void createResumes(ResumeRegisterDto resumeRegisterDto);
 
     void deleteResume(Long resumeId);
 

@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WorkExperienceInfoDto {
     private int id;
-    @NotNull
     private int resumeId;
     private int year;
-    @NotBlank
+    @NotBlank(message = "You have to write company name")
     private String companyName;
-    @NotBlank
+    @NotBlank(message = "You have to write which position you worked")
     private String position ;
+    @NotBlank(message = "You have to write your responsibilities")
     private String responsibilities;
 }
