@@ -1,61 +1,58 @@
 <#import "../layout.ftlh" as main>
 
-<@main.layout>
+<@main.layout ; spring>
 
     <div class="container mt-5">
         <h2 class="mb-4 d-flex align-items-center">
-            <a href="/resumes" class="btn btn-outline-info m-2">Back to Resumes</a>
-            Resume Details
+            <a href="/resumes" class="btn btn-outline-info m-2"><@spring.message "resumes.resume.back_to_resumes"/></a>
+            <@spring.message "resumes.resume.resume_details"/>
         </h2>
-        <!-- Resume Information -->
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">${resume.name!"Not specified"}</h5>
-                        <p class="card-text"><strong>Created Date:</strong> ${resume.createdDate!"Not specified"}</p>
-                        <p class="card-text"><strong>Categories:</strong> ${resume.categories.name!"Not specified"}</p>
+                        <h5 class="card-title"><@spring.message "resumes.resume.title"/> : ${resume.name!""}</h5>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.created_date"/>:</strong> ${resume.createdDate!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.categories"/>:</strong> ${resume.categories.name!""}</p>
                         <p class="card-text">
-                            <strong>Status:</strong>
+                            <strong><@spring.message "resumes.resume.status"/>:</strong>
                             <#if resume.isActive>
-                                Resume is active
+                                <@spring.message "resumes.resume.resume_is_active"/>
                             <#else>
-                                Resume is not active
+                                <@spring.message "resumes.resume.resume_is_not_active"/>
                             </#if>
                         </p>
-                        <p class="card-text"><strong>Salary Expected:</strong> ${resume.salary!"Not specified"}</p>
-                        <p class="card-text"><strong>Update Time:</strong> ${resume.updateTime!"Not update yet"}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.salary_expected"/>:</strong> ${resume.salary!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.update_time"/>:</strong> ${resume.updateTime!""}</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Education Information -->
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Education Information</h5>
-                        <p class="card-text"><strong>Institution:</strong> ${educationInfo.institution!"Not specified"}</p>
-                        <p class="card-text"><strong>Program:</strong> ${educationInfo.program!"Not specified"}</p>
-                        <p class="card-text"><strong>Start Date:</strong> ${educationInfo.startDate!"Not specified"}</p>
-                        <p class="card-text"><strong>Graduated:</strong> ${educationInfo.endDate!"Not specified"}</p>
-                        <p class="card-text"><strong>Degree:</strong> ${educationInfo.degree!"Not specified"}</p>
+                        <h5 class="card-title"><@spring.message "resumes.resume.education_information"/></h5>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.institution"/>:</strong> ${educationInfo.institution!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.program"/>:</strong> ${educationInfo.program!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.start_date"/>:</strong> ${educationInfo.startDate!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.graduated"/>:</strong> ${educationInfo.endDate!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.degree"/>:</strong> ${educationInfo.degree!""}</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Work Experience Information -->
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Work Experience</h5>
-                        <p class="card-text"><strong>Position:</strong> ${workExperienceInfo.position!"Not specified"}</p>
-                        <p class="card-text"><strong>Company Name:</strong> ${workExperienceInfo.companyName!"Not specified"}</p>
-                        <p class="card-text"><strong>Responsibilities:</strong> ${workExperienceInfo.responsibilities!"Not specified"}</p>
-                        <p class="card-text"><strong>Experience:</strong> ${workExperienceInfo.years!"Not specified"}</p>
+                        <h5 class="card-title"><@spring.message "resumes.resume.work_experience"/></h5>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.position"/>:</strong> ${workExperienceInfo.position!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.company_name"/>:</strong> ${workExperienceInfo.companyName!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.responsibilities"/>:</strong> ${workExperienceInfo.responsibilities!""}</p>
+                        <p class="card-text"><strong><@spring.message "resumes.resume.experience"/>:</strong> ${workExperienceInfo.years!""}</p>
                     </div>
                 </div>
             </div>
@@ -69,8 +66,8 @@
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">Email</h5>
-                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                                <h5 class="card-title text-primary"><@spring.message "resumes.resume.email"/></h5>
+                                <p class="card-text">${contacts.info!""}</p>
                             </div>
                         </div>
                     </div>
@@ -79,8 +76,8 @@
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title text-success">Phone</h5>
-                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                                <h5 class="card-title text-success"><@spring.message "resumes.resume.phone"/></h5>
+                                <p class="card-text">${contacts.info!""}</p>
                             </div>
                         </div>
                     </div>
@@ -89,8 +86,8 @@
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title text-info">Telegram</h5>
-                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                                <h5 class="card-title text-info"><@spring.message "resumes.resume.telegram"/></h5>
+                                <p class="card-text">${contacts.info!""}</p>
                             </div>
                         </div>
                     </div>
@@ -99,8 +96,8 @@
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title text-warning">Facebook</h5>
-                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                                <h5 class="card-title text-warning"><@spring.message "resumes.resume.facebook"/></h5>
+                                <p class="card-text">${contacts.info!""}</p>
                             </div>
                         </div>
                     </div>
@@ -109,8 +106,8 @@
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title text-dark">LinkedIn</h5>
-                                <p class="card-text">${contacts.info!"Not specified"}</p>
+                                <h5 class="card-title text-dark"><@spring.message "resumes.resume.linkedIn"/></h5>
+                                <p class="card-text">${contacts.info!""}</p>
                             </div>
                         </div>
                     </div>

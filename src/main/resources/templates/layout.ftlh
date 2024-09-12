@@ -20,7 +20,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">Home</a>
+                <a class="navbar-brand" href="/"><@spring.message "layout.home"/></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,7 +32,7 @@
                 name = user.getUsername()
                 >
                 <a href="/profile" class="text-dark m-2 m-sm-0">
-                    <span class="btn btn-outline-info m-2">Profile</span>
+                    <span class="btn btn-outline-info m-2"><@spring.message "layout.profile"/></span>
                 </a>
 
                 <#if _csrf??>
@@ -43,21 +43,21 @@
 
                                value="${(_csrf.token)!'--no-token--'}"/>
 
-                        <button type="submit" class="btn btn-outline-info m-2" id="logout">Logout</button>
+                        <button type="submit" class="btn btn-outline-info m-2" id="logout"><@spring.message "layout.logout"/></button>
 
                     </form>
 
                 <#else>
 
-                    <a href="/auth/logout" class="btn btn-outline-info m-2" id="logout">Logout</a>
+                    <a href="/auth/logout" class="btn btn-outline-info m-2" id="logout"><@spring.message "layout.logout"/></a>
 
                 </#if>
 
             <#else>
                 <a href="/auth/login"
-                   class="btn btn-outline-info m-2">Login</a>
+                   class="btn btn-outline-info m-2"><@spring.message "layout.login"/></a>
                 <a href="/profile/register"
-                   class="btn btn-outline-info m-2">Register</a>
+                   class="btn btn-outline-info m-2"><@spring.message "layout.register"/></a>
             </#if>
 
         </nav>

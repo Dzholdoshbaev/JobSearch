@@ -1,6 +1,6 @@
 <#import "../layout.ftlh" as main>
 
-<@main.layout>
+<@main.layout ; spring>
 
 
 
@@ -19,18 +19,10 @@
                             <img src="${userDto.avatar!"/static/images/nophoto.jpg"}" alt="Profile Photo" class="img-fluid rounded-circle" style="max-width: 150px;">
                         </div>
                         <div class="col-12 col-md-8">
-                            <h5 class="card-title">${userDto.name!"Not specified"} ${userDto.surname!"Not specified"}</h5>
-                            <p class="card-text"><strong>Age:</strong> ${userDto.age!"Not specified"}</p>
-                            <p class="card-text"><strong>Email:</strong> ${userDto.email!"Not specified"}</p>
-                            <p class="card-text"><strong>Phone Number:</strong> ${userDto.phoneNumber!"User Without Phone"}</p>
-                            <p class="card-text"><strong>Role:</strong>
-                                <#if user?? && user.authorities?seq_contains("APPLICANT")>
-                                    APPLICANT
-                                <#else>
-                                    EMPLOYER
-                                </#if>
-                            </p>
-                            <a href="/vacancies" class="btn btn-outline-info m-2">Back to Vacancies</a>
+                            <h5 class="card-title"><@spring.message "profile.company.full_name"/> : ${userDto.name!"Not specified"} ${userDto.surname!"Not specified"}</h5>
+                            <p class="card-text"><strong><@spring.message "profile.company.email"/>:</strong> ${userDto.email!"Not specified"}</p>
+                            <p class="card-text"><strong><@spring.message "profile.company.phone_number"/>:</strong> ${userDto.phoneNumber!"User Without Phone"}</p>
+                            <a href="/vacancies" class="btn btn-outline-info m-2"><@spring.message "profile.company.back_to_vacancies"/></a>
                         </div>
                     </div>
                 </div>

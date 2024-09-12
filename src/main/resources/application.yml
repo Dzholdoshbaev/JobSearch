@@ -3,10 +3,14 @@ server:
 spring:
   application:
     name: JobSearch
+#  messages:
+#    basename: messages
+#    encoding: UTF-8
   mvc:
     static-path-pattern: /static/**
   freemarker:
     expose-session-attributes: true
+
 
   datasource:
     url: jdbc:h2:./db/jobSearch;AUTO_SERVER=TRUE

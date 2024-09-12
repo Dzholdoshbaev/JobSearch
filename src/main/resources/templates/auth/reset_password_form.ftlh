@@ -1,10 +1,10 @@
 <#import "../layout.ftlh" as main>
-<@main.layout>
+<@main.layout ; spring>
 
     <div class="text-center">
-        <h2>Reset Your Password</h2>
-        <p>Password should contain at least one uppercase letter, one number, and its length must be between 4 and 20 characters.</p>
-        <p>Make sure you write correct !</p>
+        <h2><@spring.message "auth.reset_password_form.reset_your_password"/></h2>
+        <p><@spring.message "auth.reset_password_form.password_should_contain_at_least_one_uppercase_letter,_one_number,_and_its_length_must_be_between_4_and_20_characters."/></p>
+        <p><@spring.message "auth.reset_password_form.make_sure_you_write_correct_!"/></p>
         <#if error??>
             <b class="text-danger">${error}</b>
         </#if>
@@ -20,12 +20,13 @@
                                value="${(_csrf.token)!'csrf-token'}"/>
                     </#if>
 
+                    <p><@spring.message "auth.reset_password_form.enter_your_new_password"/></p>
                     <!-- PASSWORD -->
                     <input type="hidden" name="token" value="${token!}">
                     <input type="password" name="password" class="form-control"
-                           placeholder="Enter your new password" required autofocus/>
+                            required autofocus/>
                     <p class="text-center">
-                        <button type="submit" class="btn btn-primary mt-3">Change Password</button>
+                        <button type="submit" class="btn btn-primary mt-3"><@spring.message "auth.reset_password_form.change_password"/></button>
                     </p>
                 </form>
             </div>

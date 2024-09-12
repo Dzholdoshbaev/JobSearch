@@ -1,7 +1,6 @@
 <#import "../layout.ftlh" as main>
 
-<@main.layout>
-
+<@main.layout ; spring>
 
 
 
@@ -9,24 +8,24 @@
         <div class="row d-flex justify-content-center">
             <div class="card col-md-8 col-lg-6 mb-4 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">${vacancy.name!"Not specified"}</h5>
-                    <p class="card-text">${vacancy.description!"Not specified"}</p>
-                    <p class="card-text"><strong>Salary:</strong> ${vacancy.salary!"Not specified"}</p>
-                    <p class="card-text"><strong>Status:</strong>
+                    <h5 class="card-title"><@spring.message "vacancies.vacancy.title"/> : ${vacancy.name!""}</h5>
+                    <p class="card-text"><@spring.message "vacancies.vacancy.description"/> : ${vacancy.description!""}</p>
+                    <p class="card-text"><strong><@spring.message "vacancies.vacancy.salary"/>:</strong> ${vacancy.salary!""}</p>
+                    <p class="card-text"><strong><@spring.message "vacancies.vacancy.status"/>:</strong>
                         <#if vacancy.isActive>
-                            Vacancy is active
+                            <@spring.message "vacancies.vacancy.vacancy_is_active"/>
                         <#else>
-                            Vacancy is not active
+                            <@spring.message "vacancies.vacancy.vacancy_is_not_active"/>
                         </#if>
                     </p>
-                    <p class="card-text"><strong>Categories:</strong> ${vacancy.categories.name!"Not specified"}</p>
-                    <p class="card-text"><strong>Created Date:</strong> ${vacancy.createdDate!"Not specified"}</p>
-                    <p class="card-text"><strong>Update Time:</strong> ${vacancy.updateTime!"Not updated yet"}</p>
-                    <p class="card-text"><strong>Experience From:</strong> ${vacancy.expFrom!"Not specified"}</p>
-                    <p class="card-text"><strong>Experience To:</strong> ${vacancy.expTo!"Not specified"}</p>
+                    <p class="card-text"><strong><@spring.message "vacancies.vacancy.categories"/>:</strong> ${vacancy.categories.name!""}</p>
+                    <p class="card-text"><strong><@spring.message "vacancies.vacancy.created_date"/>:</strong> ${vacancy.createdDate!""}</p>
+                    <p class="card-text"><strong><@spring.message "vacancies.vacancy.update_time"/>:</strong> ${vacancy.updateTime!""}</p>
+                    <p class="card-text"><strong><@spring.message "vacancies.vacancy.experience_from"/>:</strong> ${vacancy.expFrom!""}</p>
+                    <p class="card-text"><strong><@spring.message "vacancies.vacancy.experience_to"/>:</strong> ${vacancy.expTo!""}</p>
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="#" class="btn btn-outline-info m-2">Respond to Vacancy</a>
-                        <a href="/vacancies" class="btn btn-outline-info m-2">Back to Vacancies</a>
+                        <a href="#" class="btn btn-outline-info m-2"><@spring.message "vacancies.vacancy.respond_to_vacancy"/></a>
+                        <a href="/vacancies" class="btn btn-outline-info m-2"><@spring.message "vacancies.vacancy.back_to_vacancies"/></a>
                     </div>
                 </div>
             </div>
