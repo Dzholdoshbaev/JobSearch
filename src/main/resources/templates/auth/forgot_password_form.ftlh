@@ -1,7 +1,7 @@
 <#import "../layout.ftlh" as main>
-<@main.layout>
+<@main.layout ; spring>
 
-    <h2>Forgot Password</h2>
+    <h2><@spring.message "auth.forgot_password_form.forgot_password"/></h2>
     <#if error??>
         <b class="text-danger text-center">${error}</b>
     </#if>
@@ -18,15 +18,17 @@
                     </#if>
                     <div class="form-outline  border border-secondary rounded p-3">
                         <div>
-                            <p>We will be sending a reset password link to your email.</p>
+                            <p><@spring.message "auth.forgot_password_form.we_will_be_sending_a_reset_password_link_to_your_email."/></p>
                         </div>
                         <div>
+                            <p><@spring.message "auth.forgot_password_form.enter_your_e-mail"/></p>
+
                             <p>
                                 <input type="email" name="email" class="form-control"
-                                       placeholder="Enter your e-mail" required autofocus/>
+                                        required autofocus/>
                             </p>
                             <p class="text-center">
-                                <input type="submit" value="Send" class="btn btn-primary"/>
+                                <button type="submit" class="btn btn-primary"><@spring.message "auth.forgot_password_form.send"/></button>
                             </p>
                         </div>
                     </div>

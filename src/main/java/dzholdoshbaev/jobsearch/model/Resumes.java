@@ -24,15 +24,15 @@ public class Resumes {
     @JoinColumn(name = "applicant_id")
     private Users users;
     @Column(name = "name")
-    @NotBlank(message = "You have to write your profession")
+    @NotBlank(message = "{resumes.createResume.you_have_to_write_your_profession}")
     private String name;
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @NotNull(message = "You have to choice category")
+    @NotNull(message = "{resumes.createResume.you_have_to_choice_category}")
     private Categories categories;
     @Column(name = "salary")
-    @NotNull(message = "You have to write salary")
+    @NotNull(message = "{resumes.createResume.you_have_to_write_salary}")
     private Double salary;
     @Column(name = "is_active")
     private Boolean  isActive;

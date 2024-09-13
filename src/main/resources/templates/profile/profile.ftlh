@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title><@spring.message "profile.profile.profile"/></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .profile-container {
             margin-top: 30px;
@@ -39,14 +41,29 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
+                    <a class="navbar-brand" href="/"><@spring.message "layout.home"/></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                     <#if userDto.authorities.id == 1>
-                        <a class="nav-link active" aria-current="page" href="/vacancies">Vacancies</a>
+                        <a class="nav-link active" aria-current="page" href="/vacancies"><@spring.message "profile.profile.vacancies"/></a>
                     <#else>
-                        <a class="nav-link" href="/resumes">Resumes</a>
+                        <a class="nav-link" href="/resumes"><@spring.message "profile.profile.resumes"/></a>
                     </#if>
                 </div>
             </div>
         </div>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <@spring.message "profile.profile.lang"/>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="?lang=en"><@spring.message "profile.profile.eng"/></a></li>
+                <li><a class="dropdown-item" href="?lang=ru"><@spring.message "profile.profile.rus"/></a></li>
+            </ul>
+        </div>
+
         <#assign known = SPRING_SECURITY_CONTEXT?? >
         <#if known>
             <#assign
@@ -54,7 +71,7 @@
             name = user.getUsername()
             >
             <a href="/profile" class="text-dark m-2 m-sm-0">
-                <span class="btn btn-outline-info m-2">Profile</span>
+                <span class="btn btn-outline-info m-2"><@spring.message "profile.profile.profile"/></span>
             </a>
 
             <#if _csrf??>
@@ -65,21 +82,21 @@
 
                            value="${(_csrf.token)!'--no-token--'}"/>
 
-                    <button type="submit" class="btn btn-outline-info m-2" id="logout">Logout</button>
+                    <button type="submit" class="btn btn-outline-info m-2" id="logout"><@spring.message "profile.profile.logout"/></button>
 
                 </form>
 
             <#else>
 
-                <a href="/auth/logout" class="btn btn-outline-info m-2" id="logout">Logout</a>
+                <a href="/auth/logout" class="btn btn-outline-info m-2" id="logout"><@spring.message "profile.profile.logout"/></a>
 
             </#if>
 
         <#else>
             <a href="/auth/login"
-               class="btn btn-outline-info m-2">Login</a>
+               class="btn btn-outline-info m-2"><@spring.message "profile.profile.login"/></a>
             <a href="profile/register"
-               class="btn btn-outline-info m-2">Register</a>
+               class="btn btn-outline-info m-2"><@spring.message "profile.profile.register"/></a>
         </#if>
 
     </nav>
@@ -105,30 +122,30 @@
                            value="${(_csrf.token)!'csrf-token'}"/>
                 </#if>
                 <input type="file" name="file"/>
-                <button type="submit" class="btn btn-outline-info">Change Photo</button>
+                <button type="submit" class="btn btn-outline-info"><@spring.message "profile.profile.change_photo"/></button>
             </form>
         </div>
         <div class="col-md-8">
-            <h3 class="card-title">${userDto.name!"Not specified"} ${userDto.surname!"Not specified"}</h3>
-            <p class="card-text"><strong>Age:</strong> ${userDto.age!"Not specified"}</p>
-            <p class="card-text"><strong>Email:</strong> ${userDto.email!"Not specified"}</p>
-            <p class="card-text"><strong>Phone Number:</strong> ${userDto.phoneNumber!"User Without Phone"}</p>
+            <h3 class="card-title"><@spring.message "profile.profile.full_name"/> : ${userDto.name!""} ${userDto.surname!""}</h3>
+            <p class="card-text"><strong><@spring.message "profile.profile.age"/>:</strong> ${userDto.age!""}</p>
+            <p class="card-text"><strong><@spring.message "profile.profile.email"/>:</strong> ${userDto.email!""}</p>
+            <p class="card-text"><strong><@spring.message "profile.profile.phone_number"/>:</strong> ${userDto.phoneNumber!""}</p>
             <#if userDto.authorities.id == 1>
-                <p class="card-text">APPLICANT</p>
+                <p class="card-text"><@spring.message "profile.profile.applicant"/></p>
             <#else>
-                <p class="card-text">EMPLOYER</p>
+                <p class="card-text"><@spring.message "profile.profile.employer"/></p>
             </#if>
-            <a href="profile/edit" class="btn btn-outline-info mt-3">Edit profile</a>
+            <a href="profile/edit" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.edit_profile"/></a>
             <#if userDto.authorities.id == 1>
                 <div class="col col-12 col-md-4 colpost">
-                    <a href="/resumes/create" class="btn btn-outline-info mt-3">Created resume</a>
+                    <a href="/resumes/create" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.created_resume"/></a>
                 </div>
                 <div class="col col-12 col-md-4 colpost">
-                    <a href="/applicants/resume" class="btn btn-outline-info mt-3">Responds</a>
+                    <a href="/applicants/resume" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.responds"/></a>
                 </div>
             <#else>
                 <div class="col col-12 col-md-4 colpost">
-                    <a href="/vacancies/create" class="btn btn-outline-info mt-3">Created vacancy</a>
+                    <a href="/vacancies/create" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.created_vacancy"/></a>
                 </div>
             </#if>
         </div>
@@ -138,23 +155,23 @@
 
     <#if userDto.authorities.id == 1>
 
-        <h5 class="allResumes">Resumes : </h5>
+        <h5 class="allResumes"><@spring.message "profile.profile.resumes"/> : </h5>
 
         <div class="row d-flex justify-content-between">
             <#list resumes as resume>
                 <div class="card col-6 m-2" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">${resume.name!"Not specified"}</h5>
-                        <p class="card-text">Created Date : ${resume.createdDate!"Not specified"}</p>
-                        <p class="card-text">Categories : ${resume.categories.name!"Not specified"}</p>
-                        <p class="card-text">Update time  : ${resume.updateTime!"Not update yet"}</p>
+                        <h5 class="card-title"><@spring.message "profile.profile.title"/> :${resume.name!""}</h5>
+                        <p class="card-text"><@spring.message "profile.profile.created_date"/> : ${resume.createdDate!""}</p>
+                        <p class="card-text"><@spring.message "profile.profile.categories"/> : ${resume.categories.name!""}</p>
+                        <p class="card-text"><@spring.message "profile.profile.update_time"/> : ${resume.updateTime!""}</p>
                         <#if resume.isActive>
-                            <p class="card-text">Resume is active</p>
+                            <p class="card-text"><@spring.message "profile.profile.resume_is_active"/></p>
                         <#else>
-                            <p class="card-text">Resume is not active</p>
+                            <p class="card-text"><@spring.message "profile.profile.resume_is_not_active"/></p>
                         </#if>
-                        <a href="/resumes/edit/${resume.id}" class="btn btn-outline-info m-2">Edit Resumes</a>
-                        <a href="/resumes/update/${resume.id}" class="btn btn-outline-info m-2">Update</a>
+                        <a href="/resumes/edit/${resume.id}" class="btn btn-outline-info m-2"><@spring.message "profile.profile.edit_resumes"/></a>
+                        <a href="/resumes/update/${resume.id}" class="btn btn-outline-info m-2"><@spring.message "profile.profile.update"/></a>
                     </div>
                 </div>
             </#list>
@@ -163,27 +180,27 @@
 
     <#else>
 
-        <h5 class="allVacancy">Vacancies : </h5>
+        <h5 class="allVacancy"><@spring.message "profile.profile.vacancies"/> : </h5>
 
         <div class="row d-flex justify-content-between">
             <#list vacancies as vacancy>
                 <div class="card col-6 m-2" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">${vacancy.name!"Not specified"}</h5>
-                        <p class="card-text">Description : ${vacancy.description!"Not specified"}</p>
-                        <p class="card-text">Created Date  : ${vacancy.createdDate!"Not specified"}</p>
-                        <p class="card-text">Categories : ${vacancy.categories.name!"Not specified"}</p>
+                        <h5 class="card-title"><@spring.message "profile.profile.title"/> : ${vacancy.name!""}</h5>
+                        <p class="card-text"><@spring.message "profile.profile.description"/> : ${vacancy.description!""}</p>
+                        <p class="card-text"><@spring.message "profile.profile.created_date"/>  : ${vacancy.createdDate!""}</p>
+                        <p class="card-text"><@spring.message "profile.profile.categories"/> : ${vacancy.categories.name!""}</p>
                         <#if vacancy.isActive>
-                            <p class="card-text">vacancy is active</p>
+                            <p class="card-text"><@spring.message "profile.profile.vacancy_is_active"/></p>
                         <#else>
-                            <p class="card-text">vacancy is not active</p>
+                            <p class="card-text"><@spring.message "profile.profile.vacancy_is_not_active"/></p>
                         </#if>
-                        <p class="card-text">Expected Salary : ${vacancy.salary!"Not specified"}</p>
-                        <p class="card-text">Update Time : ${vacancy.updateTime!"Not update yet"}</p>
-                        <p class="card-text">Exp  from : ${vacancy.expFrom!"Not specified"}</p>
-                        <p class="card-text">Exp to : ${vacancy.expTo!"Not specified"}</p>
-                        <a href="/vacancies/edit/${vacancy.id}" class="btn btn-outline-info m-2">Edit vacancy</a>
-                        <a href="vacancies/update/${vacancy.id}" class="btn btn-outline-info m-2">Update</a>
+                        <p class="card-text"><@spring.message "profile.profile.expected_salary"/> : ${vacancy.salary!""}</p>
+                        <p class="card-text"><@spring.message "profile.profile.update_time"/> : ${vacancy.updateTime!""}</p>
+                        <p class="card-text"><@spring.message "profile.profile.exp_from"/> : ${vacancy.expFrom!""}</p>
+                        <p class="card-text"><@spring.message "profile.profile.exp_to"/> : ${vacancy.expTo!""}</p>
+                        <a href="/vacancies/edit/${vacancy.id}" class="btn btn-outline-info m-2"><@spring.message "profile.profile.edit_vacancy"/></a>
+                        <a href="vacancies/update/${vacancy.id}" class="btn btn-outline-info m-2"><@spring.message "profile.profile.update"/></a>
                     </div>
                 </div>
             </#list>

@@ -1,6 +1,6 @@
 <#import "../layout.ftlh" as main>
 
-<@main.layout>
+<@main.layout ; spring>
 
     <section class=" text-center text-lg-start">
 
@@ -57,23 +57,23 @@
                             <!-- Email input -->
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <input type="username" id="form2Example1" class="form-control" name="username"/>
-                                <label class="form-label" for="form2Example1">Email address</label>
+                                <label class="form-label" for="form2Example1"><@spring.message "profile.login.email_address"/></label>
                             </div>
 
                             <!-- Password input -->
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <input type="password" id="form2Example2" class="form-control" name="password"/>
-                                <label class="form-label" for="form2Example2">Password</label>
+                                <label class="form-label" for="form2Example2"><@spring.message "profile.login.password"/></label>
 
                             </div>
 
-                            <a href="/auth/forgot_password" class="btn btn-outline-info m-2" id="logout">Forgot password</a>
+                            <a href="/auth/forgot_password" class="btn btn-outline-info m-2" id="logout"><@spring.message "profile.login.forgot_password"/></a>
 
                             <!-- Submit button -->
 
                             <button type="submit" data-mdb-button-init data-mdb-ripple-init
 
-                                    class="btn btn-outline-info m-2">Sign in
+                                    class="btn btn-outline-info m-2"><@spring.message "profile.login.sign_in"/>
 
                             </button>
 
