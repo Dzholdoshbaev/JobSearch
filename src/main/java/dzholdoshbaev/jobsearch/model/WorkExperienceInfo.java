@@ -22,12 +22,12 @@ public class WorkExperienceInfo {
     @Column(name = "years")
     private Long years;
     @Column(name = "company_name")
-    @NotBlank(message = "You have to write company name")
+    @NotBlank(message = "{resumes.createResume.you_have_to_write_company_name}")
     private String companyName;
     @Column(name = "position")
-    @NotBlank(message = "You have to write which position you worked")
+    @NotBlank(message = "{resumes.createResume.you_have_to_write_which_position_you_worked}")
     private String position ;
     @Column(name = "responsibilities")
-    @NotBlank(message = "You have to write your responsibilities")
+    @NotBlank(message = "{resumes.createResume.you_have_to_write_your_responsibilities}")
     private String responsibilities;
 }
