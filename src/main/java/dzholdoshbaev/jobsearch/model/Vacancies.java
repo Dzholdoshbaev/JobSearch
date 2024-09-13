@@ -21,26 +21,26 @@ public class Vacancies {
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
-    @NotBlank(message = "should be not blank")
+    @NotBlank(message = "{vacancies.create.should_be_not_blank}")
     private String name;
     @Column(name = "description")
-    @NotBlank(message = "should be not blank")
+    @NotBlank(message = "{vacancies.create.should_be_not_blank}")
     private String description;
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @NotNull(message = "should be not blank")
+    @NotNull(message = "{vacancies.create.should_be_not_blank}")
     private Categories categories;
     @Column(name = "salary")
-    @NotNull(message = "should be not blank")
+    @NotNull(message = "{vacancies.create.should_be_not_blank}")
     private Double salary;
-    @NotNull(message = "should be not blank")
+    @NotNull(message = "{vacancies.create.should_be_not_blank}")
     @Column(name = "exp_from")
-    @Max(value = 80,message = "exp from cannot be longer than 80")
+    @Max(value = 80,message = "{vacancies.create.exp_from_cannot_be_longer_than_80}")
     private Long expFrom;
     @NotNull
     @Column(name = "exp_to")
-    @Max(value = 80,message = "exp to cannot be longer than 80" )
+    @Max(value = 80,message = "{vacancies.create.exp_to_cannot_be_longer_than_80}" )
     private Long expTo;
     @Column(name = "is_active")
     private Boolean isActive;
