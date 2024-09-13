@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><@spring.message "profile.profile.profile"/></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .profile-container {
             margin-top: 30px;
@@ -39,6 +41,10 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
+                    <a class="navbar-brand" href="/"><@spring.message "layout.home"/></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                     <#if userDto.authorities.id == 1>
                         <a class="nav-link active" aria-current="page" href="/vacancies"><@spring.message "profile.profile.vacancies"/></a>
                     <#else>
@@ -47,6 +53,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <@spring.message "profile.profile.lang"/>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="?lang=en"><@spring.message "profile.profile.eng"/></a></li>
+                <li><a class="dropdown-item" href="?lang=ru"><@spring.message "profile.profile.rus"/></a></li>
+            </ul>
+        </div>
+
         <#assign known = SPRING_SECURITY_CONTEXT?? >
         <#if known>
             <#assign

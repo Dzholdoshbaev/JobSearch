@@ -13,6 +13,8 @@
         <link href="#" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body>
@@ -25,6 +27,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <@spring.message "layout.lang"/>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="?lang=en"><@spring.message "layout.eng"/></a></li>
+                    <li><a class="dropdown-item" href="?lang=ru"><@spring.message "layout.rus"/></a></li>
+                </ul>
+            </div>
+
             <#assign known = SPRING_SECURITY_CONTEXT?? >
             <#if known>
                 <#assign
