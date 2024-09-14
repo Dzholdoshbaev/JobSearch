@@ -33,4 +33,6 @@ public interface UsersService {
     void editResume(UserDtoEdit usersDto , String userEmail);
 
     Map<String, Object> forgotPassword(HttpServletRequest request);
+
+    void updateUserLocale(String email, String newLocale);
 }

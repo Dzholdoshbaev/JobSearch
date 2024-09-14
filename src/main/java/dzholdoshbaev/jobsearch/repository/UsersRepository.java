@@ -25,6 +25,12 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     void updateUserPhoto(@Param("email") String email, @Param("avatar") String avatar);
 
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Users u SET u.locale = :locale WHERE u.email = :email")
+    void updateUserLocale(@Param("email") String email, @Param("locale") String locale);
+
+
     Optional<Users> findByResetPasswordToken(String resetPasswordToken);
 
     @Transactional
