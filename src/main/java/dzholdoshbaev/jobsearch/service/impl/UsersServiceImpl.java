@@ -124,6 +124,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public void updateUserLocale(String email, String locale) {
+        usersRepository.updateUserLocale(email, locale);
+    }
+
+    @Override
     public Map<String, Object> resetPasswordGet(String token) {
         Map<String, Object> model = new HashMap<>();
         try {

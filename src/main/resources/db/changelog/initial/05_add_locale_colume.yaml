@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: add locale column in users
+      author: Chyngyz Dzholdoshbaev
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: locale
+                  type: varchar(255)

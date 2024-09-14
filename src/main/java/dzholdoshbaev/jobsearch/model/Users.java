@@ -34,6 +34,8 @@ public class Users {
     private String avatar;
     @Column(name = "enabled")
     private Boolean enabled;
+    @Column(name = "locale")
+    private String locale;
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "authority_id")

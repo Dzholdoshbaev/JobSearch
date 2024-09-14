@@ -18,7 +18,7 @@ public class ContactsInfo {
     @Column(name = "id")
     private Long id;
     @Column(name = "info")
-    @NotBlank(message = "You have to write your information")
+    @NotBlank(message = "{resumes.createResume.you_have_to_write_your_information}")
     private String info;
     @ToString.Exclude
     @ManyToOne
@@ -27,7 +27,7 @@ public class ContactsInfo {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "type_id")
-    @NotNull(message = "You have to choice contacts type")
+    @NotNull(message = "{resumes.createResume.you_have_to_choice_contacts_type}")
     private ContactTypes contactTypes;
 
 }
