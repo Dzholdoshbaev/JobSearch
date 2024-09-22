@@ -38,11 +38,15 @@ public class ResumesServiceImpl implements ResumesService {
         resumeRegisterDto.getResumes().setUpdateTime(LocalDateTime.now());
         Resumes resumes1 = resumesRepository.save(resumeRegisterDto.getResumes());
 
-        resumeRegisterDto.getWorkExperienceInfo().setResumes(resumes1);
-        workExperienceInfoRepository.save(resumeRegisterDto.getWorkExperienceInfo());
+        for (WorkExperienceInfo workExperienceInfo : resumeRegisterDto.getWorkExperienceInfo()){
+            workExperienceInfo.setResumes(resumes1);
+            workExperienceInfoRepository.save(workExperienceInfo);
+        }
 
-        resumeRegisterDto.getEducationInfo().setResumes(resumes1);
-        educationInfoRepository.save(resumeRegisterDto.getEducationInfo());
+        for (EducationInfo educationInfo : resumeRegisterDto.getEducationInfo()){
+            educationInfo.setResumes(resumes1);
+            educationInfoRepository.save(educationInfo);
+        }
 
 
         List<ContactsInfo> list = resumeRegisterDto.getContactsInfoList();
@@ -92,34 +96,34 @@ public class ResumesServiceImpl implements ResumesService {
 
     @Override
     public void editResume(Long resumeId,ResumeRegisterDto resumeRegisterDto) {
-        Categories category = categoriesRepository.findById(resumeRegisterDto.getResumes().getCategories().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
-        resumesRepository.updateResumesById(resumeRegisterDto.getResumes().getName(),
-                category,
-                resumeRegisterDto.getResumes().getSalary(),
-                resumeRegisterDto.getResumes().getIsActive(),
-                resumeId);
-        Resumes resume = resumesRepository.findById(resumeId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid resume ID"));
-
-        educationInfoRepository.updateEducationInfoByResumes_Id(resumeRegisterDto.getEducationInfo().getInstitution(),
-                resumeRegisterDto.getEducationInfo().getProgram(),
-                resumeRegisterDto.getEducationInfo().getStartDate(),
-                resumeRegisterDto.getEducationInfo().getEndDate(),
-                resumeRegisterDto.getEducationInfo().getDegree(),
-                resume);
-        workExperienceInfoRepository.updateWorkExperienceInfoByResumeId(resumeRegisterDto.getWorkExperienceInfo().getCompanyName(),
-                resumeRegisterDto.getWorkExperienceInfo().getPosition(),
-                resumeRegisterDto.getWorkExperienceInfo().getYears(),
-                resumeRegisterDto.getWorkExperienceInfo().getResponsibilities(),
-                resume);
-
-        for (ContactsInfo contactsInfo : resumeRegisterDto.getContactsInfoList()) {
-            ContactTypes contactTypes = contactTypesRepository.findById(contactsInfo.getContactTypes().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid contact types ID"));
-            contactsInfoRepository.updateEducationInfoByResumes_Id(contactTypes, contactsInfo.getInfo(), resume);
-        }
-        log.info("Edited resume with id {}", resumeId);
+//        Categories category = categoriesRepository.findById(resumeRegisterDto.getResumes().getCategories().getId())
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
+//        resumesRepository.updateResumesById(resumeRegisterDto.getResumes().getName(),
+//                category,
+//                resumeRegisterDto.getResumes().getSalary(),
+//                resumeRegisterDto.getResumes().getIsActive(),
+//                resumeId);
+//        Resumes resume = resumesRepository.findById(resumeId)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid resume ID"));
+//
+//        educationInfoRepository.updateEducationInfoByResumes_Id(resumeRegisterDto.getEducationInfo().getInstitution(),
+//                resumeRegisterDto.getEducationInfo().getProgram(),
+//                resumeRegisterDto.getEducationInfo().getStartDate(),
+//                resumeRegisterDto.getEducationInfo().getEndDate(),
+//                resumeRegisterDto.getEducationInfo().getDegree(),
+//                resume);
+//        workExperienceInfoRepository.updateWorkExperienceInfoByResumeId(resumeRegisterDto.getWorkExperienceInfo().getCompanyName(),
+//                resumeRegisterDto.getWorkExperienceInfo().getPosition(),
+//                resumeRegisterDto.getWorkExperienceInfo().getYears(),
+//                resumeRegisterDto.getWorkExperienceInfo().getResponsibilities(),
+//                resume);
+//
+//        for (ContactsInfo contactsInfo : resumeRegisterDto.getContactsInfoList()) {
+//            ContactTypes contactTypes = contactTypesRepository.findById(contactsInfo.getContactTypes().getId())
+//                    .orElseThrow(() -> new IllegalArgumentException("Invalid contact types ID"));
+//            contactsInfoRepository.updateEducationInfoByResumes_Id(contactTypes, contactsInfo.getInfo(), resume);
+//        }
+//        log.info("Edited resume with id {}", resumeId);
     }
 
     @Override
@@ -130,18 +134,19 @@ public class ResumesServiceImpl implements ResumesService {
 
     @Override
     public ResumeRegisterDto getResumeDtoById(Long resumeId) {
-        Resumes resume = getResumeById(resumeId);
-        if (resume == null) {
-            throw new NoSuchElementException("no such resume found");
-        }
-        WorkExperienceInfo workExperienceInfo = workExperienceInfoRepository.findByResumes_Id(resumeId);
-        EducationInfo educationInfo = educationInfoRepository.findByResumes_Id(resumeId);
-        List<ContactsInfo> contactsInfoList = contactsInfoRepository.findByResumes_Id(resumeId);
-        ResumeRegisterDto resumeRegisterDto = new ResumeRegisterDto();
-        resumeRegisterDto.setResumes(resume);
-        resumeRegisterDto.setWorkExperienceInfo(workExperienceInfo);
-        resumeRegisterDto.setEducationInfo(educationInfo);
-        resumeRegisterDto.setContactsInfoList(contactsInfoList);
-        return resumeRegisterDto;
+//        Resumes resume = getResumeById(resumeId);
+//        if (resume == null) {
+//            throw new NoSuchElementException("no such resume found");
+//        }
+//        WorkExperienceInfo workExperienceInfo = workExperienceInfoRepository.findByResumes_Id(resumeId);
+//        EducationInfo educationInfo = educationInfoRepository.findByResumes_Id(resumeId);
+//        List<ContactsInfo> contactsInfoList = contactsInfoRepository.findByResumes_Id(resumeId);
+//        ResumeRegisterDto resumeRegisterDto = new ResumeRegisterDto();
+//        resumeRegisterDto.setResumes(resume);
+//        resumeRegisterDto.setWorkExperienceInfo(workExperienceInfo);
+//        resumeRegisterDto.setEducationInfo(educationInfo);
+//        resumeRegisterDto.setContactsInfoList(contactsInfoList);
+        return new ResumeRegisterDto();
+
     }
 }

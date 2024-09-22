@@ -57,9 +57,12 @@ public class ResumesController {
 
     @GetMapping("/create")
     public String createResume(Model model, Principal principal) {
+        int start = 0;
         model.addAttribute("categoriesDto", categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
         model.addAttribute("resumeRegisterDto" , new ResumeRegisterDto());
+        model.addAttribute("educationCounter",start);
+        model.addAttribute("experienceCounter",start);
         return "resumes/createResume";
     }
 
