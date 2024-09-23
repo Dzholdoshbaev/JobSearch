@@ -2,6 +2,8 @@ package dzholdoshbaev.jobsearch.service;
 
 import dzholdoshbaev.jobsearch.model.WorkExperienceInfo;
 
+import java.util.List;
+
 public interface WorkExperienceInfoService {
-    WorkExperienceInfo getByResumeId(Long resumeId);
+    List<WorkExperienceInfo> getByResumeId(Long resumeId);
 }

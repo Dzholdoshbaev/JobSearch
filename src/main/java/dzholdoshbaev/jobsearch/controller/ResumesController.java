@@ -110,15 +110,10 @@ public class ResumesController {
         if (resume == null) {
             throw new NoSuchElementException("no such resume found");
         }
-        WorkExperienceInfo workExperienceInfo = workExperienceInfoService.getByResumeId(resumeId);
 
-        EducationInfo educationInfo = educationInfoService.findByResumeId(resumeId);
-
-        List<ContactsInfo> contactsInfoList = contactsInfoService.findByResumeId(resumeId);
-
-        model.addAttribute("workExperienceInfo", workExperienceInfo);
-        model.addAttribute("educationInfo", educationInfo);
-        model.addAttribute("contactsInfoList", contactsInfoList);
+        model.addAttribute("workExperienceInfoList", workExperienceInfoService.getByResumeId(resumeId));
+        model.addAttribute("educationInfoList", educationInfoService.findByResumeId(resumeId));
+        model.addAttribute("contactsInfoList", contactsInfoService.findByResumeId(resumeId));
         model.addAttribute("resume", resume);
         return "resumes/resume";
     }

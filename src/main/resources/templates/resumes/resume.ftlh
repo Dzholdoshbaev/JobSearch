@@ -31,6 +31,7 @@
 
         <div class="row mb-4">
             <div class="col-12">
+                 <#list educationInfoList as educationInfo>
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><@spring.message "resumes.resume.education_information"/></h5>
@@ -41,11 +42,13 @@
                         <p class="card-text"><strong><@spring.message "resumes.resume.degree"/>:</strong> ${educationInfo.degree!""}</p>
                     </div>
                 </div>
+                </#list>
             </div>
         </div>
 
         <div class="row mb-4">
             <div class="col-12">
+                <#list workExperienceInfoList as workExperienceInfo>
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><@spring.message "resumes.resume.work_experience"/></h5>
@@ -55,6 +58,7 @@
                         <p class="card-text"><strong><@spring.message "resumes.resume.experience"/>:</strong> ${workExperienceInfo.years!""}</p>
                     </div>
                 </div>
+                </#list>
             </div>
         </div>
     </div>

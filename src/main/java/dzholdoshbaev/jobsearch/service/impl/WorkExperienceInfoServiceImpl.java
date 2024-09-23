@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -16,10 +17,8 @@ public class WorkExperienceInfoServiceImpl implements WorkExperienceInfoService 
 
     private final WorkExperienceInfoRepository workExperienceInfoRepository;
 
-    public WorkExperienceInfo getByResumeId(Long resumeId) {
-        Optional<WorkExperienceInfo> workExperienceInfo = Optional.ofNullable(workExperienceInfoRepository.findByResumes_Id(resumeId));
-        log.info("Retrieved work experience info: {}", workExperienceInfo.isPresent());
-        return workExperienceInfo.orElse(null);
+    public List<WorkExperienceInfo> getByResumeId(Long resumeId) {
+      return workExperienceInfoRepository.findByResumes_Id(resumeId);
     }
 
 }

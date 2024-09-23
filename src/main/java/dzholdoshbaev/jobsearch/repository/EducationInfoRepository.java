@@ -10,10 +10,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface EducationInfoRepository extends JpaRepository<EducationInfo, Long> {
-     EducationInfo findByResumes_Id(Long resumesId);
+     List<EducationInfo> findByResumes_Id(Long resumesId);
 
 
      @Transactional
