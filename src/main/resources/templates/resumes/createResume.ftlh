@@ -89,8 +89,8 @@
         let showEducationButton = document.getElementById('educationAddButton');
         let educationFormContainer = document.getElementById('addEducation');
 
-        let educationCounter = -1;
-        let experienceCounter = -1;
+        let educationCounter = 0;
+        let experienceCounter = 0;
 
         showEducationButton.addEventListener('click', () => {
             console.log(educationCounter)
@@ -101,27 +101,27 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="institution"><@spring.message "resumes.createResume.institution"/></span>
                         <input type="text" class="form-control" aria-label="Institution" aria-describedby="institution"
-                               name="educationInfo[${educationCounter}].institution" required>
+                               name="educationInfo[` + educationCounter + `].institution" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="program"><@spring.message "resumes.createResume.program"/></span>
                         <input type="text" class="form-control" aria-label="Program" aria-describedby="program"
-                               name="educationInfo[${educationCounter}].program" required>
+                               name="educationInfo[` + educationCounter + `].program" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="startDate"><@spring.message "resumes.createResume.start_date"/></span>
                         <input type="date" class="form-control" aria-label="Start Date" aria-describedby="startDate"
-                               name="educationInfo[${educationCounter}].startDate" required>
+                               name="educationInfo[` + educationCounter + `].startDate" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="endDate"><@spring.message "resumes.createResume.end_date"/></span>
                         <input type="date" class="form-control" aria-label="End Date" aria-describedby="endDate"
-                               name="educationInfo[${educationCounter}].endDate" required>
+                               name="educationInfo[` + educationCounter + `].endDate" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="degree"><@spring.message "resumes.createResume.degree"/></span>
                         <input type="text" class="form-control" aria-label="Degree" aria-describedby="degree"
-                               name="educationInfo[${educationCounter}].degree">
+                               name="educationInfo[` + educationCounter + `].degree">
                     </div>
                     <button type="button" class="btn btn-danger mt-2 remove-button">X</button>
                 </div>
@@ -142,22 +142,22 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="companyName"><@spring.message "resumes.createResume.company_name"/></span>
                         <input type="text" class="form-control" aria-label="Company Name" aria-describedby="companyName"
-                               name="workExperienceInfo[${experienceCounter}].companyName" required>
+                               name="workExperienceInfo[` + experienceCounter + `].companyName" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="position"><@spring.message "resumes.createResume.position"/></span>
                         <input type="text" class="form-control" aria-label="Position" aria-describedby="position"
-                               name="workExperienceInfo[${experienceCounter}].position" required>
+                               name="workExperienceInfo[` + experienceCounter + `].position" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="year"><@spring.message "resumes.createResume.year"/></span>
                         <input type="number" class="form-control" aria-label="Year" aria-describedby="year"
-                               name="workExperienceInfo[${experienceCounter}].years" required>
+                               name="workExperienceInfo[` + experienceCounter + `].years" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="responsibilities"><@spring.message "resumes.createResume.responsibilities"/></span>
                         <textarea class="form-control" aria-label="Responsibilities" aria-describedby="responsibilities"
-                                  name="workExperienceInfo[${experienceCounter}].responsibilities"></textarea>
+                                  name="workExperienceInfo[` + experienceCounter + `].responsibilities"></textarea>
                     </div>
                     <button type="button" class="btn btn-danger mt-2 remove-button">X</button>
                 </div>

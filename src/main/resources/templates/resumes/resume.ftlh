@@ -31,10 +31,10 @@
 
         <div class="row mb-4">
             <div class="col-12">
+                <h5 class="card-title"><@spring.message "resumes.resume.education_information"/></h5>
                  <#list educationInfoList as educationInfo>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><@spring.message "resumes.resume.education_information"/></h5>
                         <p class="card-text"><strong><@spring.message "resumes.resume.institution"/>:</strong> ${educationInfo.institution!""}</p>
                         <p class="card-text"><strong><@spring.message "resumes.resume.program"/>:</strong> ${educationInfo.program!""}</p>
                         <p class="card-text"><strong><@spring.message "resumes.resume.start_date"/>:</strong> ${educationInfo.startDate!""}</p>
@@ -48,10 +48,10 @@
 
         <div class="row mb-4">
             <div class="col-12">
+                <h5 class="card-title"><@spring.message "resumes.resume.work_experience"/></h5>
                 <#list workExperienceInfoList as workExperienceInfo>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><@spring.message "resumes.resume.work_experience"/></h5>
                         <p class="card-text"><strong><@spring.message "resumes.resume.position"/>:</strong> ${workExperienceInfo.position!""}</p>
                         <p class="card-text"><strong><@spring.message "resumes.resume.company_name"/>:</strong> ${workExperienceInfo.companyName!""}</p>
                         <p class="card-text"><strong><@spring.message "resumes.resume.responsibilities"/>:</strong> ${workExperienceInfo.responsibilities!""}</p>
