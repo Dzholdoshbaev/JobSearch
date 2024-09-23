@@ -34,4 +34,10 @@ public interface EducationInfoRepository extends JpaRepository<EducationInfo, Lo
                             @Param("endDate") LocalDate endDate,
                             @Param("degree") String degree,
                             @Param("resumes") Resumes resumes);
+
+
+     @Transactional
+     @Modifying
+     @Query("DELETE FROM EducationInfo e WHERE e.resumes.id = :resumesId")
+     void deleteByResumes_Id(Long resumesId);
 }

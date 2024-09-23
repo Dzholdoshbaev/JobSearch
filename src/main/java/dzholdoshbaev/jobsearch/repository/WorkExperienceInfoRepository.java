@@ -33,4 +33,9 @@ public interface WorkExperienceInfoRepository extends JpaRepository<WorkExperien
                                          @Param("responsibilities") String responsibilities,
                                          @Param("resumes") Resumes resumes);
 
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM WorkExperienceInfo w WHERE w.resumes = :resumes")
+    void deleteByResumes(Resumes resumes);
+
 }

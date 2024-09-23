@@ -29,5 +29,10 @@ public interface ContactsInfoRepository extends JpaRepository<ContactsInfo, Long
                                           @Param("info") String info,
                                           @Param("resumes") Resumes resumes);
 
+     @Transactional
+     @Modifying
+     @Query("DELETE FROM ContactsInfo c WHERE c.resumes = :resumes")
+     void deleteByResumes(Resumes resumes);
+
 
 }

@@ -26,6 +26,4 @@ public interface ResumesService {
     void editResume(Long resumeId, ResumeRegisterDto resumeRegisterDto);
 
     void updateResumeTime(Long resumeId);
-
-    ResumeRegisterDto getResumeDtoById(Long resumeId);
 }

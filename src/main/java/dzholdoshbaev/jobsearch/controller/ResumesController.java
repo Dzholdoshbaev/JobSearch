@@ -73,10 +73,13 @@ public class ResumesController {
     @PostMapping("/edit/{resumeId}")
     public String editVacancy(@PathVariable Long resumeId,@ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto,
                               BindingResult bindingResult,
-                              Model model) {
+                              Model model ,Principal principal) {
+        String username = principal.getName();
+        Users user = usersService.getUserByEmail(username);
+        resumeRegisterDto.getResumes().setUsers(user);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("categoriesDto",categoriesService.getCategories());
+            model.addAttribute("categoriesDto", categoriesService.getCategories());
             model.addAttribute("contactTypes", contactTypesService.getAllTypes());
             model.addAttribute("resumeId",resumeId);
             return "resumes/editResume";
@@ -87,9 +90,9 @@ public class ResumesController {
 
     @GetMapping("/edit/{resumeId}")
     public String editVacancy(@PathVariable Long resumeId ,Model model) {
-        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("categoriesDto", categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
-        model.addAttribute("resumeRegisterDto" , resumesService.getResumeDtoById(resumeId));
+        model.addAttribute("resumeRegisterDto" , new ResumeRegisterDto());
         model.addAttribute("resumeId",resumeId);
         return "resumes/editResume";
     }
