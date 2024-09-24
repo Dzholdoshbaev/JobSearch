@@ -11,6 +11,16 @@
                    value="${(_csrf.token)!'csrf-token'}"/>
         </#if>
 
+        <#if errors?has_content>
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    <#list errors?values as error>
+                        <li>${error}</li>
+                    </#list>
+                </ul>
+            </div>
+        </#if>
+
         <h3><@spring.message "resumes.createResume.resume_details"/></h3>
         <div id="resumesContainer">
             <div class="resume-entry mb-3">
