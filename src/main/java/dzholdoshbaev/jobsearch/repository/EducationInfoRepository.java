@@ -10,10 +10,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface EducationInfoRepository extends JpaRepository<EducationInfo, Long> {
-     EducationInfo findByResumes_Id(Long resumesId);
+     List<EducationInfo> findByResumes_Id(Long resumesId);
 
 
      @Transactional
@@ -33,4 +34,10 @@ public interface EducationInfoRepository extends JpaRepository<EducationInfo, Lo
                             @Param("endDate") LocalDate endDate,
                             @Param("degree") String degree,
                             @Param("resumes") Resumes resumes);
+
+
+     @Transactional
+     @Modifying
+     @Query("DELETE FROM EducationInfo e WHERE e.resumes.id = :resumesId")
+     void deleteByResumes_Id(Long resumesId);
 }

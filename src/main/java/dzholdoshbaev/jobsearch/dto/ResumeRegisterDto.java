@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,9 +22,9 @@ public class ResumeRegisterDto {
     @NotNull(message = "You have to Complete")
     private Resumes resumes;
     @NotNull(message = "You have to Complete")
-    private WorkExperienceInfo workExperienceInfo;
+    private List<WorkExperienceInfo> workExperienceInfo = new ArrayList<>();
     @NotNull(message = "You have to Complete")
-    private EducationInfo educationInfo;
+    private List<EducationInfo> educationInfo = new ArrayList<>();
     @NotEmpty(message = "Should be not empty")
     private List<ContactsInfo> contactsInfoList;
 }

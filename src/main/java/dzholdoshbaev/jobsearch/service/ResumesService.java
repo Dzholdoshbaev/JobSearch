@@ -3,11 +3,12 @@ package dzholdoshbaev.jobsearch.service;
 
 import dzholdoshbaev.jobsearch.dto.ResumeRegisterDto;
 import dzholdoshbaev.jobsearch.model.Resumes;
+import dzholdoshbaev.jobsearch.model.Users;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
-
+import java.util.HashMap;
 import java.util.List;
 
 public interface ResumesService {
@@ -27,5 +28,7 @@ public interface ResumesService {
 
     void updateResumeTime(Long resumeId);
 
-    ResumeRegisterDto getResumeDtoById(Long resumeId);
+    boolean checkResumeErrors(ResumeRegisterDto resumeRegisterDto);
+
+    HashMap<String, String> checkResumeDto(ResumeRegisterDto resumeRegisterDto , Users users);
 }

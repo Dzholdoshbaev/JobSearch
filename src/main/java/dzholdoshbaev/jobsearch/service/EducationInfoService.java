@@ -2,6 +2,8 @@ package dzholdoshbaev.jobsearch.service;
 
 import dzholdoshbaev.jobsearch.model.EducationInfo;
 
+import java.util.List;
+
 public interface EducationInfoService {
-    EducationInfo findByResumeId(Long resumeId);
+    List<EducationInfo> findByResumeId(Long resumeId);
 }

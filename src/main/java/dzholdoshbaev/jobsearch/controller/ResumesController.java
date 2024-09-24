@@ -17,7 +17,7 @@ import org.springframework.data.domain.Pageable;
 
 
 import java.security.Principal;
-import java.util.List;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -37,16 +37,19 @@ public class ResumesController {
     public String createResume(
             @ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto, BindingResult bindingResult,
             Principal principal , Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("categoriesDto", categoriesService.getCategories());
-            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
-            return "resumes/createResume";
-        }
 
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
-        resumeRegisterDto.getResumes().setUsers(user);
+        HashMap<String, String> errors = resumesService.checkResumeDto(resumeRegisterDto,user);
 
+        if (resumesService.checkResumeErrors(resumeRegisterDto)) {
+            model.addAttribute("categoriesDto", categoriesService.getCategories());
+            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+            model.addAttribute("errors", errors);
+            model.addAttribute("resumeRegisterDto", resumeRegisterDto);
+            return "resumes/createResume";
+        }
+        resumeRegisterDto.getResumes().setUsers(user);
         resumesService.createResumes(resumeRegisterDto);
 
         return "redirect:/profile";
@@ -73,10 +76,13 @@ public class ResumesController {
     @PostMapping("/edit/{resumeId}")
     public String editVacancy(@PathVariable Long resumeId,@ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto,
                               BindingResult bindingResult,
-                              Model model) {
+                              Model model ,Principal principal) {
+        String username = principal.getName();
+        Users user = usersService.getUserByEmail(username);
+        resumeRegisterDto.getResumes().setUsers(user);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("categoriesDto",categoriesService.getCategories());
+            model.addAttribute("categoriesDto", categoriesService.getCategories());
             model.addAttribute("contactTypes", contactTypesService.getAllTypes());
             model.addAttribute("resumeId",resumeId);
             return "resumes/editResume";
@@ -87,9 +93,9 @@ public class ResumesController {
 
     @GetMapping("/edit/{resumeId}")
     public String editVacancy(@PathVariable Long resumeId ,Model model) {
-        model.addAttribute("categoriesDto",categoriesService.getCategories());
+        model.addAttribute("categoriesDto", categoriesService.getCategories());
         model.addAttribute("contactTypes", contactTypesService.getAllTypes());
-        model.addAttribute("resumeRegisterDto" , resumesService.getResumeDtoById(resumeId));
+        model.addAttribute("resumeRegisterDto" , new ResumeRegisterDto());
         model.addAttribute("resumeId",resumeId);
         return "resumes/editResume";
     }
@@ -107,15 +113,10 @@ public class ResumesController {
         if (resume == null) {
             throw new NoSuchElementException("no such resume found");
         }
-        WorkExperienceInfo workExperienceInfo = workExperienceInfoService.getByResumeId(resumeId);
 
-        EducationInfo educationInfo = educationInfoService.findByResumeId(resumeId);
-
-        List<ContactsInfo> contactsInfoList = contactsInfoService.findByResumeId(resumeId);
-
-        model.addAttribute("workExperienceInfo", workExperienceInfo);
-        model.addAttribute("educationInfo", educationInfo);
-        model.addAttribute("contactsInfoList", contactsInfoList);
+        model.addAttribute("workExperienceInfoList", workExperienceInfoService.getByResumeId(resumeId));
+        model.addAttribute("educationInfoList", educationInfoService.findByResumeId(resumeId));
+        model.addAttribute("contactsInfoList", contactsInfoService.findByResumeId(resumeId));
         model.addAttribute("resume", resume);
         return "resumes/resume";
     }
