@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -37,16 +38,19 @@ public class ResumesController {
     public String createResume(
             @ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto, BindingResult bindingResult,
             Principal principal , Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("categoriesDto", categoriesService.getCategories());
-            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
-            return "resumes/createResume";
-        }
 
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
-        resumeRegisterDto.getResumes().setUsers(user);
+        HashMap<String, String> errors = resumesService.checkResumeDto(resumeRegisterDto,user);
 
+        if (resumesService.checkResumeErrors(resumeRegisterDto)) {
+            model.addAttribute("categoriesDto", categoriesService.getCategories());
+            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+            model.addAttribute("errors", errors);
+            model.addAttribute("resumeRegisterDto", resumeRegisterDto);
+            return "resumes/createResume";
+        }
+        resumeRegisterDto.getResumes().setUsers(user);
         resumesService.createResumes(resumeRegisterDto);
 
         return "redirect:/profile";
