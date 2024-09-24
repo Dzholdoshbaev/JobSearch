@@ -12,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,6 +25,8 @@ public class ResumesServiceImpl implements ResumesService {
     private final CategoriesRepository categoriesRepository;
     private final ContactTypesRepository contactTypesRepository;
     private final UsersRepository usersRepository;
+    private final CheckResumeDtoErrors checkResumeDtoErrors;
+    private final CheckResumeWithMessage checkResumeWithMessage;
 
     @Override
     public void createResumes(ResumeRegisterDto resumeRegisterDto) {
@@ -134,5 +133,16 @@ public class ResumesServiceImpl implements ResumesService {
     public void updateResumeTime(Long resumeId) {
         resumesRepository.updateResumesUpdateTime(resumeId, LocalDateTime.now());
         log.info("Updated resume with id {}", resumeId);
+    }
+
+
+    @Override
+    public boolean checkResumeErrors(ResumeRegisterDto resumeRegisterDto) {
+      return   checkResumeDtoErrors.checkResumeErrors(resumeRegisterDto);
+    }
+
+    @Override
+    public HashMap<String, String> checkResumeDto(ResumeRegisterDto resumeRegisterDto , Users users) {
+        return checkResumeWithMessage.checkResumeDto(resumeRegisterDto,users);
     }
 }
