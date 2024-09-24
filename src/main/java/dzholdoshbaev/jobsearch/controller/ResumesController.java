@@ -18,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Controller
