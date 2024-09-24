@@ -55,6 +55,26 @@ public class ResumesController {
         return "redirect:/profile";
     }
 
+    @PostMapping("/edit/{resumeId}")
+    public String editVacancy(@PathVariable Long resumeId,@ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto,
+                              BindingResult bindingResult,
+                              Model model ,Principal principal) {
+        String username = principal.getName();
+        Users user = usersService.getUserByEmail(username);
+        HashMap<String, String> errors = resumesService.checkResumeDto(resumeRegisterDto,user);
+        resumeRegisterDto.getResumes().setUsers(user);
+
+        if (resumesService.checkResumeErrors(resumeRegisterDto)) {
+            model.addAttribute("categoriesDto", categoriesService.getCategories());
+            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
+            model.addAttribute("errors", errors);
+            model.addAttribute("resumeRegisterDto", resumeRegisterDto);
+            model.addAttribute("resumeId",resumeId);
+            return "resumes/editResume";
+        }
+        resumesService.editResume(resumeId,resumeRegisterDto);
+        return "redirect:/profile" ;
+    }
 
 
 
@@ -70,25 +90,6 @@ public class ResumesController {
     public String updateVacancy(@PathVariable Long resumeId){
         resumesService.updateResumeTime(resumeId);
         return "redirect:/profile";
-    }
-
-
-    @PostMapping("/edit/{resumeId}")
-    public String editVacancy(@PathVariable Long resumeId,@ModelAttribute @Valid ResumeRegisterDto resumeRegisterDto,
-                              BindingResult bindingResult,
-                              Model model ,Principal principal) {
-        String username = principal.getName();
-        Users user = usersService.getUserByEmail(username);
-        resumeRegisterDto.getResumes().setUsers(user);
-
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("categoriesDto", categoriesService.getCategories());
-            model.addAttribute("contactTypes", contactTypesService.getAllTypes());
-            model.addAttribute("resumeId",resumeId);
-            return "resumes/editResume";
-        }
-        resumesService.editResume(resumeId,resumeRegisterDto);
-        return "redirect:/profile" ;
     }
 
     @GetMapping("/edit/{resumeId}")
