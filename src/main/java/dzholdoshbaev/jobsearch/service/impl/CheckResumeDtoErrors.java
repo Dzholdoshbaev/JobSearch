@@ -86,6 +86,9 @@ public class CheckResumeDtoErrors {
             if (info.getEndDate() == null) {
                 return true;
             }
+            if (info.getStartDate().isAfter(info.getEndDate())) {
+                return true;
+            }
             if (info.getDegree() == null || info.getDegree().isEmpty()) {
                 return true;
             }

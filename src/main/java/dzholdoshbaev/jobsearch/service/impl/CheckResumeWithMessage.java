@@ -88,6 +88,9 @@ public class CheckResumeWithMessage {
             if (info.getStartDate() == null) {
                 errors.put("educationInfo[" + i + "].startDate", messages.getString("education.startDate"));
             }
+            if (info.getStartDate().isAfter(info.getEndDate())) {
+                errors.put("educationInfo[" + i + "].endDate",messages.getString("education.startDateIsBeforeEndDate"));
+            }
             if (info.getEndDate() == null) {
                 errors.put("educationInfo[" + i + "].endDate", messages.getString("education.endDate"));
             }
