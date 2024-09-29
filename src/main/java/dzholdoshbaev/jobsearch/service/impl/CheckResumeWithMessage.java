@@ -14,6 +14,9 @@ public class CheckResumeWithMessage {
 
     public HashMap<String, String> checkResumeDto(ResumeRegisterDto resumeRegisterDto, Users users) {
         String lang = users.getLocale();
+        if (lang == null) {
+            lang = Locale.getDefault().getLanguage();
+        }
         Locale locale = new Locale(lang);
         ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
 
