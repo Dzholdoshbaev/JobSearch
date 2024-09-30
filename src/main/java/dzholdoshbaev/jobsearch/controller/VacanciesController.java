@@ -109,6 +109,7 @@ public class VacanciesController {
 
         Page<Vacancies> vacanciesPage = vacanciesService.getAllVacancies(sortedPageable);
         model.addAttribute("vacancies", vacanciesPage);
+        model.addAttribute("sort", sort);
 
         return "vacancies/vacancies";
     }
