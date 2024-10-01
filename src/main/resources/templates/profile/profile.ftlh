@@ -141,11 +141,14 @@
                     <a href="/resumes/create" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.created_resume"/></a>
                 </div>
                 <div class="col col-12 col-md-4 colpost">
-                    <a href="/applicants/resume" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.responds"/></a>
+                    <a href="/applicants/respond" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.responds"/></a>
                 </div>
             <#else>
                 <div class="col col-12 col-md-4 colpost">
                     <a href="/vacancies/create" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.created_vacancy"/></a>
+                </div>
+                <div class="col col-12 col-md-4 colpost">
+                    <a href="/applicants/respond" class="btn btn-outline-info mt-3"><@spring.message "profile.profile.responds"/></a>
                 </div>
             </#if>
         </div>

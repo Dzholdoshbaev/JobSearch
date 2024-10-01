@@ -14,6 +14,9 @@ public class CheckResumeWithMessage {
 
     public HashMap<String, String> checkResumeDto(ResumeRegisterDto resumeRegisterDto, Users users) {
         String lang = users.getLocale();
+        if (lang == null) {
+            lang = Locale.getDefault().getLanguage();
+        }
         Locale locale = new Locale(lang);
         ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
 
@@ -84,6 +87,9 @@ public class CheckResumeWithMessage {
             }
             if (info.getStartDate() == null) {
                 errors.put("educationInfo[" + i + "].startDate", messages.getString("education.startDate"));
+            }
+            if (info.getStartDate().isAfter(info.getEndDate())) {
+                errors.put("educationInfo[" + i + "].endDate",messages.getString("education.startDateIsBeforeEndDate"));
             }
             if (info.getEndDate() == null) {
                 errors.put("educationInfo[" + i + "].endDate", messages.getString("education.endDate"));

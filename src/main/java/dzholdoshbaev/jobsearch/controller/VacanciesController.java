@@ -3,11 +3,10 @@ package dzholdoshbaev.jobsearch.controller;
 
 
 
+import dzholdoshbaev.jobsearch.model.Resumes;
 import dzholdoshbaev.jobsearch.model.Users;
 import dzholdoshbaev.jobsearch.model.Vacancies;
-import dzholdoshbaev.jobsearch.service.CategoriesService;
-import dzholdoshbaev.jobsearch.service.UsersService;
-import dzholdoshbaev.jobsearch.service.VacanciesService;
+import dzholdoshbaev.jobsearch.service.*;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +24,8 @@ import org.springframework.data.domain.Pageable;
 
 import java.security.Principal;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 
@@ -35,6 +36,8 @@ public class VacanciesController {
     private final VacanciesService vacanciesService;
     private final UsersService usersService;
     private final CategoriesService categoriesService;
+    private final ResumesService resumesService;
+    private final RespondedApplicantsService respondedApplicantsService;
 
     @PostMapping("/create")
     public String createVacancy(@ModelAttribute @Valid Vacancies vacancies,
@@ -52,6 +55,34 @@ public class VacanciesController {
         vacanciesService.createVacancies(vacancies);
         return "redirect:/profile";
     }
+
+    @PostMapping("/respond/{vacancyId}")
+    public String respond(@PathVariable Long vacancyId, @RequestParam(name = "resumeId", required = false) Long resumeId, Model model, Principal principal, Locale locale) {
+        String username = principal.getName();
+        Users user = usersService.getUserByEmail(username);
+        Vacancies vacancies = vacanciesService.getVacanciesById(vacancyId);
+
+        if (vacancies == null) {
+            throw new NoSuchElementException("No such vacancy found");
+        }
+
+        if (resumeId == null || resumesService.getResumeById(resumeId) == null) {
+            String message = locale.getLanguage().equals("en")
+                    ? "You must select a resume to respond to the vacancy."
+                    : "Для отклика на вакансию необходимо выбрать резюме.";
+
+            List<Resumes> userResume = resumesService.getAllResumesByUser(user.getId());
+            model.addAttribute("vacancy", vacancies);
+            model.addAttribute("userResumes", userResume);
+            model.addAttribute("errorMessage", message);
+            return "vacancies/vacancy";
+        }
+
+        Resumes resumes = resumesService.getResumeById(resumeId);
+        respondedApplicantsService.createRespond(vacancyId, resumes, user);
+        return "redirect:/profile";
+    }
+
 
     @GetMapping("/create")
     public String createVacancy(Model model) {
@@ -109,21 +140,23 @@ public class VacanciesController {
 
         Page<Vacancies> vacanciesPage = vacanciesService.getAllVacancies(sortedPageable);
         model.addAttribute("vacancies", vacanciesPage);
+        model.addAttribute("sort", sort);
 
         return "vacancies/vacancies";
     }
 
 
     @GetMapping("/{vacancyId}")
-    public String getVacancy(@PathVariable Long vacancyId ,Model model) {
-
+    public String getVacancy(@PathVariable Long vacancyId, Model model, Principal principal) {
         Vacancies vacancies = vacanciesService.getVacanciesById(vacancyId);
-
-        if(vacancies == null) {
-            throw new NoSuchElementException("no such vacancy found");
+        if (vacancies == null) {
+            throw new NoSuchElementException("No such vacancy found");
         }
-
+        String username = principal.getName();
+        Users user = usersService.getUserByEmail(username);
+        List<Resumes> userResume = resumesService.getAllResumesByUser(user.getId());
         model.addAttribute("vacancy", vacancies);
+        model.addAttribute("userResumes", userResume);
         return "vacancies/vacancy";
     }
 }

@@ -1,9 +1,6 @@
 <#import "../layout.ftlh" as main>
 
 <@main.layout ; spring>
-
-
-
     <div class="container my-4">
         <div class="row d-flex justify-content-center">
             <div class="card col-md-8 col-lg-6 mb-4 shadow-sm">
@@ -23,15 +20,30 @@
                     <p class="card-text"><strong><@spring.message "vacancies.vacancy.update_time"/>:</strong> ${vacancy.updateTime!""}</p>
                     <p class="card-text"><strong><@spring.message "vacancies.vacancy.experience_from"/>:</strong> ${vacancy.expFrom!""}</p>
                     <p class="card-text"><strong><@spring.message "vacancies.vacancy.experience_to"/>:</strong> ${vacancy.expTo!""}</p>
+
+                    <#if errorMessage??>
+                        <div class="alert alert-danger" role="alert">
+                            ${errorMessage}
+                        </div>
+                    </#if>
+
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="#" class="btn btn-outline-info m-2"><@spring.message "vacancies.vacancy.respond_to_vacancy"/></a>
+                        <form action="/vacancies/respond/${vacancy.id}" method="post">
+                            <#if _csrf??>
+                                <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}" value="${(_csrf.token)!'csrf-token'}"/>
+                            </#if>
+                            <select class="form-select" aria-label="Category ID" aria-describedby="categoryId" name="resumeId">
+                                <option value="" selected><@spring.message "resumes.createResume.open_this_select_menu"/></option>
+                                <#list userResumes as item>
+                                    <option value="${item.id}">${item.name}</option>
+                                </#list>
+                            </select>
+                            <button type="submit" class="btn btn-outline-info m-2"><@spring.message "vacancies.vacancy.respond_to_vacancy"/></button>
+                        </form>
                         <a href="/vacancies" class="btn btn-outline-info m-2"><@spring.message "vacancies.vacancy.back_to_vacancies"/></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </@main.layout>
