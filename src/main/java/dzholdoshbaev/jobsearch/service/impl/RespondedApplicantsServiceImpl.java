@@ -35,10 +35,10 @@ public class RespondedApplicantsServiceImpl implements RespondedApplicantsServic
 
     @Override
     public List<RespondedApplicants> findByUser(Users user) {
-       if (user.getAuthorities().toString().equalsIgnoreCase("APPLICANT")){
+        List<RespondedApplicants> userList = new ArrayList<>();
+       if (user.getAuthorities().getAuthority().equalsIgnoreCase("APPLICANT")){
            List<Resumes> resumes = resumesRepository.findAllByApplicantId(user.getId());
            List<RespondedApplicants> respondedApplicants = respondedApplicantsRepository.findAll();
-           List<RespondedApplicants> userList = new ArrayList<>();
            for (RespondedApplicants respondedApplicant: respondedApplicants) {
                for (Resumes resume : resumes) {
                    if(resume.equals(respondedApplicant.getResumes())){
@@ -46,11 +46,10 @@ public class RespondedApplicantsServiceImpl implements RespondedApplicantsServic
                    }
                }
            }
-           return userList;
-       }else {
+       }
+       if (user.getAuthorities().getAuthority().equalsIgnoreCase("EMPLOYER")) {
            List<Vacancies> vacancies = vacanciesRepository.findAllByApplicantId(user.getId());
            List<RespondedApplicants> respondedApplicants = respondedApplicantsRepository.findAll();
-           List<RespondedApplicants> userList = new ArrayList<>();
            for (RespondedApplicants respondedApplicant: respondedApplicants) {
                for (Vacancies vacancy : vacancies) {
                    if(vacancy.equals(respondedApplicant.getVacancies())){
@@ -58,8 +57,8 @@ public class RespondedApplicantsServiceImpl implements RespondedApplicantsServic
                    }
                }
            }
-           return userList;
        }
+        return userList;
     }
 
     @Override
@@ -72,6 +71,21 @@ public class RespondedApplicantsServiceImpl implements RespondedApplicantsServic
            }
         }else {
             throw new IllegalArgumentException("Invalid responded applicant");
+        }
+    }
+
+    @Override
+    public void createRespond(Long vacanciesId, Resumes resumes, Users user) {
+        Vacancies vacancies = vacanciesRepository.findById(vacanciesId).orElse(null);
+        Resumes resumes1 = resumesRepository.findById(resumes.getId()).orElse(null);
+        if (vacancies != null && resumes1 != null) {
+            if (resumes1.getUsers().equals(user) ){
+                RespondedApplicants respondedApplicants = new RespondedApplicants();
+                respondedApplicants.setVacancies(vacancies);
+                respondedApplicants.setResumes(resumes1);
+                respondedApplicants.setConfirmation(false);
+                respondedApplicantsRepository.save(respondedApplicants);
+            }
         }
     }
 
