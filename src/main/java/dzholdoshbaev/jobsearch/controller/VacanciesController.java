@@ -25,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import java.security.Principal;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 
@@ -56,25 +57,32 @@ public class VacanciesController {
     }
 
     @PostMapping("/respond/{vacancyId}")
-    public String respond(@PathVariable Long vacancyId, @RequestParam("resumeId") Long resumeId, Model model, Principal principal) {
+    public String respond(@PathVariable Long vacancyId, @RequestParam(name = "resumeId", required = false) Long resumeId, Model model, Principal principal, Locale locale) {
         String username = principal.getName();
         Users user = usersService.getUserByEmail(username);
-        Resumes resumes = resumesService.getResumeById(resumeId);
+        Vacancies vacancies = vacanciesService.getVacanciesById(vacancyId);
 
-        if (resumes == null) {
-            Vacancies vacancies = vacanciesService.getVacanciesById(vacancyId);
-            if (vacancies == null) {
-                throw new NoSuchElementException("No such vacancy found");
-            }
+        if (vacancies == null) {
+            throw new NoSuchElementException("No such vacancy found");
+        }
+
+        if (resumeId == null || resumesService.getResumeById(resumeId) == null) {
+            String message = locale.getLanguage().equals("en")
+                    ? "You must select a resume to respond to the vacancy."
+                    : "Для отклика на вакансию необходимо выбрать резюме.";
+
             List<Resumes> userResume = resumesService.getAllResumesByUser(user.getId());
             model.addAttribute("vacancy", vacancies);
             model.addAttribute("userResumes", userResume);
+            model.addAttribute("errorMessage", message);
             return "vacancies/vacancy";
         }
 
+        Resumes resumes = resumesService.getResumeById(resumeId);
         respondedApplicantsService.createRespond(vacancyId, resumes, user);
         return "redirect:/profile";
     }
+
 
     @GetMapping("/create")
     public String createVacancy(Model model) {
