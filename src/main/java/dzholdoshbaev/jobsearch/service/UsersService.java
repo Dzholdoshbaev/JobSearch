@@ -35,4 +35,10 @@ public interface UsersService {
     Map<String, Object> forgotPassword(HttpServletRequest request);
 
     void updateUserLocale(String email, String newLocale);
+
+    void addTokenToUser(String email);
+
+    Users userWithToken(String token);
+
+    void changePassword(String password, Users users1);
 }

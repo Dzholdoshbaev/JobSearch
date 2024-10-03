@@ -92,7 +92,13 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Boolean checkUserByEmail(String email) {
         log.info("Checked user by email");
-        return true;
+        List<Users> users = usersRepository.findAll();
+        for (Users user : users) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -127,6 +133,25 @@ public class UsersServiceImpl implements UsersService {
     public void updateUserLocale(String email, String locale) {
         usersRepository.updateUserLocale(email, locale);
     }
+
+    @Override
+    public void addTokenToUser(String email) {
+        String token = UUID.randomUUID().toString();
+        updateToken(token, email);
+    }
+
+    @Override
+    public Users userWithToken(String token) {
+        return usersRepository.findByResetPasswordToken(token)
+                .orElse(null);
+    }
+    @Override
+    public void changePassword(String password, Users users1) {
+        users1.setPassword(passwordEncoder.encode(password));
+        users1.setResetPasswordToken(null);
+        usersRepository.save(users1);
+    }
+
 
     @Override
     public Map<String, Object> resetPasswordGet(String token) {
