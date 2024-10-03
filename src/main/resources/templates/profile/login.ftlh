@@ -67,7 +67,7 @@
 
                             </div>
 
-                            <a href="/auth/forgot_password" class="btn btn-outline-info m-2" id="logout"><@spring.message "profile.login.forgot_password"/></a>
+                            <a href="/reset" class="btn btn-outline-info m-2" id="logout"><@spring.message "profile.login.forgot_password"/></a>
 
                             <!-- Submit button -->
 
